@@ -1,0 +1,12 @@
+{
+  "name": "slopfest",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A cabinet of small, curious programs",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "build": "node tools/build.mjs",
+    "test": "node --test afterimage/test/*.test.mjs sprig/test/*.test.mjs tools/test/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

@@ -1,0 +1,40 @@
+name: Release a finished experiment
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Check tag matches the package version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          package_version=$(node -p "require('./package.json').version")
+          test "$RELEASE_TAG" = "v$package_version"
+      - run: npm test
+      - run: npm run build
+      - name: Package browser assets
+        working-directory: dist
+        run: zip -r "$RUNNER_TEMP/slopfest-site.zip" .
+      - name: Publish versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" "$RUNNER_TEMP/slopfest-site.zip" --verify-tag --title "Slopfest $RELEASE_TAG" --notes-file RELEASE_NOTES.md

@@ -1,0 +1,17 @@
+{
+  "files": [
+    "index.html",
+    "shared.css",
+    "gallery.css",
+    "afterimage/index.html",
+    "afterimage/style.css",
+    "afterimage/app.mjs",
+    "afterimage/core.mjs",
+    "afterimage/rooms.mjs",
+    "sprig/index.html",
+    "sprig/style.css",
+    "sprig/app.mjs",
+    "sprig/language.mjs",
+    "sprig/specimens.mjs"
+  ]
+}

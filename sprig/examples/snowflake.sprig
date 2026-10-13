@@ -1,0 +1,7 @@
+# A Koch snowflake
+seed F--F--F
+angle 60
+depth 4
+step 4
+
+rule F -> F+F--F+F

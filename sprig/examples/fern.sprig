@@ -1,0 +1,8 @@
+# A recursive fern
+seed X
+angle 25
+depth 6
+step 5
+
+rule X -> F[+X][-X]FX.
+rule F -> FF

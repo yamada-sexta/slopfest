@@ -1,0 +1,40 @@
+.back { font-size:10px; color:var(--muted)!important; margin-left:12px; font-weight:400; }
+.heading { padding:43px 0 34px; display:flex; justify-content:space-between; align-items:flex-end; gap:20px; }
+h1 { font:500 clamp(48px,6vw,72px)/1 Georgia,serif; letter-spacing:-.06em; margin:14px 0 0; }
+h1 span { color:var(--lime); display:inline-block; font:42px system-ui; margin-left:14px; vertical-align:middle; }
+.heading p { font:17px/1.5 Georgia,serif; margin-bottom:4px; }
+.studio { display:grid; grid-template-columns:370px minmax(0,1fr); gap:24px; align-items:start; }
+.editor-panel,.drawing-panel { border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#18221b; }
+.panel-bar,.drawing-top { display:flex; justify-content:space-between; align-items:center; gap:15px; padding:14px 16px; border-bottom:1px solid var(--line); min-height:61px; }
+select { font-size:11px; padding:7px; max-width:220px; }
+.editor-wrap { position:relative; background:#121a14; }
+textarea { resize:vertical; width:100%; min-height:275px; display:block; border:0; outline-offset:-4px!important; padding:22px; background:transparent; color:#cde2ae; font:13px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace; tab-size:2; }
+.editor-foot { padding:12px 16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.editor-foot .mono { font-size:8px; color:var(--muted); letter-spacing:.04em; }
+.editor-foot button { font-size:10px; padding:6px 9px; }
+.grow-controls { padding:18px 20px 8px; border-top:1px solid var(--line); }
+.grow-controls label { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--muted); }
+output { font:12px ui-monospace,monospace; color:var(--lime); }
+input[type=range] { width:100%; margin:12px 0 22px; accent-color:var(--lime); cursor:pointer; }
+.grow-controls p { font-size:10px; margin:0 0 12px; }
+.drawing { height:473px; background:#14201a; position:relative; display:flex; justify-content:center; align-items:center; padding:18px; }
+.drawing:before { content:''; position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(#a2ba9b1c .8px,transparent .8px); background-size:20px 20px; }
+.drawing svg { width:100%; height:100%; position:relative; }
+.drawing-foot { border-top:1px solid var(--line); padding:13px 16px; display:flex; justify-content:space-between; align-items:center; gap:15px; min-height:65px; }
+.drawing-foot .mono { font-size:10px; color:var(--muted); }
+.drawing-foot button { font-size:11px; padding:10px 13px; white-space:nowrap; }
+.specimen-note { display:flex; gap:24px; align-items:baseline; padding:24px 0 30px; }
+.specimen-note .eyebrow { white-space:nowrap; font-size:9px; }
+.specimen-note p { font:15px/1.5 Georgia,serif; margin:0; }
+.field-guide { border-top:1px solid var(--line); padding:33px 0 0; display:grid; grid-template-columns:1fr 1.65fr; gap:70px; }
+.field-guide h2 { font:30px/1.15 Georgia,serif; margin:16px 0 13px; }
+.field-guide h2 em { color:var(--lime); }
+.field-guide p { font-size:13px; max-width:330px; }
+.syntax>div { display:grid; grid-template-columns:190px 1fr; gap:15px; border-bottom:1px solid #293429; padding:12px 0; }
+.syntax code { font:11px ui-monospace,monospace; color:var(--lime); }
+.syntax span { font-size:12px; color:var(--muted); }
+.error { font-size:12px; line-height:1.5; padding:15px 20px; border-top:1px solid #8a5541; background:#3c2921; color:#f5c1a1; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media(max-width:1000px) { .studio { grid-template-columns:320px minmax(0,1fr); gap:16px; } .panel-bar { flex-wrap:wrap; gap:8px; } .panel-bar select { max-width:190px; } .field-guide { gap:30px; } .syntax>div { grid-template-columns:175px 1fr; } }
+@media(max-width:750px) { .studio { grid-template-columns:1fr; } .drawing { height:420px; } .heading { padding-top:30px; } .heading p { font-size:14px; } .back { display:none; } .field-guide { grid-template-columns:1fr; gap:15px; } .field-guide h2 br { display:none; } .specimen-note { flex-direction:column; gap:10px; } textarea { min-height:260px; } }
+@media(max-width:430px) { .syntax>div { grid-template-columns:145px 1fr; gap:10px; } .syntax code { font-size:10px; } .syntax span { font-size:11px; } .drawing-foot .mono { font-size:9px; } .drawing { height:350px; } footer { flex-direction:column; } }
