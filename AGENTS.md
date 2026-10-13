@@ -22,6 +22,8 @@ whole playground. Update the root catalog and JOURNAL.md when shipping an experi
 - Inspect Git status before working and preserve changes you did not make.
 - Commit only intended source, tests, and reusable documentation. Stage explicit
   paths, inspect the staged diff and file list, then commit a complete increment.
+- Use the repository's configured Git author identity. Do not override it with a
+  bot identity or commit local Git configuration to the repository.
 - After verification, commit and push each finished increment to the existing
   repository. If the remote has changed, integrate it safely without losing user
   work. Never force-push; report a concrete blocker if the push cannot complete.
