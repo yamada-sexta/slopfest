@@ -22,6 +22,9 @@ whole playground. Update the root catalog and JOURNAL.md when shipping an experi
 - Inspect Git status before working and preserve changes you did not make.
 - Commit only intended source, tests, and reusable documentation. Stage explicit
   paths, inspect the staged diff and file list, then commit a complete increment.
+- After verification, commit and push each finished increment to the existing
+  repository. If the remote has changed, integrate it safely without losing user
+  work. Never force-push; report a concrete blocker if the push cannot complete.
 - Never commit credentials, personal information, usernames, absolute local paths,
   local automation IDs, editor or machine settings, dependency directories, caches,
   logs, scratch files, browser screenshots, or generated builds.

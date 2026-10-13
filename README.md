@@ -16,8 +16,8 @@ release builder. You can also use `python3 -m http.server 4173 --bind 127.0.0.1`
 
 The recurring evening session is configured in the desktop app, outside Git. Its
 brief: build or improve one complete experiment, verify it, update this catalog and
-the [journal](JOURNAL.md), and commit the relevant files. It can also push verified
-work, publish to GitHub Pages, and make versioned releases at meaningful milestones.
+the [journal](JOURNAL.md), commit the relevant files, and push verified work. It can
+also publish to GitHub Pages and make versioned releases at meaningful milestones.
 See [AGENTS.md](AGENTS.md) for the portable creative brief and commit rules.
 
 New experiments get their own top-level folder and README. Machine settings,
