@@ -4,7 +4,7 @@ export const rooms = [
   {
     name: 'A favor for yourself', subtitle: 'Your first conversation with the past.',
     rows: ['#########', '#S..A..E#', '#..a#####', '#########'],
-    story: 'The door is closed. The little ring below it is a pressure plate. You cannot be in two places at once. But you can be in two times.',
+    story: 'Door A opens when circle a is held. Walk onto a, stop, and press Rewind. A ghost will replay your walk and stay on the plate while you take another route.',
     hint: 'Walk right twice and down onto a. Rewind. Walk right toward the exit; your ghost will arrive at the plate just in time.',
     solution: 'RRD|RRRRRR'
   },

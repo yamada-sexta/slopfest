@@ -9,8 +9,20 @@ h1 span { color:var(--lime); }
 select { padding:5px 7px; margin-left:6px; max-width:230px; font:12px ui-monospace,monospace; }
 .beat { color:var(--muted); font-size:10px; white-space:nowrap; }
 .beat b { color:var(--lime); font-size:16px; margin:0 4px; }
+.tutorial { border-bottom:1px solid var(--line); padding:12px 20px 14px; background:#1c2a1f; }
+.tutorial[hidden], #guide-content[hidden] { display:none; }
+.guide-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.guide-heading .eyebrow { font-size:9px; letter-spacing:.1em; color:var(--lime); }
+.guide-heading button { font-size:10px; padding:5px 8px; }
+.guide-steps { display:flex; list-style:none; padding:0; margin:11px 0 9px; gap:8px; }
+.guide-steps li { flex:1; font:10px ui-monospace,monospace; color:var(--muted); border-bottom:2px solid var(--line); padding:0 0 7px; }
+.guide-steps .current { color:var(--lime); border-color:var(--lime); }
+.guide-steps .done { color:#91bb98; border-color:#52735a; }
+#guide-instruction { color:var(--ink); font-size:12px; line-height:1.5; margin:0 0 6px; }
+.guide-note { font-size:10px; color:var(--muted); line-height:1.4; margin:0; }
+.needs-reset #guide-instruction { color:var(--orange); }
 .board-wrap { position:relative; background:radial-gradient(ellipse at center,#23372e,#111c17); }
-canvas { width:100%; height:auto; display:block; aspect-ratio:900/440; touch-action:none; }
+canvas { width:100%; height:auto; display:block; touch-action:none; }
 .complete { position:absolute; inset:0; background:#111c17eb; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:20px; text-align:center; }
 .complete[hidden] { display:none; }
 .complete h2 { font:48px Georgia,serif; margin:13px 0; color:var(--lime); }
@@ -45,3 +57,4 @@ details p { margin:12px 0 0; font-size:12px; }
 @media(max-width:950px) { .game-layout { grid-template-columns:minmax(0,1fr) 230px; gap:20px; } select { max-width:170px; } }
 @media(max-width:760px) { .game-layout { grid-template-columns:1fr; } aside { display:block; } .heading p { font-size:14px; } .back { display:none; } .machine-top { padding:13px; } select { max-width:190px; } .touch-controls kbd { display:none; } }
 @media(max-width:430px) { .heading { align-items:start; flex-direction:column; padding-top:30px; } .heading p { margin:0; } .beat { font-size:8px; } select { max-width:160px; font-size:10px; } .machine-controls { padding:0 10px 12px; gap:6px; } .machine-controls button { padding:9px; font-size:11px; } .machine-controls kbd { display:none; } .complete h2 { font-size:32px; } .complete p { font-size:12px; } .complete button { padding:8px; } }
+@media(max-width:430px) { .tutorial { padding:11px 13px; } .guide-steps li { font-size:9px; line-height:1.5; } }

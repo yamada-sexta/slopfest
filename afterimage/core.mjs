@@ -42,7 +42,17 @@ export function move(state, direction) {
   const tile = state.room.rows[next.y]?.[next.x];
   if (!tile || tile === '#') return { ok: false, message: 'A wall. Try another way.' };
   if ((dx || dy) && /[ABC]/.test(tile) && !gateOpen(state, tile, state.tick + 1, next)) {
-    return { ok: false, message: `Door ${tile} needs every ${tile.toLowerCase()} plate held on the next beat. Try waiting.` };
+    const required = `Door ${tile} needs every ${tile.toLowerCase()} plate held.`;
+    if (!state.echoes.length) {
+      return { ok: false, message: `${required} Walk onto a plate, then press Rewind to leave a ghost there.` };
+    }
+    let opensLater = false;
+    for (let tick = state.tick + 2; tick <= MAX_STEPS; tick++) {
+      if (gateOpen(state, tile, tick, next)) { opensLater = true; break; }
+    }
+    return { ok: false, message: opensLater
+      ? `${required} Your recordings can open it on a later beat. Use Wait to advance your ghosts.`
+      : `${required} Your recordings will not open it from here. Record a walk that holds the plate, or reset the room.` };
   }
   state.tick++;
   state.path.push(next);

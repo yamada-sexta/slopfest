@@ -21,6 +21,24 @@ test('Blocked walls and gates consume no time', () => {
   assert.equal(move(s, 'right').ok, false);
   assert.equal(s.tick, 2); assert.equal(s.path.length, 3);
 });
+test('A closed door recommends a recording instead of waiting when no ghost can help', () => {
+  const s = createState(parseRoom(rooms[0].rows));
+  move(s, 'right'); move(s, 'right');
+  const empty = move(s, 'right');
+  assert.match(empty.message, /press Rewind/);
+  assert.doesNotMatch(empty.message, /waiting|Use Wait/);
+  rewind(s); move(s, 'right'); move(s, 'right');
+  assert.match(move(s, 'right').message, /recordings will not open/);
+});
+test('A closed door suggests Wait when the recordings can actually open it later', () => {
+  const s = createState(parseRoom(rooms[0].rows));
+  move(s, 'wait'); move(s, 'wait'); move(s, 'wait');
+  move(s, 'right'); move(s, 'right'); move(s, 'down'); rewind(s);
+  move(s, 'right'); move(s, 'right');
+  assert.match(move(s, 'right').message, /Use Wait/);
+  for (let i = 0; i < 3; i++) move(s, 'wait');
+  assert.equal(move(s, 'right').ok, true);
+});
 test('Doors use echo positions on the destination beat', () => {
   const s = createState(parseRoom(rooms[0].rows));
   for (const d of ['right', 'right', 'down']) move(s, d);

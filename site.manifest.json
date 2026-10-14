@@ -8,6 +8,7 @@
     "afterimage/app.mjs",
     "afterimage/core.mjs",
     "afterimage/rooms.mjs",
+    "afterimage/tutorial.mjs",
     "sprig/index.html",
     "sprig/style.css",
     "sprig/app.mjs",

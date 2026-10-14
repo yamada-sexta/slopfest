@@ -4,6 +4,11 @@ A small turn-based puzzle game about turning your past walks into collaborators.
 Walk onto a pressure plate, rewind, and an echo will repeat the walk while you
 take a new route. Five rooms teach the mechanic one idea at a time.
 
+The first room has a visible three-step guide: walk onto `a`, rewind while
+standing there, then walk through `A` to the exit. The guide follows your actual
+position and recordings, including undo, a wrong recording, or a late ghost.
+You can hide it with **Hide guide**. Later rooms keep their hints optional.
+
 From the repository root, run `npm start` and visit
 **http://localhost:4173/afterimage/**. No install or build step.
 
@@ -25,4 +30,4 @@ solutions live in `rooms.mjs`.
 
 Run `node --test afterimage/test/*.test.mjs` from the root. Tests solve every room
 and cover waiting, blocked moves, simultaneous plates, undo, immutable recordings,
-and the tape limits.
+the tape limits, and tutorial recovery from delayed or unhelpful recordings.

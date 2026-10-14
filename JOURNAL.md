@@ -21,3 +21,19 @@ for whatever odd thing comes next.
 The release builder uses an explicit asset manifest. GitHub workflows verify
 changes, optionally publish the cabinet to Pages, and package finished versions
 on tags. Builds and release archives stay outside source control.
+
+## 2026-10-13 — Teaching the first rewind
+
+The first playtest exposed a missing instruction: the player needs to stop on a
+plate before rewinding. The original prose left that discovery too vague, and a
+closed door suggested waiting even when there were no echoes to help.
+
+Added a visible three-step guide to Afterimage's opening room. It follows the
+current timeline rather than a fixed script, so undo, wrong recordings, delayed
+ghosts, and reset all receive useful advice. Door feedback now distinguishes a
+ghost that needs time from a recording that cannot open the door. The remaining
+rooms stay open for exploration, with their existing optional hints.
+
+Verification: 41 automated tests pass, the 14-file browser bundle builds, and a
+browser playthrough covers the guided win, room transition, hide/show controls,
+corrected door feedback, and the narrow-screen layout.

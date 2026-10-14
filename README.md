@@ -9,7 +9,7 @@ release builder. You can also use `python3 -m http.server 4173 --bind 127.0.0.1`
 
 | Project | What lives inside |
 | --- | --- |
-| [Afterimage](afterimage/) | A puzzle game about borrowing help from your past. Five rooms, three ghosts, one timeline. |
+| [Afterimage](afterimage/) | A puzzle game about borrowing help from your past. Five rooms, three ghosts, and a guided first rewind. |
 | [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. A live editor, five specimens, and an SVG command line tool. |
 
 ## A living playground

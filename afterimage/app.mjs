@@ -1,9 +1,11 @@
 import { createState, parseRoom, move, rewind, undo, position, echoPosition, gateOpen, MAX_ECHOES } from './core.mjs';
 import { rooms } from './rooms.mjs';
+import { firstRoomGuide } from './tutorial.mjs';
 const $ = id => document.getElementById(id);
 const canvas = $('board'), ctx = canvas.getContext('2d');
 const colors = ['#93cbdc', '#d4a2d5', '#edb983'];
 let roomIndex = 0, state;
+let guideVisible = true;
 
 rooms.forEach((room, i) => { const option = document.createElement('option'); option.value = i; option.textContent = `${String(i + 1).padStart(2, '0')} / ${room.name}`; $('room').append(option); });
 function load(index) {
@@ -15,6 +17,8 @@ function load(index) {
   $('story').textContent = rooms[index].story;
   $('hint-text').textContent = rooms[index].hint;
   $('hint').open = false;
+  $('tutorial').hidden = index !== 0;
+  canvas.height = index === 0 ? 360 : 440;
   update('Walk onto a plate, then rewind to record an echo.');
 }
 
@@ -26,6 +30,18 @@ function update(message) {
   $('complete').hidden = !state.won;
   $('next').textContent = roomIndex === rooms.length - 1 ? 'Play again ↶' : 'Next room →';
   const p = position(state);
+  if (roomIndex === 0) {
+    const guide = firstRoomGuide(state);
+    $('guide-instruction').textContent = guide.instruction;
+    $('tutorial').classList.toggle('needs-reset', Boolean(guide.restart));
+    document.querySelectorAll('[data-guide-step]').forEach(item => {
+      const step = Number(item.dataset.guideStep);
+      item.classList.toggle('current', step === guide.step);
+      item.classList.toggle('done', step < guide.step);
+      if (step === guide.step) item.setAttribute('aria-current', 'step');
+      else item.removeAttribute('aria-current');
+    });
+  }
   $('status').textContent = message || `Beat ${state.tick}. You are at column ${p.x}, row ${p.y}. Your past is keeping pace.`;
   canvas.setAttribute('aria-label', `${rooms[roomIndex].name}. You are at column ${p.x}, row ${p.y}. Beat ${state.tick}. ${state.echoes.length} echoes. Arrow keys move, space waits, R rewinds.`);
   $('tapes').replaceChildren();
@@ -51,7 +67,7 @@ function diamond(x, y, size, color, fill = false) {
   if (fill) { ctx.fillStyle = color; ctx.fill(); } else ctx.stroke();
 }
 function draw() {
-  const w = 900, h = 440;
+  const w = canvas.width, h = canvas.height;
   ctx.clearRect(0, 0, w, h);
   const { room } = state;
   const cell = Math.min(68, (w - 70) / room.width, (h - 85) / room.height);
@@ -115,6 +131,12 @@ $('undo').addEventListener('click', () => act(() => undo(state)));
 $('reset').addEventListener('click', () => load(roomIndex));
 $('next').addEventListener('click', () => load((roomIndex + 1) % rooms.length));
 $('room').addEventListener('change', event => load(Number(event.target.value)));
+$('toggle-guide').addEventListener('click', () => {
+  guideVisible = !guideVisible;
+  $('guide-content').hidden = !guideVisible;
+  $('toggle-guide').setAttribute('aria-expanded', String(guideVisible));
+  $('toggle-guide').textContent = guideVisible ? 'Hide guide' : 'Show guide';
+});
 document.querySelectorAll('[data-move]').forEach(button => button.addEventListener('click', () => step(button.dataset.move)));
 document.addEventListener('keydown', event => {
   if (event.ctrlKey || event.metaKey || event.altKey || event.target.matches('select,input,textarea')) return;
