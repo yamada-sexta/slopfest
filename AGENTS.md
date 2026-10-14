@@ -16,6 +16,10 @@ whole playground. Update the root catalog and JOURNAL.md when shipping an experi
 - Use `npm run build` for the vetted static bundle. Register new browser assets in
   `site.manifest.json`; never upload the whole working directory to Pages or releases.
 - Make reasonable creative decisions without repeatedly asking for permission.
+- LinkedIn is an optional source of inspiration: read public engineering posts
+  and project demos through the browser, then develop original experiments from
+  interesting ideas. Keep account details, profile data, and private content out
+  of the repository. This permission covers reading for inspiration.
 
 ## Commit hygiene
 
