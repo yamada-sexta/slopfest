@@ -13,6 +13,11 @@
     "sprig/style.css",
     "sprig/app.mjs",
     "sprig/language.mjs",
-    "sprig/specimens.mjs"
+    "sprig/specimens.mjs",
+    "unspill/index.html",
+    "unspill/style.css",
+    "unspill/app.mjs",
+    "unspill/core.mjs",
+    "unspill/pours.mjs"
   ]
 }

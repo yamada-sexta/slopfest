@@ -1,0 +1,54 @@
+.back { font-size:10px; color:var(--muted)!important; margin-left:12px; font-weight:400; }
+.heading { padding:43px 0 34px; display:flex; justify-content:space-between; align-items:flex-end; gap:20px; }
+h1 { font:500 clamp(48px,6vw,72px)/1 Georgia,serif; letter-spacing:-.055em; margin:14px 0 0; }
+h1 span { color:#9ddbd8; display:inline-block; margin-left:15px; font:58px/1 system-ui,sans-serif; vertical-align:middle; }
+.heading p { font:17px/1.5 Georgia,serif; margin-bottom:4px; }
+.workbench { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:30px; align-items:start; }
+.machine { border:1px solid var(--line); border-radius:11px; overflow:hidden; background:#18251d; }
+.machine-top { padding:15px 18px; display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid var(--line); }
+select { font:11px ui-monospace,monospace; padding:7px; max-width:220px; }
+.machine-top select { margin-left:6px; }
+.clock { color:var(--muted); font-size:10px; white-space:nowrap; }
+.clock b { color:#9ddbd8; font-size:16px; margin-left:7px; font-variant-numeric:tabular-nums; }
+.transport { display:flex; gap:8px; padding:13px 16px; flex-wrap:wrap; border-bottom:1px solid var(--line); }
+.transport button { padding:9px 13px; font-size:12px; }
+#reverse { color:#b4e8e5; border-color:#547974; }
+kbd { font:9px ui-monospace,monospace; opacity:.6; margin-left:7px; }
+.stage { position:relative; background:#14211c; }
+#world { display:block; width:100%; height:auto; touch-action:none; cursor:crosshair; }
+.stage-label { position:absolute; left:16px; top:13px; font-size:9px; letter-spacing:.12em; color:#abc2ae; pointer-events:none; background:#14211cde; padding:6px 8px; border:1px solid #344738; border-radius:4px; }
+.status { min-height:62px; border-top:1px solid var(--line); padding:14px 18px; font-size:12px; color:var(--ink); line-height:1.5; }
+.machine-bottom { padding:10px 16px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.machine-bottom .mono { color:var(--muted); font-size:9px; }
+.machine-bottom button { font-size:10px; padding:8px 11px; white-space:nowrap; }
+.instruction { padding:3px 0 16px; }
+h2 { font:29px/1.15 Georgia,serif; margin:14px 0; }
+h2 em { color:#9ddbd8; font-weight:normal; }
+.instruction ol { padding-left:19px; margin:0; font-size:12px; line-height:1.65; color:var(--muted); }
+.instruction li { margin-bottom:8px; padding-left:3px; }
+.instruction strong { color:var(--ink); font-weight:500; }
+.origin-panel { border:1px solid var(--line); border-radius:8px; overflow:hidden; padding-bottom:12px; }
+.panel-heading { padding:12px; display:flex; justify-content:space-between; gap:10px; font-size:8px; letter-spacing:.08em; }
+#origin { display:block; width:calc(100% - 24px); margin:0 12px; height:auto; border:1px solid #354738; border-radius:4px; }
+.origin-panel p { font:12px/1.5 Georgia,serif; padding:12px; margin:0; }
+.origin-panel button { font-size:10px; margin-left:12px; padding:7px 10px; }
+.paint-panel { padding:21px 0 16px; border-bottom:1px solid var(--line); }
+.inks { display:flex; gap:9px; margin:12px 0 16px; align-items:center; }
+.ink { width:29px; height:29px; padding:0; border:3px solid transparent; border-radius:50%; }
+.cyan { background:#9ddbd8; }.peach { background:#f3ad80; }.violet { background:#bca5e8; }
+.ink[aria-pressed=true] { outline:2px solid var(--ink); outline-offset:3px; }
+.ink:hover { filter:brightness(1.15); }.ink.cyan:hover { background:#9ddbd8; }.ink.peach:hover { background:#f3ad80; }.ink.violet:hover { background:#bca5e8; }
+.eraser { font-size:10px; padding:6px 9px; margin-left:3px; }.eraser[aria-pressed=true] { border-color:var(--ink); }
+.brush-label { display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); }
+.paint-panel p,.speed-panel p { font-size:10px; line-height:1.6; margin:13px 0 0; }
+.speed-panel { padding:18px 0 0; }
+.speed-panel label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+.speed-panel output { color:#9ddbd8; font:11px ui-monospace,monospace; }
+input[type=range] { width:100%; accent-color:#9ddbd8; margin:13px 0 0; }
+.explanation { border-top:1px solid var(--line); margin-top:40px; padding-top:30px; display:grid; grid-template-columns:1fr 2fr; gap:60px; }
+.explanation p { font-size:13px; }
+.inventory { display:flex; gap:27px; flex-wrap:wrap; margin-top:20px; color:var(--muted); font-size:10px; }
+.inventory span { display:flex; gap:8px; align-items:center; }.inventory i { width:7px; height:7px; display:inline-block; }.inventory b { font-weight:400; color:var(--ink); }
+@media(max-width:1000px) { .workbench { grid-template-columns:minmax(0,1fr) 235px; gap:20px; } .machine-top select { max-width:175px; } .transport { padding:11px; gap:6px; } .transport button { padding:9px; font-size:11px; } .transport kbd { display:none; } }
+@media(max-width:760px) { .workbench { grid-template-columns:1fr; gap:28px; } .back { display:none; } aside { display:grid; grid-template-columns:1fr 1fr; gap:20px; } .instruction { grid-column:1/-1; } .instruction h2 br { display:none; } .instruction ol { display:flex; gap:24px; } .instruction li { flex:1; } .speed-panel { grid-column:1/-1; padding-top:0; } .paint-panel { padding-top:4px; border:0; } .explanation { grid-template-columns:1fr; gap:6px; } .explanation h2 br { display:none; } }
+@media(max-width:430px) { .heading { padding-top:30px; flex-direction:column; align-items:start; } .heading p { font-size:14px; margin:0; } .machine-top { padding:12px; gap:8px; } .machine-top select { max-width:155px; font-size:10px; } .clock { font-size:8px; } .clock b { font-size:13px; margin-left:3px; } .transport { gap:6px; padding:10px; } .transport button { font-size:11px; padding:8px 9px; flex:1; } .stage-label { top:8px; left:8px; font-size:8px; padding:4px 6px; } .machine-bottom .mono { font-size:7px; } aside { grid-template-columns:1fr; gap:18px; } .instruction,.speed-panel { grid-column:auto; } .instruction ol { display:block; } .origin-panel { max-width:100%; } #origin { max-height:170px; width:calc(100% - 24px); object-fit:contain; background:#14211c; } .paint-panel { padding-top:0; } footer { flex-direction:column; } }

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Unspill — Slopfest</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST <span class="back">/ THE CABINET</span></a><span class="mono">EXPERIMENT 03 · REVERSIBLE INK</span></header>
+  <main>
+    <section class="heading"><div><div class="eyebrow">A small machine for undoing a mess</div><h1>Unspill<span>↶</span></h1></div><p>Every drop remembers.<br>Even when the picture forgets.</p></section>
+    <div class="workbench">
+      <section class="machine" aria-label="Reversible ink machine">
+        <div class="machine-top"><label class="eyebrow" for="pour">POUR <select id="pour" aria-label="Starting picture"></select></label><span class="mono clock">STEP <b id="tick">0000</b></span></div>
+        <div class="transport" aria-label="Time controls"><button id="play" class="primary">▶ Stir <kbd>SPACE</kbd></button><button id="reverse" disabled>↶ Unspill <kbd>R</kbd></button><button id="back" aria-label="Step backward" disabled>← Step</button><button id="forward" aria-label="Step forward">Step →</button></div>
+        <div class="stage"><canvas id="world" width="960" height="640" tabindex="0" aria-label="Ink picture. Click or drag to paint. Arrow keys move a brush cursor; Enter paints." aria-describedby="drawing-help"></canvas><span id="direction" class="stage-label mono">AT THE ORIGIN</span></div>
+        <div class="status" id="status" role="status" aria-live="polite">Press Stir to scatter the picture. Then Unspill to bring every pixel home.</div>
+        <div class="machine-bottom"><span class="mono">96 × 64 CELLS · EDGES WRAP AROUND</span><button id="save">Save SVG ↗</button></div>
+      </section>
+      <aside>
+        <section class="instruction"><span class="eyebrow">Try this first</span><h2>Make a mess.<br> <em>Take it back.</em></h2><ol><li>Press <strong>Stir</strong>. Let the colors scatter.</li><li>Press <strong>Unspill</strong>. Watch the steps count backward.</li><li>Every pixel returns to your starting picture.</li></ol></section>
+        <section class="origin-panel"><div class="panel-heading eyebrow"><span>Your time origin</span><span id="origin-state">UNCHANGED</span></div><canvas id="origin" width="288" height="192" role="img" aria-label="The starting picture for this timeline"></canvas><p id="pour-note"></p><button id="restore">Restore this origin</button></section>
+        <section class="paint-panel"><span class="eyebrow">Leave your own mark</span><div class="inks" role="group" aria-label="Brush ink"><button data-ink="1" class="ink cyan" aria-label="Cyan ink" aria-pressed="true"></button><button data-ink="2" class="ink peach" aria-label="Peach ink" aria-pressed="false"></button><button data-ink="3" class="ink violet" aria-label="Violet ink" aria-pressed="false"></button><button data-ink="0" class="eraser" aria-pressed="false">Eraser</button></div><label class="brush-label" for="brush">Brush radius <select id="brush"><option value="0">1 pixel</option><option value="1">Small</option><option value="3" selected>Medium</option><option value="5">Large</option></select></label><p id="drawing-help">Paint with a mouse or touch. On the focused picture, arrows move the brush and Enter paints. Drawing pauses time and makes a new origin.</p></section>
+        <section class="speed-panel"><label for="speed">Steps per second <output id="speed-value">24</output></label><input id="speed" type="range" min="1" max="60" value="24"><p>Space pauses or stirs. R unspills. [ and ] step backward and forward.</p></section>
+      </aside>
+    </div>
+    <section class="explanation"><div><span class="eyebrow">What is the trick?</span><h2>A mess with<br> <em>an exact inverse.</em></h2></div><div><p>The grid turns little groups of four squares. After each step, the groups shift by one square. The turn depends on the group’s position and how many ink cells it holds.</p><p>To go backward, the machine uses the previous grouping and reverses its turns. Every ink color keeps exactly the same number of cells. The starting thumbnail is kept for comparison; the animation keeps no frame history.</p><div class="inventory mono"><span><i class="cyan"></i>CYAN <b id="cyan-count">0</b></span><span><i class="peach"></i>PEACH <b id="peach-count">0</b></span><span><i class="violet"></i>VIOLET <b id="violet-count">0</b></span></div></div></section>
+  </main>
+  <footer><span>SMALL RULES. A VERY GOOD MEMORY.</span><a href="../sprig/">GROW SOMETHING WITH SPRIG →</a></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

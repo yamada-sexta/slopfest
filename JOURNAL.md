@@ -37,3 +37,23 @@ rooms stay open for exploration, with their existing optional hints.
 Verification: 41 automated tests pass, the 14-file browser bundle builds, and a
 browser playthrough covers the guided win, room transition, hide/show controls,
 corrected door feedback, and the narrow-screen layout.
+
+## 2026-10-14 — Every drop remembers
+
+Added **Unspill**, a little ink machine that takes a picture apart and puts it
+back together by reversing its rules. Alternating groups of four cells rotate
+according to a deterministic rule. Their ink counts survive every rotation, so
+the previous turn can be computed exactly without recording animation frames.
+
+Three pours give it something to remember: overlapping puddles, the word UNDO,
+and a colored border. Painting creates a new time origin; single stepping,
+variable speed, keyboard painting, a comparison thumbnail, and SVG export make
+the rules available to play with. The engine keeps two working grids, and the
+interface keeps one origin snapshot for comparison and its explicit Restore
+button. Reverse motion does not read that snapshot.
+
+Verification: all 53 tests pass, including exhaustive colored-block inversion,
+long mixed timelines, and per-color conservation. Browser checks recovered a
+picture after 533 steps, exercised all three pours, mouse and keyboard painting,
+single stepping, SVG download, and a phone layout. The cabinet's 19-file static
+bundle includes the new project through the explicit asset manifest.
