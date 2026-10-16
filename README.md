@@ -4,8 +4,8 @@ A cabinet of small, curious programs. Each directory is its own experiment.
 Nothing here needs an account, an API key, or a dependency install.
 
 Run `npm start` with Node.js 20 or newer, then open **http://localhost:4173**.
-Run `npm test` to check the puzzle engine, the language, the reversible ink rules,
-the local server, and the release builder. You can also use
+Run `npm test` to check the puzzle engine, the languages, the reversible ink rules,
+the scheduler explorer, the local server, and the release builder. You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
 | Project | What lives inside |
@@ -13,6 +13,7 @@ the local server, and the release builder. You can also use
 | [Afterimage](afterimage/) | A puzzle game about borrowing help from your past. Five rooms, three ghosts, and a guided first rewind. |
 | [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. A live editor, five specimens, and an SVG command line tool. |
 | [Unspill](unspill/) | A reversible ink machine. Scatter a picture, paint a new one, then recover every pixel by running time backward. |
+| [Threadjar](threadjar/) | A tiny concurrency language and scheduler. Choose a worker's next turn, find missing marbles, and explore every possible ending. |
 
 ## A living playground
 

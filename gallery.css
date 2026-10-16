@@ -21,11 +21,13 @@ h1 em { font-family:Georgia,serif; font-weight:normal; color:var(--lime); }
 .preview-caption { position:absolute; bottom:20px; font-size:9px; color:var(--muted); letter-spacing:.12em; }
 .sprig-preview { background:#242719; color:var(--lime); }
 .sprig-preview svg { height:225px; width:100%; margin-top:-24px; }
-.unspill-card { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; }
-.unspill-preview { background:#18271f; border-bottom:0; border-right:1px solid var(--line); }
+.unspill-card { display:block; }
+.unspill-preview { background:#18271f; }
 .unspill-preview svg { width:100%; height:230px; margin-top:-15px; }
 .unspill-card .project-body { display:flex; flex-direction:column; justify-content:center; }
 .unspill-card .project-link { color:#9ddbd8; }
+.threadjar-preview { background:#29271b; }
+.threadjar-preview svg { width:100%; height:230px; margin-top:-18px; }
 .project-body { padding:26px 30px 30px; background:#182018; }
 .project-meta { display:flex; justify-content:space-between; letter-spacing:.08em; font-size:10px; }
 h2 { font-size:34px; font-weight:500; letter-spacing:-.035em; margin:18px 0 12px; }

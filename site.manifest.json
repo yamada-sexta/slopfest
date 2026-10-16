@@ -18,6 +18,11 @@
     "unspill/style.css",
     "unspill/app.mjs",
     "unspill/core.mjs",
-    "unspill/pours.mjs"
+    "unspill/pours.mjs",
+    "threadjar/index.html",
+    "threadjar/style.css",
+    "threadjar/app.mjs",
+    "threadjar/core.mjs",
+    "threadjar/examples.mjs"
   ]
 }

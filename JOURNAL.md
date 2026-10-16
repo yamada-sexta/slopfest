@@ -57,3 +57,24 @@ long mixed timelines, and per-color conservation. Browser checks recovered a
 picture after 533 steps, exercised all three pours, mouse and keyboard painting,
 single stepping, SVG download, and a phone layout. The cabinet's 19-file static
 bundle includes the new project through the explicit asset manifest.
+
+## 2026-10-15 — Who gets the next turn?
+
+Added **Threadjar**, a tiny language and scheduling playground. Each worker has a
+private pocket; jars are shared. A load, addition, and store each take a separate
+turn, so two workers can both add one and leave only one marble behind. One key
+protects the update; two keys acquired in opposite orders can produce a deadlock.
+
+The explorer merges equivalent reachable states and keeps a witness trace for
+each distinct ending. Inspecting a trace loads it into the same debugger used for
+manual play. A bounded search explicitly reports incomplete results instead of
+promising that the endings it found are exhaustive. A command-line checker uses
+the same interpreter and explorer as the browser.
+
+Verification: all 69 tests pass, including exhaustive comparison against 1,680
+unmerged schedules, replay of every preset ending, lock ownership faults, parser
+limits, CLI exit statuses, and an actual 12,000-state truncated search. Browser
+checks reproduce the lost update and crossed-key deadlock, confirm lock blocking,
+replay and undo witnesses, apply custom source, preserve a run after invalid
+edits, and download a valid JSON trace. The phone layout keeps the controls
+readable, and the four-project cabinet builds through its 24-file asset manifest.

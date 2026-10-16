@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Threadjar — Slopfest</title><link rel="stylesheet" href="../shared.css"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST <span class="back">/ THE CABINET</span></a><span class="mono">EXPERIMENT 04 · A POCKET SCHEDULER</span></header>
+<main>
+  <section class="heading"><div><div class="eyebrow">Tiny workers. Shared marbles.</div><h1>Threadjar<span>⋈</span></h1></div><p>The same little program.<br>A different order of events.</p></section>
+  <div class="lab">
+    <aside class="editor"><div class="editor-top"><label class="eyebrow" for="example">An experiment</label><select id="example" aria-label="Choose experiment"></select></div><label class="sr-only" for="source">Threadjar program</label><textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="source-status"></textarea><div class="editor-actions"><span id="source-status" class="mono">PROGRAM APPLIED</span><button id="apply" class="primary">Apply edits</button></div><div id="error" class="error" role="alert" hidden></div><details class="language-guide"><summary>The little language</summary><p><code>shared jar = 0</code> declares a shared number. Each <code>thread name … end</code> has its own pocket, initially zero.</p><p><code>load jar</code> copies a jar into a pocket.<br><code>add 1</code> changes only that pocket.<br><code>store jar</code> copies the pocket to the jar.</p><p><code>mutex brass</code> declares a key. <code>lock brass</code> waits if it is held. <code>unlock brass</code> returns a key this worker holds.</p><p>One instruction is one turn. Choose who takes the next turn. Edits take effect when you press Apply edits.</p></details></aside>
+    <section class="workspace" aria-label="Scheduler playground">
+      <div class="challenge"><span class="eyebrow" id="experiment-number"></span><h2 id="experiment-name"></h2><p id="challenge"></p></div>
+      <div class="shared-shelf"><div class="shelf-heading"><span class="eyebrow">The shared shelf</span><span id="run-state" class="mono">READY</span></div><div id="jars" class="jars"></div><div id="locks" class="locks"></div></div>
+      <div class="transport"><button id="deal" class="primary">Deal next step</button><button id="undo" disabled>Undo</button><button id="reset">Reset run</button><span class="mono">TURN <b id="tick">00</b></span></div>
+      <div id="workers" class="workers"></div>
+      <div id="status" class="status" role="status" aria-live="polite">Choose a worker to run one instruction.</div>
+      <section class="explorer"><div class="explore-heading"><div><span class="eyebrow">Other possible futures</span><p>Explore the instruction orders this program allows.</p></div><button id="explore">Explore all schedules</button></div><p id="search-summary" class="search-summary" role="status" aria-live="polite">Try both workers’ load instructions before either store. Or let the explorer find the endings.</p><div id="outcomes" class="outcomes"></div></section>
+      <details class="history" open><summary>Run history <span class="mono" id="trace-count">0 turns</span></summary><ol id="trace"></ol><p id="empty-trace">Each worker’s step will appear here. Undo lets you walk back through a trace.</p><button id="save">Save trace JSON ↗</button></details>
+    </section>
+  </div>
+  <section class="note"><span class="eyebrow">A small, explicit world</span><p>This language has no loops or hidden operations. Every load, addition, store, and key operation is a separate turn. The explorer merges equivalent states and keeps an example trace for each distinct ending. Large searches stop at 12,000 states and report that they are incomplete.</p></section>
+</main>
+<footer><span>ONE LITTLE JAR. MORE THAN ONE FUTURE.</span><a href="../unspill/">TAKE TIME BACK WITH UNSPILL →</a></footer>
+<script type="module" src="app.mjs"></script>
+</body></html>

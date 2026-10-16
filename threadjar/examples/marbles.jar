@@ -1,0 +1,14 @@
+# A pocket is private. The jar is shared.
+shared jar = 0
+
+thread amber
+  load jar
+  add 1
+  store jar
+end
+
+thread blue
+  load jar
+  add 1
+  store jar
+end
