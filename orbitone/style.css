@@ -1,0 +1,20 @@
+:root { --bg:#14141d; --panel:#20212c; --line:#3b3b4d; --muted:#b0adbf; --ink:#f0eadd; --lime:#e4d7a7; --orange:#f1bb87; }
+.back { font-size:10px; margin-left:12px; color:var(--muted)!important; font-weight:400; }
+.heading { display:flex; justify-content:space-between; align-items:end; padding:46px 0 32px; gap:20px; }
+h1 { font:500 clamp(48px,7vw,82px)/1 Georgia,serif; margin:14px 0 0; letter-spacing:-.055em; } h1 span { color:#c7b2ef; margin-left:20px; font:50px system-ui,sans-serif; }
+.heading p { font:18px/1.5 Georgia,serif; margin:0 0 4px; }
+.instrument { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(340px,1fr); border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#1b1b27; }
+.sky { position:relative; background:radial-gradient(ellipse at center,#292738,#15151f 75%); display:flex; flex-direction:column; justify-content:center; padding:32px 20px; border-right:1px solid var(--line); }
+.sky-label { position:absolute; top:23px; left:25px; font-size:9px; }
+#orbits { width:100%; max-height:560px; overflow:visible; }.orbit-track { stroke:#484254; stroke-width:1; fill:none; }.orbit-dot { stroke:#15151f; }.orbit-cursor { stroke:#f0eadd; stroke-width:2; fill:none; }.orbit-line { stroke:#5b5265; stroke-width:1; stroke-dasharray:3 8; }.orbit-center { fill:#e4d7a7; font:22px Georgia,serif; text-anchor:middle; }
+.readout { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:-5px; }.readout b { font-size:35px; font-weight:400; letter-spacing:.12em; color:#e4d7a7; }.readout>span:last-child { font-size:10px; color:var(--muted); }
+.console { padding:24px; }.transport { display:flex; gap:10px; flex-wrap:wrap; }.transport button { font-size:12px; padding:10px 14px; }#play { min-width:100px; }
+#status { font-size:11px; min-height:34px; line-height:1.5; margin:12px 0 18px; }
+.master { display:grid; grid-template-columns:1fr 1fr; gap:22px; padding-bottom:20px; }.master label { font-size:11px; }.master output { float:right; color:#e4d7a7; font:11px ui-monospace,monospace; }
+input[type=range] { width:100%; display:block; margin:11px 0 0; accent-color:var(--voice,#c7b2ef); cursor:pointer; height:18px; }
+.preset-label { display:block; font-size:9px; margin-bottom:9px; }select { width:100%; font-size:12px; padding:9px 12px; margin-bottom:16px; }
+.ring { border:1px solid var(--line); border-left:3px solid var(--voice); border-radius:7px; padding:14px; margin-bottom:10px; background:#20212c; }.ring-top { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:14px; }h3 { color:var(--voice); margin:0; font:13px ui-monospace,monospace; }.mute { font-size:10px; color:var(--muted); display:flex; align-items:center; gap:7px; }.mute input { accent-color:var(--voice); cursor:pointer; }
+.ring-controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }.ring-controls label { font-size:10px; color:var(--muted); }.ring-controls output { float:right; color:var(--ink); font:11px ui-monospace,monospace; }.ring-controls input { margin-top:7px; }
+.smallprint { font-size:10px; line-height:1.6; margin:17px 0 0; }.notes { display:grid; grid-template-columns:1fr 1fr; gap:60px; margin-top:40px; padding-top:26px; border-top:1px solid var(--line); }.notes .eyebrow { font-size:9px; }h2 { font:25px/1.2 Georgia,serif; margin:13px 0; }.notes p { font-size:12px; }
+@media(max-width:950px) { .instrument { grid-template-columns:1fr 1fr; }.console { padding:18px; }.ring-controls { gap:10px; }.sky { padding:40px 12px 25px; }.sky-label { left:18px; } }
+@media(max-width:740px) { .instrument { grid-template-columns:1fr; }.sky { border-right:0; border-bottom:1px solid var(--line); padding:40px 18px 24px; }#orbits { max-height:400px; }.heading { align-items:start; flex-direction:column; padding-top:30px; }.heading p { font-size:15px; }.back { display:none; }.topbar>.mono { max-width:150px; text-align:right; line-height:1.5; font-size:8px; }.notes { grid-template-columns:1fr; gap:20px; }footer { flex-direction:column; gap:20px; }.console { padding:18px; } }

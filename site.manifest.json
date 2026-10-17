@@ -23,6 +23,10 @@
     "threadjar/style.css",
     "threadjar/app.mjs",
     "threadjar/core.mjs",
-    "threadjar/examples.mjs"
+    "threadjar/examples.mjs",
+    "orbitone/index.html",
+    "orbitone/style.css",
+    "orbitone/app.mjs",
+    "orbitone/core.mjs"
   ]
 }

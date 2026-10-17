@@ -5,7 +5,8 @@ Nothing here needs an account, an API key, or a dependency install.
 
 Run `npm start` with Node.js 20 or newer, then open **http://localhost:4173**.
 Run `npm test` to check the puzzle engine, the languages, the reversible ink rules,
-the scheduler explorer, the local server, and the release builder. You can also use
+the scheduler explorer, the rhythm and WAV engine, the local server, and the
+release builder. You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
 | Project | What lives inside |
@@ -14,6 +15,7 @@ the scheduler explorer, the local server, and the release builder. You can also 
 | [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. A live editor, five specimens, and an SVG command line tool. |
 | [Unspill](unspill/) | A reversible ink machine. Scatter a picture, paint a new one, then recover every pixel by running time backward. |
 | [Threadjar](threadjar/) | A tiny concurrency language and scheduler. Choose a worker's next turn, find missing marbles, and explore every possible ending. |
+| [Orbitone](orbitone/) | Three rhythm rings with different lengths. Arrange synthesized percussion, watch the pointers drift, and save eight bars as a stereo WAV. |
 
 ## A living playground
 

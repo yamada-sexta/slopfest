@@ -78,3 +78,27 @@ checks reproduce the lost update and crossed-key deadlock, confirm lock blocking
 replay and undo witnesses, apply custom source, preserve a run after invalid
 edits, and download a valid JSON trace. The phone layout keeps the controls
 readable, and the four-project cabinet builds through its 24-file asset manifest.
+
+## 2026-10-16 — Three clocks walk into a room
+
+Added **Orbitone**, a rhythm instrument with three independently wrapping rings.
+Distribute pulses evenly, rotate them, and give each ring a different length.
+Thump, glass, and dust voices are synthesized from decaying waves and fixed-seed
+noise. Audio-clock scheduling drives playback; the drawing follows that clock.
+Ring edits stop playback cleanly, and hiding the page stops its clocks as well.
+
+Three arrangements are included. The WAV renderer uses the same voice samples as
+live playback and exports eight bars from the beginning with current mutes and
+volume, followed by a short sound tail. The UI explains that the phrase boundary
+does not necessarily coincide with the rings' common period.
+
+Verification: all 77 tests pass, including exhaustive supported pulse counts and
+rotations, least common periods, event timing, synthesis bounds, PCM headers,
+duration, rotated pulse onsets, silent exports, and dense-pattern headroom.
+Browser checks cover playback and stop, presets, keyboard slider bounds, muting,
+edit-stop behavior, downloaded WAV data, and a phone layout. The cabinet now
+ships 28 explicitly listed browser files.
+
+Prepared **v0.2.0 — Five ways to play**, the five-experiment cabinet milestone.
+The release workflow retests and rebuilds before packaging only the vetted static
+bundle. Project instructions and CLI tools remain available in the source archive.

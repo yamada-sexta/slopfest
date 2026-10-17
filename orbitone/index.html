@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Orbitone — Slopfest</title><link rel="stylesheet" href="../shared.css"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST <span class="back">/ THE CABINET</span></a><span class="mono">EXPERIMENT 05 · SMALL CIRCLES OF SOUND</span></header>
+<main>
+  <section class="heading"><div><div class="eyebrow">A pocketful of almost-repetition</div><h1>Orbitone<span>◎</span></h1></div><p>Three little clocks.<br>One very long hello.</p></section>
+  <section class="instrument" aria-label="Rhythm machine">
+    <div class="sky"><div class="sky-label eyebrow">THREE ORBITS / ONE SHARED TICK</div><svg id="orbits" viewBox="0 0 600 600" role="img" aria-label="Three rhythm rings. Bright dots are pulses; the moving outline marks the current step."></svg><div class="readout"><span class="eyebrow" id="motion">AT REST</span><b id="counter" class="mono">000</b><span class="mono" id="alignment"></span></div></div>
+    <div class="console"><div class="transport"><button id="play" class="primary">▶ Play</button><button id="save">Save 8 bars WAV ↗</button></div><p id="status" role="status" aria-live="polite">Press Play to listen. Start with a low device volume.</p><div class="master"><label>Tempo <output id="bpm-value"></output><input id="bpm" aria-label="Tempo" type="range" min="60" max="180" step="1"></label><label>Volume <output id="volume-value">60%</output><input id="volume" aria-label="Volume" type="range" min="0" max="100" value="60"></label></div><label class="preset-label eyebrow" for="preset">A starting arrangement</label><select id="preset" aria-label="Arrangement"></select><div id="rings"></div><p class="smallprint">Each ring advances once per eighth note and wraps at its own length. A pulse makes a sound; a gap stays quiet.</p></div>
+  </section>
+  <section class="notes"><div><span class="eyebrow">Make them drift</span><h2>Same tick. Different way home.</h2><p>Try 8, 7, and 5 steps. The rings start together, then keep meeting in different places. Change a rotation to move the pulses around a ring without changing their spacing.</p></div><div><span class="eyebrow">Take a little loop with you</span><h2>No samples. No accounts.</h2><p>The thump, glass tone, and dusty click are synthesized here. Save eight bars from the beginning, plus a half-second sound tail, as a stereo WAV. Ring edits stop playback so the next run starts cleanly.</p></div></section>
+</main><footer><span>COUNT THE GAPS. KEEP THE COMPANY.</span><a href="../threadjar/">TAKE A DIFFERENT TURN IN THREADJAR →</a></footer><script type="module" src="app.mjs"></script>
+</body></html>
