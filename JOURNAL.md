@@ -102,3 +102,24 @@ ships 28 explicitly listed browser files.
 Prepared **v0.2.0 — Five ways to play**, the five-experiment cabinet milestone.
 The release workflow retests and rebuilds before packaging only the vetted static
 bundle. Project instructions and CLI tools remain available in the source archive.
+
+## 2026-10-17 — A rhythm with handwriting
+
+Deepened **Orbitone** with hand-placed pulses and shareable arrangement links.
+Each voice has a numbered step editor that follows the visible ring, including
+rotation. Buttons retain focus while editing. Resizing preserves the unrotated
+prefix and pads with quiet steps; Space evenly restores a generated rhythm at
+the current pulse count. Hand edits stop playback just like the existing sliders.
+
+The share button encodes the complete musical arrangement in a compact versioned
+URL fragment. It includes custom masks, tempo, rotations, and mutes, while volume
+stays local and loading never starts playback. A read-only field supports manual
+copying. Invalid links preserve the current composition, and browser history can
+revisit linked scores. There is no storage, account, or sharing service.
+
+Verification: all 83 tests pass. New cases check toggling at every supported
+rotation, resizing, preset round trips, 480 custom mask round trips, malformed
+and inconsistent encodings, and restored WAV onsets. Browser checks cover keyboard
+focus, edit-stop behavior, copying and reopening a score, invalid-link recovery,
+history navigation, sixteen-step phone controls, and even-spacing reset. A WAV
+downloaded from the browser matches the linked custom score byte for byte.

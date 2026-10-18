@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { pattern, preset, PRESETS, events, cycleTicks, tickSeconds, voiceSample, renderWav } from '../core.mjs';
+import { pattern, preset, PRESETS, events, cycleTicks, tickSeconds, voiceSample, renderWav, ringPattern, toggleStep, resizeRing, encodeScore, decodeScore } from '../core.mjs';
 
 test('Every pulse count is exact and circular gaps differ by at most one', () => {
   for (let length = 2; length <= 16; length++) for (let hits = 0; hits <= length; hits++) {
@@ -86,4 +86,64 @@ test('Invalid musical and audio bounds fail before allocating large renders', ()
   assert.throws(() => events(preset(0), 100000), RangeError);
   assert.throws(() => renderWav(preset(0), { sampleRate: 1 }), RangeError);
   assert.throws(() => renderWav(preset(0), { volume: NaN }), RangeError);
+});
+
+test('Hand toggles change only the requested displayed step at every rotation', () => {
+  for (let length = 2; length <= 16; length++) for (let offset = 0; offset < length; offset++) {
+    const ring = { length, hits: Math.floor(length / 2), offset, muted: false, custom: null };
+    const before = ringPattern(ring);
+    for (let step = 0; step < length; step++) {
+      const edited = toggleStep(ring, step), expected = before.map((hit, i) => i === step ? !hit : hit);
+      assert.deepEqual(ringPattern(edited), expected);
+      assert.equal(edited.offset, offset); assert.equal(edited.hits, expected.filter(Boolean).length);
+      assert.deepEqual(ringPattern(toggleStep(edited, step)), before);
+      assert.equal(ring.custom, null);
+    }
+  }
+});
+test('Resizing custom rings preserves the base prefix, pads rests, and clamps controls', () => {
+  const ring = { length: 5, hits: 3, offset: 4, muted: true, custom: [true, false, true, false, true] };
+  const short = resizeRing(ring, 3), long = resizeRing(ring, 8);
+  assert.deepEqual(short.custom, [true, false, true]); assert.equal(short.hits, 2); assert.equal(short.offset, 1);
+  assert.deepEqual(long.custom, [true, false, true, false, true, false, false, false]); assert.equal(long.hits, 3);
+  assert.equal(ring.length, 5); assert.equal(ring.custom.length, 5);
+  const even = resizeRing({ ...ring, custom: null, hits: 5 }, 2);
+  assert.equal(even.hits, 2); assert.equal(even.offset, 0); assert.equal(even.custom, null);
+  assert.throws(() => resizeRing(ring, 17), RangeError); assert.throws(() => toggleStep(ring, 5), RangeError);
+});
+test('Versioned score links preserve all presets and independently decoded copies', () => {
+  for (let i = 0; i < PRESETS.length; i++) {
+    const song = preset(i), code = encodeScore(song), restored = decodeScore('#' + code);
+    assert.deepEqual(restored, song); assert.deepEqual(events(restored), events(song));
+    assert.equal(encodeScore(restored), code); assert.ok(code.length < 160);
+    restored.rings[0].muted = true; assert.equal(song.rings[0].muted, false);
+  }
+});
+test('Custom masks survive links across every ring length, rotation, and mute', () => {
+  let seed = 12345;
+  for (let length = 2; length <= 16; length++) for (let trial = 0; trial < 32; trial++) {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    const bits = trial === 0 ? 0 : trial === 1 ? 2 ** length - 1 : trial === 2 ? 2 ** (length - 1) : seed % 2 ** length;
+    const song = preset(0), custom = Array.from({ length }, (_, i) => Boolean(bits & (1 << i)));
+    song.rings[trial % 3] = { length, hits: custom.filter(Boolean).length, offset: trial % length, muted: trial % 2 === 0, custom };
+    const restored = decodeScore(encodeScore(song));
+    assert.deepEqual(restored, song); assert.deepEqual(events(restored), events(song));
+    assert.deepEqual(renderWav(restored, { ticks: 1, sampleRate: 8000 }), renderWav(song, { ticks: 1, sampleRate: 8000 }));
+  }
+});
+test('Malformed, oversized, noncanonical, and inconsistent score links are rejected', () => {
+  const good = encodeScore(preset(0));
+  for (const bad of ['', good.replace('o1=', 'o2='), good + '~8.1.0.0.e', good.slice(0, -2), '#'.repeat(161), good.replace('112', '060'), good.replace('112', '181'), good.replace('8.3.0.0.e', '1.1.0.0.e'), good.replace('8.3.0.0.e', '8.3.8.0.e'), good.replace('8.3.0.0.e', '8.3.0.2.e'), good.replace('8.3.0.0.e', '8.1.0.0.x100'), good.replace('8.3.0.0.e', '8.3.0.0.x1'), good.replace('8.3.0.0.e', '8.1.0.0.x01'), 'o1=<script>']) assert.throws(() => decodeScore(bad), RangeError, bad);
+  for (const custom of [[true], Array(8), [1, 0, 0, 0, 0, 0, 0, 0], Array(8).fill(false)]) {
+    const song = preset(0); song.rings[0].custom = custom; assert.throws(() => encodeScore(song), RangeError);
+  }
+});
+test('A hand-placed isolated pulse appears at the same onset in a restored WAV', () => {
+  const song = preset(0); song.bpm = 120; song.rings.forEach(r => r.muted = true);
+  song.rings[2] = { length: 8, hits: 1, offset: 1, muted: false, custom: [false, false, true, false, false, false, false, false] };
+  const restored = decodeScore(encodeScore(song));
+  assert.deepEqual(events(restored, 8).map(n => n.tick), [3]);
+  const bytes = renderWav(restored, { sampleRate: 8000, ticks: 8 });
+  assert.ok(bytes.slice(44, 44 + 6000 * 4).every(n => n === 0));
+  assert.ok(bytes.slice(44 + 6000 * 4, 44 + 6960 * 4).some(n => n !== 0));
 });

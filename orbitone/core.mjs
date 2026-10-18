@@ -13,18 +13,63 @@ export function pattern(length, hits, offset = 0) {
 export function preset(index) {
   const entry = PRESETS[index];
   if (!entry) throw new RangeError('Unknown preset.');
-  return { bpm: entry.bpm, rings: entry.rings.map(([length, hits, offset]) => ({ length, hits, offset, muted: false })) };
+  return { bpm: entry.bpm, rings: entry.rings.map(([length, hits, offset]) => ({ length, hits, offset, muted: false, custom: null })) };
+}
+export function ringPattern(ring) {
+  const evenly = pattern(ring.length, ring.hits, ring.offset);
+  if (ring.custom == null) return evenly;
+  if (!Array.isArray(ring.custom) || ring.custom.length !== ring.length || [...ring.custom].some(hit => typeof hit !== 'boolean') || ring.custom.filter(Boolean).length !== ring.hits) throw new RangeError('Hand-placed pulses must match the ring length and pulse count.');
+  const turn = ((ring.offset % ring.length) + ring.length) % ring.length;
+  return ring.custom.map((_, i) => ring.custom[(i - turn + ring.length) % ring.length]);
+}
+export function toggleStep(ring, step) {
+  ringPattern(ring);
+  if (!Number.isInteger(step) || step < 0 || step >= ring.length) throw new RangeError('Choose a step inside the ring.');
+  const custom = ring.custom == null ? pattern(ring.length, ring.hits) : [...ring.custom];
+  const index = ((step - ring.offset) % ring.length + ring.length) % ring.length;
+  custom[index] = !custom[index];
+  return { ...ring, custom, hits: custom.filter(Boolean).length };
+}
+export function resizeRing(ring, length) {
+  ringPattern(ring); pattern(length, 0);
+  const custom = ring.custom == null ? null : Array.from({ length }, (_, i) => ring.custom[i] ?? false);
+  return { ...ring, length, custom, hits: custom ? custom.filter(Boolean).length : Math.min(ring.hits, length), offset: ((ring.offset % length) + length) % length };
 }
 export function validate(song) {
   if (!song || !Number.isInteger(song.bpm) || song.bpm < 60 || song.bpm > 180 || !Array.isArray(song.rings) || song.rings.length !== 3) throw new RangeError('Use three rings and a tempo from 60 to 180 BPM.');
-  for (const ring of song.rings) { pattern(ring.length, ring.hits, ring.offset); if (typeof ring.muted !== 'boolean') throw new RangeError('Mute must be true or false.'); }
+  for (const ring of song.rings) { ringPattern(ring); if (typeof ring.muted !== 'boolean') throw new RangeError('Mute must be true or false.'); }
+  return song;
+}
+// A compact, versioned fragment: tempo followed by three bounded ring records.
+// 'e' means evenly spaced; x + hex stores the unrotated hand-placed bit mask.
+export function encodeScore(song) {
+  validate(song);
+  return 'o1=' + [song.bpm, ...song.rings.map(ring => {
+    const mask = ring.custom == null ? 'e' : 'x' + ring.custom.reduce((bits, hit, i) => bits | (hit ? 1 << i : 0), 0).toString(16);
+    return [ring.length, ring.hits, ((ring.offset % ring.length) + ring.length) % ring.length, Number(ring.muted), mask].join('.');
+  })].join('~');
+}
+export function decodeScore(fragment) {
+  const error = () => { throw new RangeError('This arrangement link is invalid or uses an unsupported version.'); };
+  if (typeof fragment !== 'string' || fragment.length > 160) return error();
+  const source = fragment.replace(/^#/, '');
+  if (!/^o1=\d{2,3}(~\d{1,2}\.\d{1,2}\.\d{1,2}\.[01]\.(e|x[0-9a-f]{1,4})){3}$/.test(source)) return error();
+  const [bpm, ...records] = source.slice(3).split('~');
+  const song = { bpm: Number(bpm), rings: records.map(record => {
+    const [length, hits, offset, muted, mask] = record.split('.');
+    const size = Number(length), bits = mask === 'e' ? null : parseInt(mask.slice(1), 16);
+    if (Number(offset) >= size || (bits !== null && bits >= 2 ** size)) return error();
+    return { length: size, hits: Number(hits), offset: Number(offset), muted: muted === '1', custom: bits === null ? null : Array.from({ length: size }, (_, i) => Boolean(bits & (1 << i))) };
+  }) };
+  try { validate(song); } catch { return error(); }
+  if (encodeScore(song) !== source) return error(); // Reject padded or ambiguous encodings.
   return song;
 }
 export const tickSeconds = bpm => 30 / bpm; // One shared tick is an eighth note.
 export function events(song, ticks = 64) {
   validate(song);
   if (!Number.isInteger(ticks) || ticks < 1 || ticks > 256) throw new RangeError('Use 1–256 ticks.');
-  const patterns = song.rings.map(r => pattern(r.length, r.hits, r.offset)), result = [];
+  const patterns = song.rings.map(ringPattern), result = [];
   for (let tick = 0; tick < ticks; tick++) song.rings.forEach((ring, voice) => {
     if (!ring.muted && patterns[voice][tick % ring.length]) result.push({ tick, voice, time: tick * tickSeconds(song.bpm) });
   });

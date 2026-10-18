@@ -15,7 +15,7 @@ release builder. You can also use
 | [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. A live editor, five specimens, and an SVG command line tool. |
 | [Unspill](unspill/) | A reversible ink machine. Scatter a picture, paint a new one, then recover every pixel by running time backward. |
 | [Threadjar](threadjar/) | A tiny concurrency language and scheduler. Choose a worker's next turn, find missing marbles, and explore every possible ending. |
-| [Orbitone](orbitone/) | Three rhythm rings with different lengths. Arrange synthesized percussion, watch the pointers drift, and save eight bars as a stereo WAV. |
+| [Orbitone](orbitone/) | Three rhythm rings with different lengths. Place pulses by hand, share arrangements as links, and save eight bars as a stereo WAV. |
 
 ## A living playground
 
