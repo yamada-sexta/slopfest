@@ -27,6 +27,11 @@
     "orbitone/index.html",
     "orbitone/style.css",
     "orbitone/app.mjs",
-    "orbitone/core.mjs"
+    "orbitone/core.mjs",
+    "lumenpost/index.html",
+    "lumenpost/style.css",
+    "lumenpost/app.mjs",
+    "lumenpost/core.mjs",
+    "lumenpost/cards.mjs"
   ]
 }

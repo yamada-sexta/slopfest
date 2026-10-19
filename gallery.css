@@ -28,10 +28,11 @@ h1 em { font-family:Georgia,serif; font-weight:normal; color:var(--lime); }
 .unspill-card .project-link { color:#9ddbd8; }
 .threadjar-preview { background:#29271b; }
 .threadjar-preview svg { width:100%; height:230px; margin-top:-18px; }
-.orbitone-card { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; }
-.orbitone-preview { background:#1c1b2a; border-bottom:0; border-right:1px solid var(--line); }
+.orbitone-card { display:block; }
+.orbitone-preview { background:#1c1b2a; }
 .orbitone-preview svg { width:100%; height:230px; margin-top:-15px; }
 .orbitone-card .project-body { display:flex; flex-direction:column; justify-content:center; }
+.lumenpost-preview { background:#e6dfcd; }.lumenpost-preview svg { width:100%; height:230px; margin-top:-16px; }.lumenpost-preview .preview-caption { color:#526655; }
 .project-body { padding:26px 30px 30px; background:#182018; }
 .project-meta { display:flex; justify-content:space-between; letter-spacing:.08em; font-size:10px; }
 h2 { font-size:34px; font-weight:500; letter-spacing:-.035em; margin:18px 0 12px; }

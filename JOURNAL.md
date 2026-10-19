@@ -123,3 +123,25 @@ and inconsistent encodings, and restored WAV onsets. Browser checks cover keyboa
 focus, edit-stop behavior, copying and reopening a score, invalid-link recovery,
 history navigation, sixteen-step phone controls, and even-spacing reset. A WAV
 downloaded from the browser matches the linked custom score byte for byte.
+
+## 2026-10-18 — The optical postal service
+
+Added **Lumenpost**, a mirror puzzle about delivering light to postage stamps.
+Five postcards teach a single reflection, a route through several stamps, two
+lamps sharing a mirror, stamps that need both colors, and escaping a closed loop.
+The first card takes one click. Mirrors support keyboard activation, Undo retraces
+a turn, and a small hint highlights one mirror without turning it for you.
+
+The ray engine tracks tile and outgoing direction, so a crossing is distinct from
+a loop. A bounded exhaustive solver finds the closest winning arrangement from
+the current card. Every shipped puzzle has one solution. Solid amber and dashed
+blue beams remain distinguishable where they overlap; stamps carry letter labels
+as well as color. Progress is session-only, with no storage or external assets.
+
+Verification: all 96 tests pass. New tests cover all eight mirror reflections,
+unique solutions and flip counts, color masks, transparent stamps, exact wall
+boundaries, crossings, closed loops, unreachable cards, and input bounds. Hints
+are checked from every arrangement of a shared-stamp card. Browser playthroughs
+deliver all five postcards, exercise undo and reset, check keyboard focus and
+hint highlighting, and finish the loop card on a phone-sized layout. The catalog
+now has six experiments and the static bundle contains 33 approved browser files.
