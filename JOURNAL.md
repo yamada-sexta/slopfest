@@ -145,3 +145,27 @@ are checked from every arrangement of a shared-stamp card. Browser playthroughs
 deliver all five postcards, exercise undo and reset, check keyboard focus and
 hint highlighting, and finish the loop card on a phone-sized layout. The catalog
 now has six experiments and the static bundle contains 33 approved browser files.
+
+## 2026-10-19 — A ripple takes the long way
+
+Added **Ripplefax**, a small wave tank for drawing barriers and dropping ripples.
+Three prepared scenes explore a two-slit wall, two periodic sources, and a path
+around a bent barrier. A second source can reverse its sign; changing the period
+lets new waves meet old ones. Single stepping, keyboard painting, and local PNG
+export make the surface available to inspect as well as watch.
+
+The engine reuses three displacement grids and applies a damped four-neighbor
+stencil. Boundaries and barriers hold the surface at zero. Source forcing adds
+motion, while a brush adds a bounded displacement without an initial velocity.
+The display boosts small crests and troughs so transmitted waves remain visible.
+Scenes arrive paused after 360 deterministic ticks. The UI describes the model
+as a grid experiment, with simulation ticks and no promise of calibrated physics.
+
+Verification: all 108 tests pass. New checks cover the exact stencil, finite
+propagation, symmetry and long-run damping, wall isolation and an erased opening,
+opposite-source cancellation, covered sources, connected strokes, brush limits,
+prepared scenes, and raster colors. Browser checks cover run/pause, all scenes,
+source and period controls, pointer and keyboard painting, erasing, clearing,
+reset, single stepping, and the phone layout. A downloaded 960 × 640 PNG decodes
+correctly with its barrier marks and source marker. The seven-project cabinet
+builds through its explicit 37-file browser manifest.

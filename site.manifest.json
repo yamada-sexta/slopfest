@@ -32,6 +32,10 @@
     "lumenpost/style.css",
     "lumenpost/app.mjs",
     "lumenpost/core.mjs",
-    "lumenpost/cards.mjs"
+    "lumenpost/cards.mjs",
+    "ripplefax/index.html",
+    "ripplefax/style.css",
+    "ripplefax/app.mjs",
+    "ripplefax/core.mjs"
   ]
 }

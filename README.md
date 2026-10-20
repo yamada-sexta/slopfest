@@ -6,7 +6,7 @@ Nothing here needs an account, an API key, or a dependency install.
 Run `npm start` with Node.js 20 or newer, then open **http://localhost:4173**.
 Run `npm test` to check the puzzle engine, the languages, the reversible ink rules,
 the scheduler explorer, the rhythm and WAV engine, the light-routing puzzles,
-the local server, and the release builder. You can also use
+the wave tank, the local server, and the release builder. You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
 | Project | What lives inside |
@@ -17,6 +17,7 @@ the local server, and the release builder. You can also use
 | [Threadjar](threadjar/) | A tiny concurrency language and scheduler. Choose a worker's next turn, find missing marbles, and explore every possible ending. |
 | [Orbitone](orbitone/) | Three rhythm rings with different lengths. Place pulses by hand, share arrangements as links, and save eight bars as a stereo WAV. |
 | [Lumenpost](lumenpost/) | A mirror puzzle about delivering light to postage stamps. Five postcards, two lamps, undo, and hints that find a shortest route. |
+| [Ripplefax](ripplefax/) | A wave tank for ripples, barriers, slits, and interference. Three scenes, keyboard painting, opposite sources, and PNG export. |
 
 ## A living playground
 
