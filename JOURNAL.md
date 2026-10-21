@@ -169,3 +169,27 @@ source and period controls, pointer and keyboard painting, erasing, clearing,
 reset, single stepping, and the phone layout. A downloaded 960 × 640 PNG decodes
 correctly with its barrier marks and source marker. The seven-project cabinet
 builds through its explicit 37-file browser manifest.
+
+## 2026-10-20 — Every thread comes home
+
+Added **Looploom**, a tile loom whose two quarter-circle arcs always meet their
+neighbors. Opposite edges join, so a thread can return locally or wind around
+the whole cloth. Turning one square can merge, split, or reroute loops. Three
+starting cloths range from 24 small rings to two 280-arc winding journeys.
+
+The inspector isolates a complete thread and reports its arc length and net
+horizontal/vertical winding. Keyboard navigation wraps too; Enter and Space
+can choose either arc. Undo restores up to 200 turns. Seeded scattering, a grid
+toggle, and local SVG export complete the toy. The export keeps the current
+highlight and omits the keyboard cursor. No storage or external assets are used.
+The root cabinet now pairs Ripplefax and Looploom in an eight-project gallery.
+
+Verification: all 116 tests pass. The new tracer is compared against an
+independent endpoint-union graph on 80 cloths, including odd and maximum-size
+grids. Tests cover exact loop lengths and winding counts, complete arc coverage,
+merge/split/reroute behavior, undo by inverse turns, seeded generation, SVG
+geometry and highlight counts, and bounds. Browser checks cover pointer and
+keyboard turns, both arc selections, undo, all three cloths, scattering, reset,
+loop navigation, grid visibility, and desktop/phone layouts. An actual downloaded
+SVG parses with 560 arcs, exactly 280 highlighted, and no grid or cursor. The
+static bundle builds through its explicit 41-file browser manifest.

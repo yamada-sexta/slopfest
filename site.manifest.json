@@ -36,6 +36,10 @@
     "ripplefax/index.html",
     "ripplefax/style.css",
     "ripplefax/app.mjs",
-    "ripplefax/core.mjs"
+    "ripplefax/core.mjs",
+    "looploom/index.html",
+    "looploom/style.css",
+    "looploom/app.mjs",
+    "looploom/core.mjs"
   ]
 }

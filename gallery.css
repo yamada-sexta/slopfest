@@ -33,7 +33,7 @@ h1 em { font-family:Georgia,serif; font-weight:normal; color:var(--lime); }
 .orbitone-preview svg { width:100%; height:230px; margin-top:-15px; }
 .orbitone-card .project-body { display:flex; flex-direction:column; justify-content:center; }
 .lumenpost-preview { background:#e6dfcd; }.lumenpost-preview svg { width:100%; height:230px; margin-top:-16px; }.lumenpost-preview .preview-caption { color:#526655; }
-.ripplefax-card { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; }.ripplefax-preview { background:#14211e; border-right:1px solid var(--line); border-bottom:0; }.ripplefax-preview svg { width:100%; height:230px; margin-top:-15px; }.ripplefax-card .project-body { display:flex; flex-direction:column; justify-content:center; }
+.ripplefax-card { display:block; }.ripplefax-preview { background:#14211e; }.ripplefax-preview svg { width:100%; height:230px; margin-top:-15px; }.ripplefax-card .project-body { display:flex; flex-direction:column; justify-content:center; }
 .project-body { padding:26px 30px 30px; background:#182018; }
 .project-meta { display:flex; justify-content:space-between; letter-spacing:.08em; font-size:10px; }
 h2 { font-size:34px; font-weight:500; letter-spacing:-.035em; margin:18px 0 12px; }
@@ -47,3 +47,5 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 @media(max-width:750px) { .unspill-card { display:block; } .unspill-preview { border-right:0; border-bottom:1px solid var(--line); } }
 @media(max-width:750px) { .orbitone-card { display:block; }.orbitone-preview { border-right:0; border-bottom:1px solid var(--line); } }
 @media(max-width:750px) { .ripplefax-card { display:block; }.ripplefax-preview { border-right:0; border-bottom:1px solid var(--line); } }
+
+.looploom-preview { background:#17212b; }.looploom-preview svg { width:100%; height:230px; margin-top:-15px; }
