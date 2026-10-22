@@ -31,37 +31,41 @@ export function loops(world) {
   for (let start = 0; start < owners.length; start++) {
     if (owners[start] !== -1) continue;
     let cell = Math.floor(start / 2), arc = start % 2, entry = PAIRS[tiles[cell]][arc][0], horizontal = 0, vertical = 0;
-    const firstEntry = entry, pieces = [];
+    const firstEntry = entry, pieces = [], steps = [];
     do {
       const id = cell * 2 + arc;
       if (owners[id] !== -1) throw new Error('A thread met a previously traced arc.');
       owners[id] = threads.length; pieces.push(id);
       const pair = PAIRS[tiles[cell]][arc], exit = pair[0] === entry ? pair[1] : pair[0];
       let x = cell % width, y = Math.floor(cell / width);
-      if (exit === 0) { if (y === 0) vertical--; y = (y + height - 1) % height; }
-      if (exit === 1) { if (x === width - 1) horizontal++; x = (x + 1) % width; }
-      if (exit === 2) { if (y === height - 1) vertical++; y = (y + 1) % height; }
-      if (exit === 3) { if (x === 0) horizontal--; x = (x + width - 1) % width; }
-      cell = y * width + x; entry = (exit + 2) % 4;
+      const step = { arc: id, cell, entry, exit, wrapX: 0, wrapY: 0 };
+      if (exit === 0) { if (y === 0) step.wrapY = -1; y = (y + height - 1) % height; }
+      if (exit === 1) { if (x === width - 1) step.wrapX = 1; x = (x + 1) % width; }
+      if (exit === 2) { if (y === height - 1) step.wrapY = 1; y = (y + 1) % height; }
+      if (exit === 3) { if (x === 0) step.wrapX = -1; x = (x + width - 1) % width; }
+      cell = y * width + x; step.nextCell = cell; steps.push(step);
+      horizontal += step.wrapX; vertical += step.wrapY; entry = (exit + 2) % 4;
       arc = PAIRS[tiles[cell]][0].includes(entry) ? 0 : 1;
     } while (cell * 2 + arc !== start || entry !== firstEntry);
-    threads.push({ pieces, horizontal, vertical });
+    threads.push({ pieces, horizontal, vertical, steps });
   }
   return { threads, owners };
 }
 export function arcPath(tile, arc) {
   if (![0, 1].includes(tile) || ![0, 1].includes(arc)) throw new RangeError('Choose one of two tile arcs.');
   return tile === 0 ? ['M 0.5 0 A 0.5 0.5 0 0 0 1 0.5', 'M 0.5 1 A 0.5 0.5 0 0 0 0 0.5'][arc]
-    : ['M 0.5 0 A 0.5 0.5 0 0 1 0 0.5', 'M 1 0.5 A 0.5 0.5 0 0 1 0.5 1'][arc];
+    : ['M 0.5 0 A 0.5 0.5 0 0 1 0 0.5', 'M 1 0.5 A 0.5 0.5 0 0 0 0.5 1'][arc];
 }
 export const threadColor = thread => `hsl(${(thread.pieces[0] * 137.508 + 18) % 360} 58% 67%)`;
-export function svg(world, { selected = null, grid = true } = {}) {
+export function svg(world, { selected = null, grid = true, active = null } = {}) {
   const { threads, owners } = loops(world), { width, height, tiles } = world;
   if (selected !== null && (!Number.isInteger(selected) || selected < 0 || selected >= threads.length)) throw new RangeError('Choose an existing loop.');
+  if (active !== null && (!Number.isInteger(active) || active < 0 || active >= tiles.length * 2 || (selected !== null && owners[active] !== selected))) throw new RangeError('Choose a stitch in the selected loop.');
   const paths = tiles.flatMap((tile, cell) => [0, 1].map(arc => {
     const id = cell * 2 + arc, owner = owners[id], opacity = selected === null || selected === owner ? 1 : 0.14;
     return `<path data-cell="${cell}" data-arc="${arc}" transform="translate(${cell % width} ${Math.floor(cell / width)})" d="${arcPath(tile, arc)}" stroke="${threadColor(threads[owner])}" opacity="${opacity}"/>`;
   })).join('');
+  const stitch = active === null ? '' : `<path transform="translate(${Math.floor(active / 2) % width} ${Math.floor(active / 2 / width)})" d="${arcPath(tiles[Math.floor(active / 2)], active % 2)}" fill="none" stroke="#fff4d7" stroke-width=".18" stroke-linecap="round" pointer-events="none"/>`;
   const lines = grid ? `<path d="${Array.from({ length: width + 1 }, (_, x) => `M${x} 0V${height}`).join(' ')} ${Array.from({ length: height + 1 }, (_, y) => `M0 ${y}H${width}`).join(' ')}" fill="none" stroke="#38424a" stroke-width=".012"/>` : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width * 64}" height="${height * 64}"><title>Looploom — ${threads.length} closed threads</title><rect width="${width}" height="${height}" fill="#17212b"/>${lines}<g fill="none" stroke-width=".095" stroke-linecap="round">${paths}</g></svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width * 64}" height="${height * 64}"><title>Looploom — ${threads.length} closed threads</title><rect width="${width}" height="${height}" fill="#17212b"/>${lines}<g fill="none" stroke-width=".095" stroke-linecap="round">${paths}</g>${stitch}</svg>`;
 }

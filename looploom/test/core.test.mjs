@@ -89,3 +89,63 @@ test('Bounds fail clearly before oversized allocation or an invalid trace', () =
   assert.throws(() => loops({ width: 8, height: 6, tiles: [0] }), RangeError);
   assert.throws(() => arcPath(2, 0), RangeError);
 });
+
+test('Every walking stitch joins the next entry, closes, and sums to the loop winding', () => {
+  for (const [width, height] of [[4, 4], [5, 7], [20, 14]]) for (let seed = 0; seed < 12; seed++) {
+    const world = cloth(width, height, seed), before = structuredClone(world), result = loops(world);
+    for (const thread of result.threads) {
+      assert.deepEqual(thread.steps.map(step => step.arc), thread.pieces);
+      let horizontal = 0, vertical = 0;
+      for (let i = 0; i < thread.steps.length; i++) {
+        const step = thread.steps[i], next = thread.steps[(i + 1) % thread.steps.length];
+        assert.equal(Math.floor(step.arc / 2), step.cell);
+        assert.equal(step.nextCell, next.cell); assert.equal((step.exit + 2) % 4, next.entry);
+        assert.notEqual(step.entry, step.exit);
+        const x = step.cell % width, y = Math.floor(step.cell / width);
+        const dx = [0, 1, 0, -1][step.exit], dy = [-1, 0, 1, 0][step.exit];
+        const nx = (x + dx + width) % width, ny = (y + dy + height) % height;
+        assert.equal(step.nextCell, ny * width + nx);
+        assert.equal(step.wrapX, x + dx < 0 ? -1 : x + dx >= width ? 1 : 0);
+        assert.equal(step.wrapY, y + dy < 0 ? -1 : y + dy >= height ? 1 : 0);
+        horizontal += step.wrapX; vertical += step.wrapY;
+      }
+      assert.equal(horizontal, thread.horizontal); assert.equal(vertical, thread.vertical);
+    }
+    assert.deepEqual(world, before);
+  }
+});
+test('A zero-winding seam loop walks out and back; a winding thread makes net trips', () => {
+  const little = loops(cloth(8, 6, 0, 'check')).threads[0];
+  assert.equal(little.steps.length, 4);
+  assert.deepEqual(little.steps.map(({ cell, entry, exit, nextCell, wrapX, wrapY }) => [cell, entry, exit, nextCell, wrapX, wrapY]), [
+    [0, 0, 1, 1, 0, 0], [1, 3, 0, 41, 0, -1], [41, 2, 3, 40, 0, 0], [40, 1, 2, 0, 0, 1]
+  ]);
+  assert.equal(little.vertical, 0);
+  const long = loops(cloth(20, 14, 0, 'same')).threads[0];
+  assert.equal(long.steps.length, 280); assert.equal(Math.abs(long.horizontal), 7); assert.equal(Math.abs(long.vertical), 10);
+});
+test('The walking marker follows the selected arc and stays out of ordinary SVG exports', () => {
+  const world = cloth(8, 6, 0, 'check'), result = loops(world), thread = result.threads[3];
+  for (const active of thread.pieces) {
+    const cell = Math.floor(active / 2), marked = svg(world, { selected: 3, active });
+    assert.match(marked, /stroke="#fff4d7" stroke-width=".18"/);
+    assert.ok(marked.includes(`transform="translate(${cell % 8} ${Math.floor(cell / 8)})" d="${arcPath(world.tiles[cell], active % 2)}" fill="none" stroke="#fff4d7"`));
+  }
+  assert.ok(!svg(world, { selected: 3 }).includes('#fff4d7'));
+  for (const active of [-1, 96, 0.5, NaN]) assert.throws(() => svg(world, { active }), RangeError);
+  assert.throws(() => svg(world, { selected: 0, active: thread.pieces[0] }), RangeError);
+});
+test('Quarter-circle arcs bow toward the tile center so neighboring arcs form smooth rings', () => {
+  for (const tile of [0, 1]) for (const arc of [0, 1]) {
+    const match = arcPath(tile, arc).match(/^M ([\d.]+) ([\d.]+) A 0.5 0.5 0 0 ([01]) ([\d.]+) ([\d.]+)$/);
+    assert.ok(match);
+    const [sx, sy, sweep, ex, ey] = match.slice(1).map(Number), dx = ex - sx, dy = ey - sy;
+    const distance = Math.hypot(dx, dy), height = Math.sqrt(0.25 - distance * distance / 4);
+    // Recover the SVG circle center from the endpoints, radius, and sweep.
+    const centers = [-1, 1].map(sign => [(sx + ex) / 2 - sign * dy / distance * height, (sy + ey) / 2 + sign * dx / distance * height]);
+    const [cx, cy] = centers.find(([x, y]) => ((sx - x) * (ey - y) - (sy - y) * (ex - x) > 0) === Boolean(sweep));
+    const bx = sx + ex - 2 * cx, by = sy + ey - 2 * cy, scale = 0.5 / Math.hypot(bx, by);
+    const midX = cx + bx * scale, midY = cy + by * scale;
+    assert.ok(Math.abs(Math.hypot(midX - 0.5, midY - 0.5) - (Math.SQRT1_2 - 0.5)) < 1e-12);
+  }
+});

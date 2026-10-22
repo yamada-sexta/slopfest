@@ -1,34 +1,39 @@
-# Slopfest 0.2.0 — Five ways to play
+# Slopfest 0.3.0 — Threads, light, and waves
 
-The cabinet now has five complete, local-first experiments:
+Eight complete experiments now live in the cabinet. Three join this release:
 
-- **Afterimage:** five turn-based puzzle rooms where recorded versions of your
-  past self hold doors open for your present self. A guided first rewind teaches
-  the recording mechanic as you play.
-- **Sprig:** a small rewrite language with five specimens, a live editor, three
-  palettes, and SVG export. The source also includes a command line interpreter.
-- **Unspill:** a reversible ink machine. Scatter a picture and recover every pixel
-  by running its rules backward. Includes painting, three pours, and SVG export.
-- **Threadjar:** a tiny concurrency language. Schedule workers, reproduce a lost
-  update, protect a shared jar with a key, and explore deadlocks. Inspect witness
-  traces in the browser or run the checker from source at the command line.
-- **Orbitone:** three independent rhythm rings with synthesized percussion. Change
-  lengths, pulse counts, rotations, and mutes; save eight bars as a stereo WAV.
+- **Lumenpost:** five light-routing postcards. Turn mirrors to deliver both
+  lamps to their stamps, with undo and hints that find a shortest route.
+- **Ripplefax:** a wave tank with three prepared scenes, barrier painting,
+  opposite sources, single stepping, keyboard controls, and local PNG export.
+- **Looploom:** turn tiles to join or split closed threads on a cloth whose
+  opposite edges meet. Follow a loop, walk it stitch by stitch across the seams,
+  undo turns, scatter a new cloth, and save the artwork as SVG. Quarter-circle
+  geometry now forms smooth rings in both the browser and exported artwork.
 
-The browser bundle includes the gallery and all five projects, with no accounts,
-tracking, external fonts, or dependency installation. Extract the release ZIP and
-serve it over HTTP, for example with `python3 -m http.server --bind 127.0.0.1`.
-Open the server's address in a browser, then choose an experiment from the gallery.
-Each project has instructions in its source README. To use the command line tools
-or run tests, use the source archive instead (`npm test`, Node.js 20 or newer).
+**Orbitone** also gains hand-placed rhythm pulses and shareable arrangement links.
+Afterimage, Sprig, Unspill, and Threadjar remain in the cabinet, with their puzzle
+rooms, growing drawings, reversible ink, and tiny concurrency language.
 
-Verification: 77 tests cover puzzle solutions, language parsing and evaluation,
-reversible ink rules, reachable schedules, rhythm spacing, audio synthesis, WAV
-encoding, and the portable build and server. Browser checks cover the interactive
-projects and phone layouts. The release ZIP contains only 28 manifest-listed
-browser assets; no build tools, dependencies, tests, local configuration, or
-generated media are packaged.
+Extract `slopfest-site.zip` and serve its contents over HTTP, for example:
 
-Orbitone requires Web Audio for live playback. WAV export works independently.
-Its eight-bar phrases include a half-second tail and may end before all three
-rings realign, so they are not promised to loop seamlessly.
+```sh
+python3 -m http.server --bind 127.0.0.1
+```
+
+Open the address printed by the server and choose a project from the gallery.
+The bundle uses relative URLs and needs no accounts, external assets, tracking,
+or dependency installation. Orbitone uses Web Audio for live sound; WAV export
+works independently and is not promised to produce seamless loops. Nothing else
+requires audio. To read project instructions, use the command line tools, or run
+checks, use the source archive: each directory has a README, and `npm test` runs
+with Node.js 20 or newer.
+
+Verification: all 120 tests pass and the portable static build contains exactly
+41 manifest-listed browser assets. New checks verify walking trace continuity,
+seam destinations and winding, marker bounds and export exclusion, and the
+quarter-circle geometry. Browser checks exercise the walker, complete a small
+seam loop in both directions, inspect a long winding loop, verify editing clears
+the walk, and check desktop and phone layouts. A downloaded SVG retains its
+selected thread and excludes the walking marker. Build tools, tests, source
+READMEs, local configuration, screenshots, and generated media are not packaged.

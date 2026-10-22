@@ -19,7 +19,7 @@ You can also use
 | [Orbitone](orbitone/) | Three rhythm rings with different lengths. Place pulses by hand, share arrangements as links, and save eight bars as a stereo WAV. |
 | [Lumenpost](lumenpost/) | A mirror puzzle about delivering light to postage stamps. Five postcards, two lamps, undo, and hints that find a shortest route. |
 | [Ripplefax](ripplefax/) | A wave tank for ripples, barriers, slits, and interference. Three scenes, keyboard painting, opposite sources, and PNG export. |
-| [Looploom](looploom/) | A tile loom of closed threads. Turn corners to merge or split loops, follow their journeys across seams, and save the cloth as SVG. |
+| [Looploom](looploom/) | A tile loom of closed threads. Turn corners to merge or split loops, walk them stitch by stitch across seams, and save the cloth as SVG. |
 
 ## A living playground
 

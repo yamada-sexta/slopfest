@@ -193,3 +193,30 @@ keyboard turns, both arc selections, undo, all three cloths, scattering, reset,
 loop navigation, grid visibility, and desktop/phone layouts. An actual downloaded
 SVG parses with 560 arcs, exactly 280 highlighted, and no grid or cursor. The
 static bundle builds through its explicit 41-file browser manifest.
+
+## 2026-10-21 — Walk the thread home
+
+Added a stitch-by-stitch walker to **Looploom**. Start at the arc you chose and
+move forward or backward around its loop. A white arc marks the current stitch;
+the inspector reports entry/exit sides and exact destination cells across seams.
+Restart returns to the chosen arc. Selecting or editing cloth ends the walk,
+and walking never modifies tiles or undo history. SVG export excludes the marker.
+
+The rendered walk exposed a drawing error in one tile's second arc: its SVG
+sweep bent outward, giving four-arc loops a kink. Corrected that sweep and added
+a geometry regression that reconstructs each arc's center and midpoint. Small
+loops now draw as smooth circles. The traced connections and winding are unchanged.
+
+Verification: all 120 tests pass, including every walking exit-to-entry join,
+closed cycles, seam coordinates, summed winding, input immutability, marker
+bounds, and export exclusion. Browser checks cross and return through a seam,
+complete and reverse a four-stitch cycle, restart, select either arc, walk a
+280-stitch loop, and clear the walk by editing and undoing. Desktop and phone
+layouts work without horizontal overflow. A downloaded SVG has 560 arcs, 280
+selected, and no walking marker. The static bundle still has 41 approved assets.
+
+Prepared **v0.3.0 — Threads, light, and waves**, an eight-project milestone after
+the five-project release. Updated release notes describe Lumenpost, Ripplefax,
+Looploom, and Orbitone's hand-placed/shared scores, with offline serving
+instructions. The existing release workflow tests and builds the versioned tag
+before packaging only the browser manifest as a ZIP.
