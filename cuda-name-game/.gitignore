@@ -1,0 +1,10 @@
+# Compiled modules and machine-specific measurements
+/bench
+/build.json
+/report.md
+*.cubin
+*.fatbin
+*.ptx
+*.sass
+*.resources
+*.csv

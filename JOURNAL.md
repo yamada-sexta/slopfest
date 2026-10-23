@@ -246,3 +246,30 @@ recovers the original bytes in reverse. The gallery's terminal instructions were
 checked on desktop and phone layouts. Its static bundle remains 41 approved
 browser assets; this source-only language ships through the repository, with no
 CLI files added to the Pages manifest.
+
+## 2026-10-23 — Does a kernel know its name?
+
+Added **CUDA name game** for a requested investigation of the `cutlass` kernel-name
+heuristic. Three handwritten CUDA kernels cover a vector arithmetic control,
+shared-memory matrix multiplication, and a larger register-tiled matrix multiply.
+A builder compiles equal-length neutral/cutlass prefixes from the same source,
+rejects any PTX difference beyond those names, then assembles and disassembles
+both modules. The compiler is explicitly selectable, including Homebrew GCC.
+
+A CUDA Driver API harness checks every output against independent CPU references,
+including small random matrices, ragged edges, exact periodic timing inputs, NaN
+initialization, and output guards. It warms both variants, calibrates shared
+batch sizes, and alternates AB/BA order for CUDA-event timing. The analyzer
+reports paired medians, variation between runs, and encoded SASS comparisons,
+including control words. Source links and a reproducible workflow are in the
+project README; results are scoped to the tested kernels and toolchain.
+
+Verification included three process runs of 24 paired rounds across seven
+workload/size combinations. Both names passed full output validation before and
+after timing. Compute Sanitizer memcheck completed with zero errors. Three
+GPU-independent analyzer tests cover invalid timing data, balanced ordering,
+recomputed ratios, and machine-code comparison. The installed compiler produced
+name-dependent machine code for the matrix kernels, while the vector control's
+encoded instructions matched. Hardware details, timings, compiler metadata,
+binaries, and logs remain in ignored local output. The existing 134 Node tests
+and the explicit 41-asset static build remain separate from the GPU experiment.

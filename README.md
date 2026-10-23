@@ -1,7 +1,9 @@
 # Slopfest
 
 A cabinet of small, curious programs. Each directory is its own experiment.
-Nothing here needs an account, an API key, or a dependency install.
+The browser experiments need no accounts, API keys, or dependency installation.
+Terminal projects list their runtimes. CUDA name game requires an NVIDIA GPU,
+the CUDA toolkit, and a compatible C++ compiler.
 
 Run `npm start` with Node.js 20 or newer, then open **http://localhost:4173**.
 Run `npm test` to check the puzzle engine, the languages, the reversible ink rules,
@@ -22,6 +24,7 @@ You can also use
 | [Ripplefax](ripplefax/) | A wave tank for ripples, barriers, slits, and interference. Three scenes, keyboard painting, opposite sources, and PNG export. |
 | [Looploom](looploom/) | A tile loom of closed threads. Turn corners to merge or split loops, walk them stitch by stitch across seams, and save the cloth as SVG. |
 | [Counterspell](counterspell/) | A terminal language for reversible byte spells. Trace four registers, generate an inverse program, and recover every starting byte. Node.js required. |
+| [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground
 
