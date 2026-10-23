@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node tools/serve.mjs",
     "build": "node tools/build.mjs",
-    "test": "node --test afterimage/test/*.test.mjs sprig/test/*.test.mjs unspill/test/*.test.mjs threadjar/test/*.test.mjs orbitone/test/*.test.mjs lumenpost/test/*.test.mjs ripplefax/test/*.test.mjs looploom/test/*.test.mjs tools/test/*.test.mjs"
+    "test": "node --test afterimage/test/*.test.mjs sprig/test/*.test.mjs unspill/test/*.test.mjs threadjar/test/*.test.mjs orbitone/test/*.test.mjs lumenpost/test/*.test.mjs ripplefax/test/*.test.mjs looploom/test/*.test.mjs counterspell/test/*.test.mjs tools/test/*.test.mjs"
   },
   "engines": { "node": ">=20" }
 }

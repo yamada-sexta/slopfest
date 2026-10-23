@@ -1,0 +1,4 @@
+# Carry each byte around the table. Four rounds return the seating order.
+swap a b
+swap b c
+swap c d

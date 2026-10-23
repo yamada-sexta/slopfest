@@ -220,3 +220,29 @@ the five-project release. Updated release notes describe Lumenpost, Ripplefax,
 Looploom, and Orbitone's hand-placed/shared scores, with offline serving
 instructions. The existing release workflow tests and builds the versioned tag
 before packaging only the browser manifest as a ZIP.
+
+## 2026-10-22 — Four bytes, nothing lost
+
+Added **Counterspell**, a terminal language for reversible spells on four byte
+registers. Add, subtract, XOR, rotate, complement, swap, and multiply by odd
+constants; every operation has an inverse. Nested repeats expand at compile time.
+The CLI runs forward or backward, traces each state, emits JSON, and prints an
+executable inverse program. Three spells mix neighbors, rotate a seating order,
+and borrow a register while returning it exactly as it was.
+
+No history is needed to uncast a spell: the inverse reverses operation order and
+undoes each step using the restored source values. Forms that erase information
+are rejected, including self-XOR, self-addition, and even multiplication. Source,
+repeat nesting, expansion, byte values, and compiled instructions are bounded.
+Runs and traces preserve independent snapshots, and no instruction evaluates code.
+
+Verification: all 134 tests pass. The new checks exhaust all literal arithmetic
+mappings and odd multipliers across every byte, every pair of byte values for
+register arithmetic, all rotations, and swapped pairs. They also cover exact
+results, inverse-source execution, reversing intermediate traces, repeated-block
+order, resource bounds, example contracts, and the real CLI's JSON, trace, help,
+errors, and file-size limit. The mixer takes 12,34,56,78 to 155,224,97,192 and
+recovers the original bytes in reverse. The gallery's terminal instructions were
+checked on desktop and phone layouts. Its static bundle remains 41 approved
+browser assets; this source-only language ships through the repository, with no
+CLI files added to the Pages manifest.

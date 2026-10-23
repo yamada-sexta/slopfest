@@ -1,0 +1,6 @@
+# Borrow b to turn a, then return b exactly as it was.
+add a b
+not b
+xor a b
+not b
+rol a 2

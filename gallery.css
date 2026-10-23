@@ -49,3 +49,6 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 @media(max-width:750px) { .ripplefax-card { display:block; }.ripplefax-preview { border-right:0; border-bottom:1px solid var(--line); } }
 
 .looploom-preview { background:#17212b; }.looploom-preview svg { width:100%; height:230px; margin-top:-15px; }
+
+.terminal-project { display:grid; grid-template-columns:1fr 1fr; gap:32px; padding:34px 30px; margin-top:24px; border:1px solid var(--line); border-radius:12px; background:#191d26; }.terminal-project h2 { color:#c7b2ef; }.terminal-project h2 span { float:none; margin-left:12px; }.terminal-project p { font-size:13px; margin-bottom:0; }.terminal-command .eyebrow { font-size:9px; }.terminal-command pre { color:#c7b2ef; font-size:12px; line-height:1.8; overflow-x:auto; padding-bottom:4px; }.terminal-command p { font-size:11px; }.terminal-command code { font-family:ui-monospace,monospace; }
+@media(max-width:750px) { .terminal-project { grid-template-columns:1fr; gap:26px; padding:25px 20px; }.terminal-project br { display:none; } }

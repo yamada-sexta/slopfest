@@ -1,0 +1,9 @@
+# Neighboring bytes change each other, but nothing is thrown away.
+repeat 3
+  add a b
+  rol a 3
+  xor c a
+  swap b d
+  mul d 13
+  sub b c
+end
