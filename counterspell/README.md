@@ -5,8 +5,32 @@ addition, XOR, rotation, swapping, and odd multiplication. Run backward to recov
 the exact starting state, or print an executable inverse spell. Repeats expand at
 compile time; no instruction evaluates source as JavaScript.
 
-This experiment runs from the terminal, using Node.js 20 or newer. No dependency
+Use the browser workbench or the terminal CLI (Node.js 20 or newer). No dependency
 installation, accounts, services, or generated files are needed.
+
+## Follow the bytes
+
+From the repository root, run `npm start` and open **http://localhost:4173/counterspell/**.
+The browser workbench shows four bytes in decimal, hex, and binary, with the bits
+changed by the last move outlined in amber. The high bit is on the left. Green
+`SAME` labels mean a register matches its starting value.
+
+1. Choose a specimen: the neighbor mixer, borrowed key, carousel, or a byte-edge tour.
+2. **Step** applies one instruction; **Back** computes its inverse. **Cast all**
+   reaches the end. **Uncast all** calculates its way back to the beginning.
+3. Drag the instruction slider to travel in either direction. The seven-row tape
+   follows the next instruction and displays original source line numbers, including
+   repeated lines. Focus the machine panel to use Left/Right, Home, and End.
+4. Edit the source and starting bytes, then **Load spell & restart**. Draft edits
+   pause execution; invalid drafts report an error and preserve the loaded machine.
+5. Open **An inverse you can run** to select and copy an executable inverse. Run it
+   from the completed spell's final bytes to recover the starting bytes.
+
+Backward steps use inverse arithmetic on the **current** bytes, never saved state
+snapshots. The starting bytes are retained only for comparison. For example, the
+inverse of `mul d 13` is `mul d 197`, modulo 256. Every displayed forward/backward
+preview is computed by the same engine used by the CLI. Nothing is saved to a
+server or local storage; reloading returns to the default mixer.
 
 ## Cast a spell
 
@@ -115,3 +139,8 @@ Tests exhaust every literal arithmetic mapping and odd multiplication over all
 and all swapped pairs. They check exact arithmetic, inverse source, nested repeat
 order and limits, independent intermediate snapshots, all examples, and the real
 CLI's JSON, trace, inverse-file execution, help, error status, and file size bound.
+Workbench tests compare arbitrary forward and backward jumps against independent
+execution traces, undo from deliberately incorrect starting labels, execute each
+specimen's inverse source, check every operation's explanation, and travel through
+the maximum 4,096-step program. Browser checks cover stepping, scrubbing, uncasting,
+all specimens, draft errors, inverse source, keyboard controls, and phone layout.

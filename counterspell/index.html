@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Counterspell — Four bytes, nothing lost</title><link rel="stylesheet" href="../shared.css"><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST</a><span class="mono">09 / A LANGUAGE THAT CAN TAKE IT BACK</span></header>
+<main>
+  <section class="intro"><div><div class="eyebrow">A reversible byte workbench</div><h1>Counterspell<span aria-hidden="true">↶</span></h1><p>Mix four bytes. Then unmix them.<br>Every step has a way back. Every bit comes home.</p></div><div class="seal" aria-hidden="true"><span>256</span><small>WAYS TO BE A BYTE<br>NONE TO BE LOST</small></div></section>
+  <div class="workbench">
+    <section class="editor panel" aria-labelledby="source-heading">
+      <div class="panel-heading"><h2 id="source-heading">01 / Write a spell</h2><span class="mono">.spell</span></div>
+      <div class="editor-body">
+        <label for="specimen">Start with a small curiosity</label><select id="specimen"></select>
+        <label for="source">Spell source</label><textarea id="source" spellcheck="false" autocapitalize="off" autocomplete="off" maxlength="16000" aria-describedby="draft-note"></textarea>
+        <fieldset><legend>Starting bytes <span>0–255</span></legend><div id="seeds" class="seed-grid"></div></fieldset>
+        <button id="load" class="primary">Load spell &amp; restart</button>
+        <p id="draft-note" class="small" role="status">The loaded spell is ready.</p>
+      </div>
+    </section>
+    <section id="machine" class="machine panel" tabindex="0" aria-labelledby="machine-heading" aria-describedby="keys">
+      <div class="panel-heading"><h2 id="machine-heading">02 / Follow the bytes</h2><span class="mono" id="position"></span></div>
+      <div class="machine-body">
+        <div id="registers" class="registers"></div>
+        <p class="bit-key">Binary, high bit at left. <span>Amber outlines</span> mark bits changed by the last move.</p>
+        <div class="transport"><button id="back" aria-label="Step backward">← Back</button><button id="forward" class="primary" aria-label="Step forward">Step →</button><button id="uncast">Uncast all</button><button id="cast">Cast all</button></div>
+        <label class="scrub-label" for="cursor">Instruction position <span id="progress-label" class="mono"></span></label><input id="cursor" type="range" min="0" max="18" value="0" step="1">
+        <p id="notice" class="notice" role="status" aria-live="polite"></p>
+        <div class="next-step"><div><span class="eyebrow">Next forward</span><code id="next"></code></div><p id="explanation"></p><div class="undo-preview"><span class="eyebrow">Next backward</span><code id="previous"></code></div></div>
+        <div class="tape-label"><span class="eyebrow">The expanded spell</span><span class="small">The arrow marks the next step</span></div><ol id="tape" class="tape" aria-label="Instructions near the current position"></ol>
+        <p id="keys" class="small keyboard">Focus this panel: ← / → step · Home / End go to either end.</p>
+      </div>
+    </section>
+  </div>
+  <section class="field-notes"><div><span class="eyebrow">The trick</span><h2>No undo stack.<br>Just an opposite.</h2><p>Adding becomes subtracting. A left rotation turns right. Multiplying by 13 becomes multiplying by 197, because 13 × 197 wraps around to 1.</p><p>Backward steps run those opposites in reverse order. The machine calculates its way home from the current bytes.</p></div><div class="reference"><details><summary>A pocket guide to the language</summary><p>Registers are <code>a b c d</code>. All values wrap at 256.</p><dl><dt>add / sub / xor a b</dt><dd>Mix another register or a literal byte into a.</dd><dt>mul a 13</dt><dd>Multiply by an odd byte. Even multipliers lose information.</dd><dt>rol / ror a 3</dt><dd>Rotate 0–7 bits left or right.</dd><dt>not a · swap a b</dt><dd>Flip every bit, or exchange two different registers.</dd><dt>repeat 3 … end</dt><dd>Repeat a block 1–32 times. # begins a comment.</dd></dl><p>Source registers must differ from targets. Up to four nested repeats and 4,096 expanded steps.</p></details><details id="inverse-details"><summary>An inverse you can run</summary><p>Run this spell from the <strong>finished</strong> bytes of the loaded spell to recover its starting bytes. Repeats are expanded. Select and copy it into your own spell.</p><label class="sr-only" for="inverse">Executable inverse source</label><textarea id="inverse" readonly spellcheck="false"></textarea></details></div></section>
+</main><footer><span>FOUR BYTES. NOTHING LOST.</span><span>LOCAL FIRST · NO ACCOUNTS · NO TRACKING</span></footer>
+<script type="module" src="app.mjs"></script>
+</body></html>

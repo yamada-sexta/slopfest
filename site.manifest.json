@@ -40,6 +40,12 @@
     "looploom/index.html",
     "looploom/style.css",
     "looploom/app.mjs",
-    "looploom/core.mjs"
+    "looploom/core.mjs",
+    "counterspell/index.html",
+    "counterspell/style.css",
+    "counterspell/app.mjs",
+    "counterspell/core.mjs",
+    "counterspell/workbench.mjs",
+    "counterspell/specimens.mjs"
   ]
 }

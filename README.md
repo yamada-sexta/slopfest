@@ -23,7 +23,7 @@ You can also use
 | [Lumenpost](lumenpost/) | A mirror puzzle about delivering light to postage stamps. Five postcards, two lamps, undo, and hints that find a shortest route. |
 | [Ripplefax](ripplefax/) | A wave tank for ripples, barriers, slits, and interference. Three scenes, keyboard painting, opposite sources, and PNG export. |
 | [Looploom](looploom/) | A tile loom of closed threads. Turn corners to merge or split loops, walk them stitch by stitch across seams, and save the cloth as SVG. |
-| [Counterspell](counterspell/) | A terminal language for reversible byte spells. Trace four registers, generate an inverse program, and recover every starting byte. Node.js required. |
+| [Counterspell](counterspell/) | A reversible byte language with a browser workbench and CLI. Watch the bits, step either way, generate an inverse spell, and recover every starting byte. |
 | [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground

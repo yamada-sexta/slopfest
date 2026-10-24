@@ -273,3 +273,31 @@ name-dependent machine code for the matrix kernels, while the vector control's
 encoded instructions matched. Hardware details, timings, compiler metadata,
 binaries, and logs remain in ignored local output. The existing 134 Node tests
 and the explicit 41-asset static build remain separate from the GPU experiment.
+
+## 2026-10-23 — A spell with a visible way home
+
+Gave **Counterspell** a browser workbench and made it the ninth browser experiment
+in the cabinet. Four register cards show decimal, hex, and binary values, starting
+values, and the bits changed by the last move. Step forward or backward, cast or
+uncast the whole spell, or scrub to an arbitrary instruction position. A compact
+expanded tape follows the current instruction and its original source line;
+forward and backward previews show the operations the engine will actually run.
+
+The workbench retains the current bytes, program, inverse program, and position.
+Backward travel applies inverse instructions to those bytes; the initial values
+are comparison labels, never undo snapshots. The editor pauses execution while a
+draft differs from the loaded spell. Loading validates source and starting bytes
+before replacing the machine. Four specimens cover the existing mixer, borrowed
+key, and carousel, plus an edge-of-byte tour. A pocket language guide and an
+executable inverse source panel make the arithmetic inspectable and reusable.
+
+Verification: all 141 Node tests pass, including seven new workbench tests for
+nonsequential travel against independent traces, inverse execution despite a
+poisoned starting label, specimen parity with CLI sources, operation explanations,
+invalid inputs, immutable state, and a 4,096-step program. Browser checks cover all
+four specimens, exact mixer recovery, per-step inversion, machine and slider
+keyboard controls, invalid source and starting bytes preserving the loaded state,
+and executing the displayed inverse as a new spell. Desktop and 390/320-pixel
+phone layouts have no horizontal overflow. The gallery links to the workbench;
+the static bundle now has 47 explicitly approved browser assets. No dependency
+or service was added, and the CLI remains available from the source checkout.
