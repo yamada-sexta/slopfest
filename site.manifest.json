@@ -46,6 +46,10 @@
     "counterspell/app.mjs",
     "counterspell/core.mjs",
     "counterspell/workbench.mjs",
-    "counterspell/specimens.mjs"
+    "counterspell/specimens.mjs",
+    "chorusfield/index.html",
+    "chorusfield/style.css",
+    "chorusfield/app.mjs",
+    "chorusfield/core.mjs"
   ]
 }

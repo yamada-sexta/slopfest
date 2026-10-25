@@ -301,3 +301,35 @@ and executing the displayed inverse as a new spell. Desktop and 390/320-pixel
 phone layouts have no horizontal overflow. The gallery links to the workbench;
 the static bundle now has 47 explicitly approved browser assets. No dependency
 or service was added, and the CLI remains available from the source checkout.
+
+## 2026-10-24 — A neighbor who listens
+
+Added **Chorusfield**, a silent meadow of 72 little clocks, as the tenth browser
+experiment. Nearby clocks gently pull one another's phase toward a common pace.
+Three seeded clearings show a shared rhythm forming, two internally synchronized
+but disconnected choirs, and independent clocks drifting without a neighbor's
+pull. Change listening distance, pull, or natural speed variation; tap a light to
+nudge it a quarter turn; scatter phases; or move exactly a tenth-second or ten
+seconds at a time. A selected clock shows its listening circle and connections.
+
+Clock hands, phase colors, and brightening halos make timing visible. The meter
+and a bounded 30-second history measure whole-field phase agreement, with notes
+explaining why two local choirs can still disagree globally. The simulation uses
+fixed synchronous numerical steps: every clock reads the old field before new
+phases are installed. It is a mathematical toy, with no claim to model firefly
+biology. SVG stills preserve the current clocks, time, and agreement without
+inspection guides. Keyboard selection and nudging accompany pointer controls.
+
+Verification: all 151 Node tests pass. Ten new tests cover exact distance
+boundaries, hand-calculated simultaneous derivatives, closed-form independent
+clock motion, node-order and batch invariance, known alignment values, local
+versus global choir timing, synchronization after reconnecting islands, isolated
+nudges, repeatable scattering, export geometry, and invalid bounds. Browser
+checks reproduce 99.9% agreement after ten seconds in the first clearing and
+24.9% for disconnected choirs; widening their listening distance to 700 joins
+them. Animation, paused setting edits, stepping, reset, pointer/keyboard nudges,
+all presets, and the downloaded 72-clock SVG work. After forty simulated seconds,
+the chart keeps 301 tenth-second samples spanning the last thirty seconds.
+Desktop and 390/320-pixel phone layouts have no horizontal overflow. The gallery
+links to the new project, and the build contains 51 explicitly approved assets.
+No dependency, account, or service was added.
