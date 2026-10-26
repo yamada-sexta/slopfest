@@ -9,7 +9,7 @@ Run `npm start` with Node.js 20 or newer, then open **http://localhost:4173**.
 Run `npm test` to check the puzzle engine, the languages, the reversible ink rules,
 the scheduler explorer, the rhythm and WAV engine, the light-routing puzzles,
 the wave tank, the loop tracer, the reversible byte language, the clock meadow,
-the local server, and the release builder.
+the universal word ribbon, the local server, and the release builder.
 You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
@@ -25,6 +25,7 @@ You can also use
 | [Looploom](looploom/) | A tile loom of closed threads. Turn corners to merge or split loops, walk them stitch by stitch across seams, and save the cloth as SVG. |
 | [Counterspell](counterspell/) | A reversible byte language with a browser workbench and CLI. Watch the bits, step either way, generate an inverse spell, and recover every starting byte. |
 | [Chorusfield](chorusfield/) | A meadow of little clocks. Nudge a light, change who it hears, and watch one chorus or two separate choirs find their timing. SVG stills included. |
+| [Wordloop](wordloop/) | Every possible short word exactly once on a circular ribbon. Walk a lap, find a word, inspect the join, and save the ring as SVG. |
 | [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground

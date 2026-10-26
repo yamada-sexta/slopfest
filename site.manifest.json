@@ -50,6 +50,10 @@
     "chorusfield/index.html",
     "chorusfield/style.css",
     "chorusfield/app.mjs",
-    "chorusfield/core.mjs"
+    "chorusfield/core.mjs",
+    "wordloop/index.html",
+    "wordloop/style.css",
+    "wordloop/app.mjs",
+    "wordloop/core.mjs"
   ]
 }

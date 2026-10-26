@@ -333,3 +333,34 @@ the chart keeps 301 tenth-second samples spanning the last thirty seconds.
 Desktop and 390/320-pixel phone layouts have no horizontal overflow. The gallery
 links to the new project, and the build contains 51 explicitly approved assets.
 No dependency, account, or service was added.
+
+## 2026-10-25 — Every word, one small loop
+
+Added **Wordloop**, a circular ribbon containing every possible short word exactly
+once. Binary symbols, three letters, or compass directions combine with word
+lengths from one through five. A suffix graph and an iterative circuit walk build
+the ring, then an independent audit reads all cyclic windows to check for missing
+and repeated words. The largest supported ring holds 1,024 five-symbol words in
+1,024 beads. Every bead begins one word, so these circular ribbons are minimal.
+
+Walk forward or backward, find a word, tap a bead, or take an animated lap that
+returns to its starting position. The visit meter records the walk separately
+from the ring's completeness proof. An enlarged straight ribbon makes overlap
+and the join visible, including repeated context on tiny rings. Keyboard controls
+cover stepping, the first and last positions, and walking or pausing. SVG stills
+preserve every bead and the selected word. Lookup errors retain the current
+window and visits; case and surrounding whitespace are normalized on valid input.
+
+Verification: all 159 Node tests pass. Eight new tests independently enumerate the
+word spaces for all three shipped alphabets and five lengths, compare every
+lookup and wrapping window, test deterministic examples, catch missing/repeated
+words, traverse full laps, check pointer geometry through 1,024 positions, inspect
+SVG highlights, and reject invalid inputs. Browser checks confirm the default
+join-crossing word `100` reads beads 8, 1, and 2; invalid lookups preserve state;
+and both small and 1,024-position laps finish with all words visited, back at the
+starting bead. Pointer selection, keyboard wrapping, pause/reset, all alphabets,
+one-symbol words, and padded lowercase lookup work. A downloaded large SVG has
+1,024 bead groups, five highlighted symbols, and the correct seam-crossing word.
+Desktop and 390/320-pixel phone layouts have no horizontal overflow. The gallery
+now holds eleven browser experiments, and the static build includes 55 explicitly
+approved assets. No dependency or service was added.

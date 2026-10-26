@@ -53,3 +53,5 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .counterspell-preview { background:#191a26; }.counterspell-preview svg { width:100%; height:230px; margin-top:-15px; }.counterspell-card .project-link { color:#c9b4f1; }
 
 .chorusfield-preview { background:#101e1c; }.chorusfield-preview svg { width:100%; height:230px; margin-top:-15px; }.chorusfield-card .project-link { color:#e2d39b; }
+
+.wordloop-preview { background:#202129; }.wordloop-preview svg { width:100%; height:230px; margin-top:-15px; }.wordloop-card .project-link { color:#efba9a; }
