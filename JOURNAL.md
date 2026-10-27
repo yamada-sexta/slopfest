@@ -364,3 +364,34 @@ one-symbol words, and padded lowercase lookup work. A downloaded large SVG has
 Desktop and 390/320-pixel phone layouts have no horizontal overflow. The gallery
 now holds eleven browser experiments, and the static build includes 55 explicitly
 approved assets. No dependency or service was added.
+
+## 2026-10-26 — Follow the pen
+
+Returned to **Sprig** to make its drawings readable as a process. Draw replays a
+specimen from a blank page; pause, step in either direction, jump to the start or
+finish, or scrub through every visible mark. Each stroke and bud retains its
+position in the expanded word. A small excerpt highlights the current symbol,
+and the optional last-mark ring follows branch returns and nondrawing moves.
+The camera stays fixed on the full drawing, so a tiny beginning does not fill
+the entire screen. Keyboard controls accompany the buttons and slider.
+
+SVG export now saves the current moment, including unfinished and empty drawings,
+without the inspection ring. Complete exports remain identical to the original
+serializer, and the command line still exports the whole drawing. Palette edits
+retain pen position; seed and geometry changes show the new full result. Editing
+pauses immediately, invalid drafts preserve the last good picture and disable
+replay/export, and hiding the tab pauses playback. Prefix counts provide direct
+access to any frame without storing a separate geometry snapshot for every mark.
+
+Verification: all 167 Node tests pass. Eight new tests cover ordered interleaved
+strokes and buds, silent moves, restored branches, every specimen's prefix counts
+against an independent symbol scan, exact full SVG compatibility across palettes,
+fixed-camera partial exports, empty words, excerpt boundaries, malformed traces,
+and the 100,000-symbol and 30,000-stroke limits. Browser checks cover all five
+specimens, playback and pause, keyboard and slider travel, palette retention,
+generation/angle resets, and recovery from an invalid and then empty seed. A
+partial downloaded SVG contains exactly one stroke and two buds with the full
+viewport; a complete download matches the original serializer byte for byte.
+Desktop and 390/320-pixel phone layouts fit without horizontal overflow. The
+catalog describes replay, and the build includes 56 explicitly approved browser
+assets. No dependency or service was added.

@@ -64,17 +64,20 @@ export function expand(program, depth = program.depth) {
 }
 
 export function trace(symbols, { angle, step }) {
+  if (symbols.length > LIMITS.symbols) throw new SprigError('Growth exceeds 100,000 symbols. Try a smaller depth.');
   let x = 0, y = 0, heading = -90;
-  const stack = [], segments = [], buds = [];
+  const stack = [], segments = [], buds = [], marks = [];
   const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
   const include = (px, py) => { bounds.minX = Math.min(bounds.minX, px); bounds.maxX = Math.max(bounds.maxX, px); bounds.minY = Math.min(bounds.minY, py); bounds.maxY = Math.max(bounds.maxY, py); };
-  for (const symbol of symbols) {
+  for (let source = 0; source < symbols.length; source++) {
+    const symbol = symbols[source];
     if (symbol === 'F' || symbol === 'M') {
       const rad = heading * Math.PI / 180;
       const nx = x + Math.cos(rad) * step, ny = y + Math.sin(rad) * step;
       if (symbol === 'F') {
         if (segments.length >= LIMITS.segments) throw new SprigError('Growth exceeds 30,000 strokes. Try a smaller depth.');
         segments.push({ x1: x, y1: y, x2: nx, y2: ny, branch: stack.length });
+        marks.push({ kind: 'stroke', index: segments.length - 1, source });
         include(x, y); include(nx, ny);
       }
       x = nx; y = ny;
@@ -85,11 +88,11 @@ export function trace(symbols, { angle, step }) {
     else if (symbol === ']') {
       if (!stack.length) throw new SprigError('A closing ] needs an opening [.');
       ({ x, y, heading } = stack.pop());
-    } else if (symbol === '.') { buds.push({ x, y }); include(x, y); }
+    } else if (symbol === '.') { buds.push({ x, y }); marks.push({ kind: 'bud', index: buds.length - 1, source }); include(x, y); }
     else if (!/[A-Z]/.test(symbol)) throw new SprigError(`Unknown drawing symbol: ${symbol}`);
   }
   if (stack.length) throw new SprigError('Every opening [ needs a closing ].');
-  return { segments, buds, bounds };
+  return { segments, buds, bounds, marks };
 }
 
 const palettes = { moss: ['#14201a', '#c6e494', '#f0b689'], blueprint: ['#152a3b', '#9fd9ec', '#f0d792'], ink: ['#eee9dc', '#304239', '#af5939'] };

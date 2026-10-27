@@ -16,7 +16,7 @@ You can also use
 | Project | What lives inside |
 | --- | --- |
 | [Afterimage](afterimage/) | A puzzle game about borrowing help from your past. Five rooms, three ghosts, and a guided first rewind. |
-| [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. A live editor, five specimens, and an SVG command line tool. |
+| [Sprig](sprig/) | A tiny rewrite language that grows vector drawings. Follow the pen, scrub through strokes and buds, and save unfinished SVGs. Five specimens and a command line tool. |
 | [Unspill](unspill/) | A reversible ink machine. Scatter a picture, paint a new one, then recover every pixel by running time backward. |
 | [Threadjar](threadjar/) | A tiny concurrency language and scheduler. Choose a worker's next turn, find missing marbles, and explore every possible ending. |
 | [Orbitone](orbitone/) | Three rhythm rings with different lengths. Place pulses by hand, share arrangements as links, and save eight bars as a stereo WAV. |
