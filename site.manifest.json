@@ -55,6 +55,10 @@
     "wordloop/index.html",
     "wordloop/style.css",
     "wordloop/app.mjs",
-    "wordloop/core.mjs"
+    "wordloop/core.mjs",
+    "crumble/index.html",
+    "crumble/style.css",
+    "crumble/app.mjs",
+    "crumble/core.mjs"
   ]
 }

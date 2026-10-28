@@ -395,3 +395,36 @@ viewport; a complete download matches the original serializer byte for byte.
 Desktop and 390/320-pixel phone layouts fit without horizontal overflow. The
 catalog describes replay, and the build includes 56 explicitly approved browser
 assets. No dependency or service was added.
+
+## 2026-10-27 — Just one more grain
+
+Added **Crumble**, the twelfth browser experiment: a small sandpile with open
+edges. A cell with four grains topples, giving one grain to each cardinal
+neighbor. Drop grains, take one parallel wave, animate an avalanche, or settle
+it immediately. Three postcards begin with one mountain, two heaps, and a
+three-grain carpet disturbed by one extra grain. The opening pictures are
+settled; replaying a pour reveals the avalanche that made them.
+
+A second drawing layer counts every cell's topplings, with a logarithmic heat
+map and exact counts at the selected cell. The receipt balances every poured
+grain against what remains and what escaped. An order check starts from the
+entire recorded input twice, settling the oldest ready cell first and the newest
+ready cell first. Both final heights and per-cell topplings agree, even though
+the queues can visit cells different numbers of times. The picture stays in
+place during the comparison. Keyboard and pointer selection, paused stepping,
+explicit replay/reset, and SVG postcards complete the toy.
+
+Verification: all 178 Node tests pass. Eleven new tests check exact neighbor and
+edge behavior, synchronous waves, both bulk queues against a separate random
+single-topple interpreter, known postcard results, decreasing finite potential,
+conservation, interleaved drops, independently owned arrays, every cell center,
+SVG geometry and colors, invalid inputs, and the largest supported pour. The
+first postcard finishes with 1,992 grains present and 2,104 escaped after 232,420
+topplings. Browser checks reproduce all three postcards and order comparisons,
+pause and complete a replay with a keyboard drop, select a corner with the
+pointer, and confirm that its first topple loses exactly two grains. Downloaded
+work and unfinished-grain SVGs match their engine states byte for byte. The
+8,192-grain budget rejects another drop without changing counts or the drawing.
+Desktop and 390/320-pixel phone layouts fit without horizontal overflow. The
+gallery links to Crumble, and the build contains 60 explicitly approved assets.
+No dependency or service was added.

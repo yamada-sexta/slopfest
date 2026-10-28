@@ -55,3 +55,5 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .chorusfield-preview { background:#101e1c; }.chorusfield-preview svg { width:100%; height:230px; margin-top:-15px; }.chorusfield-card .project-link { color:#e2d39b; }
 
 .wordloop-preview { background:#202129; }.wordloop-preview svg { width:100%; height:230px; margin-top:-15px; }.wordloop-card .project-link { color:#efba9a; }
+
+.crumble-preview { background:#132427; }.crumble-preview svg { width:100%; height:220px; margin-top:-17px; }.crumble-card .project-link { color:#e9bc7e; }
