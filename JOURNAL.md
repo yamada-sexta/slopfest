@@ -428,3 +428,33 @@ work and unfinished-grain SVGs match their engine states byte for byte. The
 Desktop and 390/320-pixel phone layouts fit without horizontal overflow. The
 gallery links to Crumble, and the build contains 60 explicitly approved assets.
 No dependency or service was added.
+
+## 2026-10-28 — Code takes the long way home
+
+Added **Detour**, a terminal language whose program is a two-dimensional map.
+A cursor walks in through a single entrance, carrying one byte. Arrows and mirrors
+steer it; arithmetic changes its pocket; commas consume input bytes; dots and
+colons print. A question mark turns right on zero and left otherwise. Spaces are
+real track, and map edges do not wrap. Four executable examples greet, count down
+through a mirrored loop, echo UTF-8 input, and repeat a small route forever.
+
+The walker records complete future-relevant states, including the input cursor.
+An exact repeat reports a cycle prefix, period, and repeating output block;
+exhausting a budget reports a separate resource stop. Immutable snapshots support
+human traces, structured JSON, and SVG footprints showing visited cells and the
+final cursor. Raw output remains byte-exact. Source, input, output, and execution
+are bounded, and SVG exports refuse to replace existing files. No source is
+evaluated as JavaScript.
+
+Verification: all 191 Node tests pass. Thirteen new tests exhaust byte arithmetic,
+relative turns, and mirror directions; compare a separate velocity-vector walker
+against seeded random maps and all examples; check repeated-input echo, UTF-8 and
+NUL, exact silent/productive cycle witnesses, budget boundaries, independent
+frozen results, SVG cell visits and escaped text, and the 100,000-step maximum.
+Real CLI subprocesses verify raw bytes, traces, JSON, every exit-status category,
+invalid files/options, and exclusive writes. The countdown prints `3 2 1 0 ` in
+38 steps; the forever map proves a two-step prefix and six-step cycle. A generated
+countdown SVG parses as 28 cells, 38 visits, and 39 route points, and its rendered
+preview keeps glyphs readable above the route. The root catalog links to the
+new terminal project. The static build still has 60 approved browser assets;
+Detour runs directly from the source checkout. No dependency or service was added.
