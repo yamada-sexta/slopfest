@@ -5,8 +5,45 @@ byte, and walks east. Arrows and mirrors steer it. Arithmetic changes its pocket
 commas read bytes, dots print them, and a question mark chooses a turn. Each
 visited tile is a step, including spaces. Code takes the long way home.
 
-This is a terminal project for Node.js 20 or newer. There are no dependencies,
-services, browser assets, or build step.
+Use the browser map room or the terminal CLI with Node.js 20 or newer.
+There are no dependencies or external services.
+
+## Follow the map
+
+From the repository root, run `npm start` and open **http://localhost:4173/detour/**.
+Four map packets preserve the executable CLI examples. The countdown opens with
+its cursor at the entrance. **Step** executes one tile; **Back** restores the
+previous recorded state and retracts its output. **Walk** follows the trace,
+**Start** returns to the entrance, **To end** reveals the final state, and the
+step slider can inspect any moment. At the end, Walk replays from the beginning.
+
+The orange box and arrow mark the next tile and travel direction. The pocket
+appears in decimal, binary, and hexadecimal, beside coordinates and consumed
+input bytes. The next-tile preview explains the actual pending operation, including
+which way a question mark will turn. Output uses the same escaped-byte notation
+as the human CLI summary; incomplete UTF-8 is shown as bytes rather than guessed
+characters. Input text is encoded as UTF-8 when loaded.
+
+Edit source, input, or the trace budget, then **Load map & restart**. Any edit
+pauses and disables execution and export immediately. Failed loads preserve the
+last good map and cursor until a valid draft is loaded. **Restore** reloads the
+selected packet and its original input; the chosen budget stays in place. Nothing
+is stored locally or uploaded. Focus the drawing for **Left / Right**, **Home /
+End**, and **Space** to step, jump, and walk or pause. Hiding the page pauses a walk.
+
+At a proven cycle's endpoint, purple frames mark tiles in the repeat and a proof
+panel identifies the matching earlier state. **Show matching earlier state**
+jumps to it, preserving the same cursor, pocket, direction, and input cursor while
+retracting the intervening output. A budget endpoint explicitly says no loop has
+been proved. The browser records at most 10,000 steps, with a default of 2,000;
+the CLI and engine retain their larger limits. Playback takes roughly twenty
+seconds for long traces and five tiles per second for short ones.
+
+**Save this SVG** exports the current trace prefix with its cursor and output,
+including the ready state before the entrance executes. The full map and camera
+stay fixed across exports. Full-run exports retain the CLI's original format.
+The workbench's Back button restores trace snapshots: byte arithmetic and input
+reads are not reversible instructions.
 
 ## Take a walk
 
@@ -84,7 +121,7 @@ output into a nonrepeating prefix and one complete repeating block;
 before the cycle, so a start of 2 means the first cycle tile is step 3 in the trace.
 This is an exact repeated-state witness, including silent cycles.
 
-The default step budget is 20,000. `--steps N` accepts 1–100,000. Reaching the
+The CLI and engine default step budget is 20,000. `--steps N` accepts 1–100,000. Reaching the
 budget gives `step-limit`, **not** a claim that the map loops. At most 8,192 output
 bytes may be emitted. If the next tile would exceed that limit, `output-limit`
 stops **before** that tile executes; decimal emissions are never cut in half.
@@ -123,6 +160,7 @@ const map = parse('@9***.+.4***+.#');
 const result = run(map, { input: encodeInput(''), trace: true });
 // result.output is [72, 73, 33]; result.status is 'halted'.
 const drawing = toSVG(map, result);
+const beginning = toSVG(map, result, { position: 3 }); // First three executed tiles.
 ```
 
 `initial(map)` returns the entry cursor. `advance(map, cursor, inputBytes)` executes
@@ -130,7 +168,8 @@ one tile and returns the next cursor, emitted bytes, and any terminal status.
 `run` copies input bytes, freezes its output and trace snapshots, and leaves the
 map and caller's input unchanged. Parsed maps are immutable; use `parse` rather
 than constructing or mutating compiled objects. SVG export requires a traced run
-of that exact map. No source is evaluated as JavaScript.
+of that exact map. Its optional `position` selects a recorded prefix, defaulting
+to the full run. No source is evaluated as JavaScript.
 
 ## Verification
 
@@ -145,4 +184,7 @@ budget boundaries, immutability, exported visits/routes/XML escaping, and maximu
 step/output/input bounds. Real CLI subprocesses verify raw bytes, human and JSON
 traces, all exit statuses, invalid flags/files, and exclusive SVG writes.
 `npm test` includes these checks in the cabinet. `npm run build` still packages
-only the browser projects; Detour runs from the source checkout.
+the allowlisted browser assets, including the map room. The CLI remains available
+from the source checkout. Workbench tests cover every frame, output prefix, visit
+count, branch preview, cycle jump, and partial SVG, plus malformed drafts and all
+stop conditions. Browser specimens are checked against the CLI source files.

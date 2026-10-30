@@ -72,20 +72,24 @@ export function escapedBytes(bytes) {
   return Array.from(bytes, value => value === 10 ? '\\n' : value === 13 ? '\\r' : value === 9 ? '\\t' : value === 34 ? '\\"' : value === 92 ? '\\\\' : value >= 32 && value <= 126 ? String.fromCharCode(value) : `\\x${value.toString(16).padStart(2, '0')}`).join('');
 }
 const xml = value => String(value).replace(/[<>&"']/g, character => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' })[character]);
-export function toSVG(program, result) {
+export function toSVG(program, result, { position } = {}) {
   checkProgram(program);
   if (executions.get(result) !== program || result.history === null) fail('Export a run of this map with trace enabled.');
+  if (position === undefined) position = result.steps;
+  if (!Number.isInteger(position) || position < 0 || position > result.steps) fail('Choose a recorded step inside this trace.');
+  const history = result.history.slice(0, position);
+  const view = position === result.steps ? result : { status: position === 0 ? 'ready' : 'paused', steps: position, cursor: position === 0 ? initial(program) : history.at(-1).after, output: history.flatMap(entry => entry.emitted), cycle: null };
   const cell = 28, width = Math.max(360, program.width * cell + 72), height = Math.max(180, program.height * cell + 144), left = (width - program.width * cell) / 2, top = 53;
   const visits = new Uint32Array(program.width * program.height);
-  for (const entry of result.history) visits[entry.before.y * program.width + entry.before.x]++;
+  for (const entry of history) visits[entry.before.y * program.width + entry.before.x]++;
   const center = point => `${left + point.x * cell + cell / 2},${top + point.y * cell + cell / 2}`;
-  const points = result.history.map(entry => center(entry.before)); if (result.history.length) points.push(center(result.cursor));
+  const points = history.map(entry => center(entry.before)); points.push(center(view.cursor));
   const labels = [];
   const cells = program.rows.flatMap((row, y) => [...row].map((op, x) => {
     const count = visits[y * program.width + x];
     if (op !== ' ') labels.push(`<text x="${left + x * cell + 14}" y="${top + y * cell + 19}" text-anchor="middle" font-family="monospace" font-size="17" paint-order="stroke" stroke="#1a2620" stroke-width="1.5" fill="${op === '@' || op === '#' ? '#f1bd83' : '#e2ebd6'}">${xml(op)}</text>`);
     return `<g data-cell="${x + 1},${y + 1}" data-visits="${count}"><rect x="${left + x * cell}" y="${top + y * cell}" width="27" height="27" rx="3" fill="${count ? '#304938' : '#1a2620'}"/></g>`;
   })).join('');
-  const outputText = escapedBytes(result.output), preview = outputText.slice(0, 42) + (outputText.length > 42 ? '…' : '');
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Detour execution route"><rect width="${width}" height="${height}" fill="#122018"/><text x="24" y="28" font-family="monospace" font-size="13" fill="#cce393">DETOUR / CODE TAKES A WALK</text>${cells}${points.length ? `<polyline points="${points.join(' ')}" fill="none" stroke="#b5d58a" stroke-width="3" opacity=".28" stroke-linecap="round" stroke-linejoin="round"/>${labels.join('')}<circle cx="${left + result.cursor.x * cell + cell / 2}" cy="${top + result.cursor.y * cell + cell / 2}" r="10" fill="none" stroke="#f1bd83" stroke-width="2"/>` : labels.join('')}<text x="24" y="${height - 53}" fill="#dce5cc" font-family="monospace" font-size="10">${xml(result.status)} / ${result.steps} steps / pocket ${result.cursor.byte}</text><text x="24" y="${height - 32}" fill="#b1c3aa" font-family="monospace" font-size="10">output: ${xml(preview)}</text><text x="24" y="${height - 13}" fill="#b1c3aa" font-family="monospace" font-size="9">${result.cycle ? `prefix: ${result.cycle.start} steps / cycle: ${result.cycle.period} steps` : 'one tile = one step / ring = final cursor'}</text></svg>`;
+  const outputText = escapedBytes(view.output), preview = outputText.slice(0, 42) + (outputText.length > 42 ? '…' : '');
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Detour execution route"><rect width="${width}" height="${height}" fill="#122018"/><text x="24" y="28" font-family="monospace" font-size="13" fill="#cce393">DETOUR / CODE TAKES A WALK</text>${cells}${points.length ? `<polyline points="${points.join(' ')}" fill="none" stroke="#b5d58a" stroke-width="3" opacity=".28" stroke-linecap="round" stroke-linejoin="round"/>${labels.join('')}<circle cx="${left + view.cursor.x * cell + cell / 2}" cy="${top + view.cursor.y * cell + cell / 2}" r="10" fill="none" stroke="#f1bd83" stroke-width="2"/>` : labels.join('')}<text x="24" y="${height - 53}" fill="#dce5cc" font-family="monospace" font-size="10">${xml(view.status)} / ${view.steps} steps / pocket ${view.cursor.byte}</text><text x="24" y="${height - 32}" fill="#b1c3aa" font-family="monospace" font-size="10">output: ${xml(preview)}</text><text x="24" y="${height - 13}" fill="#b1c3aa" font-family="monospace" font-size="9">${view.cycle ? `prefix: ${view.cycle.start} steps / cycle: ${view.cycle.period} steps` : 'one tile = one step / ring = final cursor'}</text></svg>`;
 }

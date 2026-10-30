@@ -458,3 +458,39 @@ countdown SVG parses as 28 cells, 38 visits, and 39 route points, and its render
 preview keeps glyphs readable above the route. The root catalog links to the
 new terminal project. The static build still has 60 approved browser assets;
 Detour runs directly from the source checkout. No dependency or service was added.
+
+## 2026-10-29 — The map room
+
+Gave **Detour** a browser workbench, making it the thirteenth browser experiment.
+The cursor shows the next tile, while a byte pocket, heading, coordinates, input
+cursor, and escaped output follow the recorded execution. Step, step backward,
+scrub, or animate the walk. A preview explains the actual pending operation,
+including why the countdown turns left with three in its pocket and right with
+zero. Source, UTF-8 input, and trace budget are editable; drafts pause and disable
+execution/export, and failed loads preserve the last loaded map and cursor.
+
+At a proven repeat, loop tiles are framed and a button jumps to the matching
+earlier state. The cursor, pocket, heading, and input position match while the
+intervening output is retracted. Step and output limits retain their distinct
+explanations. SVG can now save any trace prefix, including the ready state before
+the first tile. The camera stays fixed, and complete exports remain byte-identical
+to the previous CLI serializer. Browser map packets match the four executable
+CLI files. The browser caps traces at 10,000 steps; the CLI still supports 100,000.
+
+Verification: all 201 Node tests pass. Ten new checks cover specimen parity,
+every frame/output/visit prefix, nonsequential backward jumps, faithful operation
+previews, cycle witnesses and bounded summaries, partial SVG geometry, all stop
+conditions, and failed drafts. Browser checks reproduce the 38-step countdown,
+15-step greeting, 53-step UTF-8 echo, and two-step-prefix/six-step cycle. A second
+map exhausts a 200-step budget, then proves its 2,048-step byte cycle with a larger
+budget. The 8,192-byte output stop leaves its tile unexecuted. Oversized UTF-8
+input preserves the loaded trace, a 64 × 64 map runs, and edge exits are visible.
+Downloaded complete and ten-step SVGs match the engine; the partial has ten
+visits, pocket two, and only the earlier `3 ` output. Desktop and 390/320-pixel
+phone layouts fit, including long escaped cycle output and full input counters.
+
+Version 0.4.0 is the release checkpoint for thirteen browser experiments and 66
+explicitly approved static assets. It gathers Counterspell, Chorusfield, Wordloop,
+Crumble, Detour, and Sprig's replay improvements since v0.3.0. The source checkout
+retains the CLIs and CUDA project; the site archive contains only the vetted
+browser bundle. No dependency or service was added.

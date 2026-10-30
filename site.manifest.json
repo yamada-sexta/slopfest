@@ -59,6 +59,12 @@
     "crumble/index.html",
     "crumble/style.css",
     "crumble/app.mjs",
-    "crumble/core.mjs"
+    "crumble/core.mjs",
+    "detour/index.html",
+    "detour/style.css",
+    "detour/app.mjs",
+    "detour/core.mjs",
+    "detour/workbench.mjs",
+    "detour/specimens.mjs"
   ]
 }
