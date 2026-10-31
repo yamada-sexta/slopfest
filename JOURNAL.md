@@ -494,3 +494,35 @@ explicitly approved static assets. It gathers Counterspell, Chorusfield, Wordloo
 Crumble, Detour, and Sprig's replay improvements since v0.3.0. The source checkout
 retains the CLIs and CUDA project; the site archive contains only the vetted
 browser bundle. No dependency or service was added.
+
+## 2026-10-30 — A small goodnight
+
+Added **Knockturn**, the fourteenth browser experiment: a little building of
+cross-toggle windows. A knock flips its window and immediate cardinal neighbors;
+edges stop the cross. Six rooms grow from a three-by-three landing to a five-by-five
+building, with shortest starting routes of 1, 2, 4, 5, 6, and 8 knocks. The first
+room directly explains its one-knock center solution. Undo, reset, a room selector,
+and next-room controls keep the puzzle forgiving, with no timer or saved score.
+
+Dotted frames preview a knock. Hints frame and focus a window without changing
+lights; a whole-plan overlay reveals a smallest set of windows to knock in any
+order. Hints are calculated from the current pattern using binary elimination
+and enumeration of every valid free-variable combination, rather than a stored
+walkthrough. ON/OFF text, accessible hint/plan labels, roving keyboard focus, and
+arrow-key navigation accompany the mouse controls. SVG postcards save the actual
+lights and counts, without helpers. Two knocks at one window cancel; undo also
+reopens solved rooms.
+
+Verification: all 209 Node tests pass. Eight new tests compare every reachable
+3 × 3 and 4 × 4 board with independent exhaustive press enumeration, compare
+5 × 5 boards with a separate complete row-chasing solver, and check topology,
+boundaries, cancellation, commutativity, null spaces, minimum ties, improving
+hints, postcard data, and invalid bounds. Browser checks complete all six rooms
+with the displayed minimum plans, verify a hint changes no lights, undo a win,
+wrap the final room to the first, preserve focus through keyboard knocks, and
+recover from a move that raises the remaining distance. A downloaded five-by-five
+postcard matches the engine byte for byte: 25 windows, 18 lit, two cancelling
+knocks, and six remaining. Desktop and 390/320-pixel phone layouts have no
+horizontal overflow; the narrow five-by-five targets remain over 44 pixels wide.
+The gallery and root catalog include Knockturn, and the static build contains 70
+explicitly approved browser assets. No dependency or service was added.

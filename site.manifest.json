@@ -65,6 +65,10 @@
     "detour/app.mjs",
     "detour/core.mjs",
     "detour/workbench.mjs",
-    "detour/specimens.mjs"
+    "detour/specimens.mjs",
+    "knockturn/index.html",
+    "knockturn/style.css",
+    "knockturn/app.mjs",
+    "knockturn/core.mjs"
   ]
 }
