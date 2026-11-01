@@ -526,3 +526,31 @@ knocks, and six remaining. Desktop and 390/320-pixel phone layouts have no
 horizontal overflow; the narrow five-by-five targets remain over 44 pixels wide.
 The gallery and root catalog include Knockturn, and the static build contains 70
 explicitly approved browser assets. No dependency or service was added.
+
+## 2026-10-31 — Every stitch came home
+
+Added **Backstitch**, a terminal tapestry with a two-row memory. Any elementary
+rule from 0 through 255 can weave a binary ring outward, then return exactly to
+both starting rows. Forward evolution XORs the ordinary rule's output with the
+past row; backward evolution cancels it with the same XOR. This changes the
+machine into a reversible second-order automaton, rather than claiming an inverse
+for an ordinary rule that discards information. The return leg receives only the
+final pair and rule, with no access to the outward snapshots.
+
+The CLI prints paired plain-text tapestries or complete JSON. SVG exports put
+mint outward rows beside amber homeward rows, with time labels in opposite
+orders and an exact-recovery report. Custom starting pairs, all 256 rules,
+1–160-cell rings, and zero through 256 steps per leg are supported. Frozen engine
+snapshots retain both rows; file exports refuse replacement. There are no runtime
+dependencies, services, terminal escape sequences, or browser assets to install.
+
+Verification: all 221 Node tests pass. Twelve new checks compare every rule with
+an independent neighborhood table on every row up to seven cells, exhaust all
+87,040 rule/pair combinations on rings up to four cells to prove both inverse
+laws and distinct outputs, and rebuild longer journeys from serialized endpoints.
+They also cover ring edges, nonzero memories, maximum bounds, frozen results,
+SVG ink geometry and reversed row times, real CLI output and JSON, invalid options,
+and exclusive writes. The rule-110, 79-cell, 64-step SVG was rendered and visually
+inspected: its return ends at the original centered stitch. The root catalog
+includes this source-checkout project; the static build retains its 70 explicitly
+approved browser assets. Generated tapestries and preview images remain ignored.
