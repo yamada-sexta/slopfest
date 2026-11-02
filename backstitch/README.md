@@ -1,9 +1,38 @@
 # Backstitch
 
-A small terminal machine for coming home. Weave a row of bits into a tapestry,
-then run the machine backward until every stitch returns. Mint travels outward;
-amber travels home. Both panels show the current row, with time descending on the
-right. The row's ends meet on a ring.
+A small machine for coming home, in the browser or terminal. Weave a row of bits
+into a tapestry, then run the machine backward until every stitch returns. The
+row's ends meet on a ring. The terminal export pairs mint outward and amber
+homeward panels, both showing the current row, with time descending on the right.
+
+## The browser loom
+
+Run `npm start` at the repository root and open **http://localhost:4173/backstitch/**,
+or choose Backstitch in the gallery. Four specimens start 32 stitches out so there
+is already something to bring home. Try **Forget the trail**, then **Weave home**:
+the erased drawing grows back while the machine reverses from its live pair.
+
+Use one-step buttons in either direction, animate outward or homeward, or pause.
+Time is bounded between zero and the chosen cloth depth. The amber frame marks
+the present; mint marks are recorded rows. Lavender and amber strips below the
+cloth show the two live rows. Open **Inspect the two live rows** for readable bits.
+A separate starting pair is retained for the homecoming comparison; it is never
+used by the inverse rule. The drawing stores only current rows, not state pairs.
+
+**Make your own starting pair** accepts equal-width binary rows, any rule from
+0–255, and a depth from 1–256. Applying starts at time zero. Editing pauses the
+loom and disables transport/export until the draft is applied or discarded. A
+failed load preserves the current pair, cloth, and time. Presets replace the
+draft immediately. Reset returns to the loaded seed; it does not load a specimen.
+Native buttons work with keyboard focus and Enter/Space. Animation runs only on
+request and pauses when the page becomes hidden.
+
+**Save visible cloth SVG** records exactly the cloth on screen and both live
+rows. Forgotten and unvisited gaps stay blank. This is a different export from
+the terminal's complete two-panel journey. Browser downloads use the browser's
+normal filename handling. There is no persistence, account, or network service.
+
+## The terminal tapestry
 
 No packages, browser, GPU, or network access are needed. Use Node.js 20 or newer
 from the repository root:
@@ -89,5 +118,12 @@ snapshots, SVG row order and ink geometry, real CLI runs, JSON, malformed argume
 and exclusive file writes. No timing benchmark or random search is needed to
 establish reversibility.
 
-Backstitch is a source-checkout terminal project. It is listed in the root catalog;
-its CLI and generated tapestries are excluded from the browser-only Pages bundle.
+Seven browser-loom engine tests additionally reconstruct erased trails for all
+256 rules, compare different drawing histories, exercise mixed-direction walks,
+reset and boundaries, maximum cloths, exact gaps and live memories in SVG, ink
+geometry, invalid inputs, and immutable snapshots. Browser QA also checks the
+actual controls, failed drafts, downloads, animation, and narrow layouts.
+
+The gallery and Pages bundle include only five approved browser assets: HTML,
+CSS, the app, the core, and the loom. The CLI, tests, and generated tapestries stay
+outside the browser release.

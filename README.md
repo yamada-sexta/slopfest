@@ -30,7 +30,7 @@ You can also use
 | [Crumble](crumble/) | A little sandpile avalanche. Drop grains, follow parallel waves, inspect the toppling heat map, and compare two orders of falling. SVG postcards included. |
 | [Detour](detour/) | A map language with a browser workbench and CLI. Follow the cursor, inspect its byte pocket, step backward, prove repeating routes, and save SVG footprints at any point. |
 | [Knockturn](knockturn/) | Put a little building to sleep. Six cross-toggle window puzzles, undo, provably shortest hints, quiet-plan overlays, and SVG postcards. |
-| [Backstitch](backstitch/) | A terminal tapestry that comes home. Run any of 256 two-row cellular rules outward, then reverse from the endpoint alone. Plain text, JSON, and paired SVGs. |
+| [Backstitch](backstitch/) | A reversible tapestry with a browser loom and CLI. Weave, forget the drawing, and bring every bit home from two live rows. Custom seeds, 256 rules, and SVG cloths. |
 | [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground

@@ -554,3 +554,33 @@ and exclusive writes. The rule-110, 79-cell, 64-step SVG was rendered and visual
 inspected: its return ends at the original centered stitch. The root catalog
 includes this source-checkout project; the static build retains its 70 explicitly
 approved browser assets. Generated tapestries and preview images remain ignored.
+
+## 2026-11-01 — Forget the way, keep the way home
+
+Opened **Backstitch's browser loom**, the fifteenth experiment on the gallery
+shelf. Four specimens begin 32 stitches out. Weave in either direction, take one
+step, or pause; the clock is bounded by the loaded cloth depth. Mint marks form
+the drawing, an amber frame follows the present, and two live memory strips sit
+below the cloth. Readable binary rows are available in an inspector. The starting
+pair is kept separately for the homecoming check, without entering the inverse.
+
+The important button is **Forget the trail**. It discards every mark except the
+present row, leaving both live rows unchanged. Running backward reconstructs the
+missing drawing from that pair and the rule. The loom's evolution calls the same
+inverse as the CLI; it never uses the drawing trail as a state log. Custom binary
+pairs, all 256 rules, widths through 160, and cloth depths through 256 are editable.
+Drafts pause transport and disable exports; failed loads keep the last loom intact.
+Saving the visible cloth preserves its gaps and both live rows rather than
+silently rendering a complete journey. The CLI's two-panel SVG stays unchanged.
+
+Verification: all 228 Node tests pass. Seven new tests erase and reconstruct
+journeys under every rule, compare different drawing histories and mixed-direction
+walks, check immutable snapshots and boundaries, and exercise maximum-size cloths,
+SVG ink geometry, exact live pairs, and unrecorded gaps. Browser checks bring all
+four specimens home after forgetting, exercise keyboard steps and failed drafts,
+and load a 160-cell, 256-step custom cloth. A downloaded forgotten-cloth SVG matches
+the serializer byte for byte: time three, one recorded row, and both live memories.
+Desktop and narrow phone layouts are inspected with the editor open. The root
+catalog and gallery link to the loom; the static build has 75 explicitly approved
+assets. No dependency, service, or persistence was added, and generated artifacts
+remain ignored.

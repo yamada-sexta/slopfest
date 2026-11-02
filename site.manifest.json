@@ -69,6 +69,11 @@
     "knockturn/index.html",
     "knockturn/style.css",
     "knockturn/app.mjs",
-    "knockturn/core.mjs"
+    "knockturn/core.mjs",
+    "backstitch/index.html",
+    "backstitch/style.css",
+    "backstitch/app.mjs",
+    "backstitch/core.mjs",
+    "backstitch/loom.mjs"
   ]
 }

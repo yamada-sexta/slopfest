@@ -61,3 +61,5 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .detour-preview { background:#122018; }.detour-preview svg { width:100%; height:230px; margin-top:2px; }.detour-card .project-link { color:#cce393; }
 
 .knockturn-preview { background:#211c2b; }.knockturn-preview svg { width:100%; height:220px; margin-top:-16px; }.knockturn-card .project-link { color:#f2bd81; }
+
+.backstitch-preview { background:#142630; }.backstitch-preview svg { width:100%; height:220px; margin-top:-20px; }.backstitch-card .project-link { color:#9bdeca; }
