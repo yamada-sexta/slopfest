@@ -74,6 +74,11 @@
     "backstitch/style.css",
     "backstitch/app.mjs",
     "backstitch/core.mjs",
-    "backstitch/loom.mjs"
+    "backstitch/loom.mjs",
+    "pocketyard/index.html",
+    "pocketyard/style.css",
+    "pocketyard/app.mjs",
+    "pocketyard/core.mjs",
+    "pocketyard/rooms.mjs"
   ]
 }

@@ -584,3 +584,38 @@ Desktop and narrow phone layouts are inspected with the editor open. The root
 catalog and gallery link to the loom; the static build has 75 explicitly approved
 assets. No dependency, service, or persistence was added, and generated artifacts
 remain ignored.
+
+## 2026-11-02 — Little freight, a little order
+
+Added **Pocketyard**, the sixteenth browser experiment: a toy shunting yard with
+three tracks and numbered wagons. Pick a track's exposed rightmost wagon, then
+choose another track with room. The wagon joins that track's right end. Small
+dispatch rows beneath each track show the required order, including empty tracks.
+The first puzzle explicitly teaches its one-transfer solution, B to A; the second
+teaches temporary parking. Six dispatches begin 1, 3, 5, 7, 9, and 12 transfers
+from home, without a timer or persistent score.
+
+Hints mark and focus a source and mark a destination without moving anything.
+They come from exact breadth-first distances over the current yard's state graph,
+rather than a recorded walkthrough. Every transfer has a legal inverse; six
+wagons on three three-space tracks have 7,200 arrangements. The solver caches
+distances from the goal and handles detours. Undo also reopens a win. Full tracks
+refuse arrivals while preserving the selection, and clicking a selected track
+again cancels it. Wagon numbers, textual hints, native keyboard buttons, and a
+focus jump to Next accompany the colors and outlines. SVG postcards put the
+current yard beside its dispatch order, without selection or hint marks.
+
+Verification: all 234 Node tests pass. Six new tests compare shortest distances
+and returned routes for 9,336 boards against an independent array-stack graph and
+synchronous distance relaxation. They also exercise every legal and illegal
+transfer on all 7,200 six-wagon boards, exact inverses, conserved wagons,
+unreachable tight-capacity yards, immutable results, invalid inputs, and escaped
+SVG exports. Browser playthroughs complete all six dispatches using live hints;
+other checks cover keyboard wins, hints that do not move wagons, undo after a win,
+cancel, empty sources, full destinations, detours, and wrapping to the first room.
+A downloaded postcard matches the serializer byte for byte: six wagons, two
+transfers, and ten shortest remaining. Its rendered preview was inspected.
+Desktop and 390/320-pixel layouts fit, with large full-track targets. The root
+catalog and gallery link to Pocketyard; the build contains 80 explicitly approved
+browser assets. No dependency, service, or persistence was added. Generated
+postcards, screenshots, and test logs remain ignored.
