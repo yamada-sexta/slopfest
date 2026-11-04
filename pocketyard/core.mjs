@@ -77,6 +77,23 @@ export function solve(yard, tracks) {
   return Object.freeze({ distance: entry.distance, route: Object.freeze(route) });
 }
 
+export function yardStats(yard) {
+  checkYard(yard);
+  const known = distances(yard), counts = [];
+  for (const entry of known.values()) counts[entry.distance] = (counts[entry.distance] ?? 0) + 1;
+  return Object.freeze({ states: known.size, maxDistance: counts.length - 1, counts: Object.freeze(counts) });
+}
+// Choose from a complete distance layer, rather than counting random moves.
+// Choice cycles deterministically through that layer in search order.
+export function scramble(yard, distance, choice = 0) {
+  checkYard(yard);
+  if (!Number.isInteger(distance) || distance < 0 || !Number.isInteger(choice) || choice < 0 || choice > 0xffffffff) throw new Error('Use a nonnegative whole distance and a 32-bit choice.');
+  const candidates = [];
+  for (const [encoded, entry] of distances(yard)) if (entry.distance === distance) candidates.push(encoded);
+  if (!candidates.length) throw new Error('No arrangement exists at that distance from this goal.');
+  return board(yard, candidates[choice % candidates.length].split('|'));
+}
+
 const COLORS = Object.freeze(['#e9b37e', '#8fcac5', '#d3b6da', '#b5ce86', '#e29c94', '#acc5e0']);
 export function toSVG(yard, tracks, { title = 'A small dispatch', moves = 0 } = {}) {
   const state = board(yard, tracks), solution = solve(yard, state);

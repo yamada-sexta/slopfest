@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createYard, board, transfer, legalMoves, isSolved, solve, toSVG } from '../core.mjs';
+import { createYard, board, transfer, legalMoves, isSolved, solve, toSVG, yardStats } from '../core.mjs';
 import { ROOMS } from '../rooms.mjs';
 
 function permutations(values) {
@@ -45,8 +45,12 @@ test('Every arrangement through six wagons agrees with independent fixed-point s
     [2, 1, [[1], [2], []]], [3, 2, [[1, 2], [3], []]],
     [4, 3, [[1, 2], [3, 4], []]], [5, 2, [[1, 2], [3, 4], [5]]],
     [5, 3, [[1, 2, 3], [4, 5], []]], [6, 3, [[1, 2, 3], [4, 5, 6], []]],
+    [6, 3, [[1, 2], [3, 4], [5, 6]]],
   ]) {
     const yard = createYard(goal.map(row => row.join('')), capacity), expected = oracle(count, capacity, goal);
+    const counts = [];
+    for (const cost of expected.costs) if (Number.isFinite(cost)) counts[cost] = (counts[cost] ?? 0) + 1;
+    assert.deepEqual(yardStats(yard), { states: counts.reduce((a,b) => a+b,0), maxDistance: counts.length - 1, counts });
     for (let i = 0; i < expected.states.length; i++) {
       let state = expected.states[i].map(row => row.join(''));
       const actual = solve(yard, state);
@@ -59,7 +63,10 @@ test('Every arrangement through six wagons agrees with independent fixed-point s
       }
       assert.equal(isSolved(yard, state), true);
     }
-    if (count === 6) { assert.equal(expected.states.length, 7200); assert.equal(Math.max(...expected.costs), 19); }
+    if (count === 6) {
+      assert.equal(expected.states.length, 7200);
+      if (goal[0].length === 3) assert.equal(Math.max(...expected.costs), 19);
+    }
   }
 });
 

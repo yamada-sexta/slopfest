@@ -1,11 +1,19 @@
-import { transfer, isSolved, solve, toSVG } from './core.mjs';
+import { transfer, isSolved, solve, toSVG, yardStats, scramble } from './core.mjs';
 import { ROOMS } from './rooms.mjs';
+import { makeDispatch, encodeDispatch, decodeDispatch } from './dispatch.mjs';
 
 const $ = id => document.getElementById(id), NAMES = ['A', 'B', 'C'];
 const COLORS = ['#e9b37e', '#8fcac5', '#d3b6da', '#b5ce86', '#e29c94', '#acc5e0'];
-let roomIndex = 0, state, history = [], selected = null, hint = null;
+let roomIndex = 0, customRoom = null, state, history = [], selected = null, hint = null, choice = 0;
 const buttons = [], groups = [];
-const currentRoom = () => ROOMS[roomIndex];
+const currentRoom = () => roomIndex === null ? customRoom : ROOMS[roomIndex];
+function fillMaker(start, goal) {
+  for (const [i, name] of ['a', 'b', 'c'].entries()) {
+    $(`start-${name}`).value = start[i]; $(`goal-${name}`).value = goal[i];
+  }
+  $('maker-error').textContent = '';
+}
+function clearShare() { $('share-link').value = ''; $('link-error').textContent = ''; }
 function wagon(id, small = false) {
   const element = document.createElement('span'); element.className = small ? 'goal-car' : 'wagon';
   element.style.setProperty('--wagon', COLORS[Number(id) - 1]); element.textContent = id; return element;
@@ -54,12 +62,20 @@ function choose(index) {
   render(won ? 'Every wagon matches the dispatch. Ready to roll! Undo is still available.' : `Wagon ${car} moved from ${NAMES[from]} to ${NAMES[index]}. Choose the next exposed wagon.`);
   if (won) $('next').focus();
 }
-function loadRoom(index) {
+function loadRoom(index, message) {
   roomIndex = index; const room = currentRoom();
   state = room.start; history = []; selected = null; hint = null;
-  $('room').value = String(index); $('room-title').textContent = room.title; $('room-note').textContent = room.note;
-  $('room-number').textContent = `DISPATCH ${String(index + 1).padStart(2, '0')} / ${String(ROOMS.length).padStart(2, '0')}`;
+  $('room').value = index === null ? 'custom' : String(index); $('room-title').textContent = room.title; $('room-note').textContent = room.note;
+  $('room-number').textContent = index === null ? 'YOUR DISPATCH' : `DISPATCH ${String(index + 1).padStart(2, '0')} / ${String(ROOMS.length).padStart(2, '0')}`;
   $('par').textContent = `This dispatch starts ${room.par} transfers from home. Hints update after every detour.`;
+  $('next').textContent = index === null ? 'First dispatch →' : 'Next dispatch →';
+  fillMaker(room.start, room.yard.goal); clearShare();
+  const stats = yardStats(room.yard);
+  $('distance').max = stats.maxDistance;
+  $('distance').value = Math.min(Math.max(1, room.par), stats.maxDistance);
+  $('yard-space').textContent = `${stats.states.toLocaleString('en-US')} arrangements for this goal. Exact distances run from 0 to ${stats.maxDistance}. Repeated deals cycle through the selected distance.`;
+  $('deal-error').textContent = '';
+  window.history.replaceState(null, '', index === null ? encodeDispatch(room.start, room.yard.goal) : location.pathname + location.search);
   $('tracks').replaceChildren(); buttons.length = 0; groups.length = 0;
   for (let i = 0; i < 3; i++) {
     const group = document.createElement('div'); group.className = 'track-group';
@@ -76,9 +92,10 @@ function loadRoom(index) {
     const match = document.createElement('span'); match.className = 'goal-check'; goal.append(order, match);
     group.append(heading, button, goal); $('tracks').append(group); buttons.push(button); groups.push(group);
   }
-  render(index === 0 ? 'Your first transfer: choose track B, then track A. Wagon 2 will join wagon 1.' : 'Choose an exposed wagon, then a receiving track. The small dispatch rows show the goal.');
+  render(message ?? (index === 0 ? 'Your first transfer: choose track B, then track A. Wagon 2 will join wagon 1.' : room.par === 0 ? 'Already in dispatch order. Deal a scramble for this goal, or make another starting yard.' : 'Choose an exposed wagon, then a receiving track. The small dispatch rows show the goal.'));
 }
 ROOMS.forEach((room, i) => { const option = document.createElement('option'); option.value = i; option.textContent = `${String(i + 1).padStart(2, '0')} / ${room.title}`; $('room').append(option); });
+const customOption = document.createElement('option'); customOption.value = 'custom'; customOption.textContent = 'Your dispatch'; customOption.disabled = true; $('room').append(customOption);
 $('room').addEventListener('change', () => loadRoom(Number($('room').value)));
 $('reset').addEventListener('click', () => loadRoom(roomIndex));
 $('cancel').addEventListener('click', () => { selected = null; hint = null; render('Selection cancelled. Choose another exposed wagon.'); });
@@ -88,11 +105,45 @@ $('hint').addEventListener('click', () => {
   render(`Hint: move wagon ${hint.wagon} from ${NAMES[hint.from]} to ${NAMES[hint.to]}. This leaves ${route.length - 1} transfers on a shortest route. Nothing has moved yet.`);
   buttons[hint.from].focus();
 });
-$('next').addEventListener('click', () => { loadRoom((roomIndex + 1) % ROOMS.length); buttons[0].focus(); });
+$('next').addEventListener('click', () => { loadRoom(roomIndex === null ? 0 : (roomIndex + 1) % ROOMS.length); buttons[0].focus(); });
 $('save').addEventListener('click', () => {
   const room = currentRoom(), svg = toSVG(room.yard, state, { title: room.title, moves: history.length });
   const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
   const link = document.createElement('a'); link.href = url; link.download = 'pocketyard-dispatch.svg'; link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000); render('Saved the current yard and its dispatch order as SVG. Helpers stay out of the postcard.');
 });
-loadRoom(0);
+$('maker-form').addEventListener('submit', event => {
+  event.preventDefault();
+  try {
+    const start = ['a','b','c'].map(name => $(`start-${name}`).value), goal = ['a','b','c'].map(name => $(`goal-${name}`).value);
+    const dispatch = makeDispatch(start, goal);
+    customRoom = dispatch; loadRoom(null, `Your dispatch is loaded: ${dispatch.par} shortest transfers from the goal.`);
+  } catch (error) { $('maker-error').textContent = `${error.message} The loaded yard is intact.`; }
+});
+$('use-current').addEventListener('click', () => { fillMaker(state, currentRoom().yard.goal); $('maker-error').textContent = 'Current wagons copied into the draft. Apply to start a new attempt here.'; });
+$('deal').addEventListener('click', () => {
+  try {
+    const room = currentRoom(), distance = $('distance').valueAsNumber;
+    if (!Number.isInteger(distance) || distance < 1 || distance > Number($('distance').max)) throw new Error(`Choose a whole distance from 1 to ${$('distance').max}.`);
+    const start = scramble(room.yard, distance, choice), dispatch = Object.freeze({ ...room, title: 'Your dispatch', note: 'A fresh starting yard for the loaded goal. Its shortest distance is exact.', start, par: distance });
+    choice = (choice + 1) >>> 0; customRoom = dispatch;
+    loadRoom(null, `Dealt a yard exactly ${distance} transfers from the goal. Hints and undo are ready.`);
+  } catch (error) { $('deal-error').textContent = `${error.message} The loaded yard is intact.`; }
+});
+$('share').addEventListener('click', () => {
+  const room = currentRoom(), url = new URL(location.href);
+  url.search = '';
+  url.hash = encodeDispatch(room.start, room.yard.goal);
+  $('share-link').value = url.href; $('share-link').focus(); $('share-link').select();
+});
+function readLink() {
+  if (!location.hash) { loadRoom(0); return; }
+  try { const dispatch = decodeDispatch(location.hash); customRoom = dispatch; loadRoom(null, `Shared dispatch loaded: ${dispatch.par} shortest transfers from the goal.`); }
+  catch (error) {
+    if (!state) loadRoom(0);
+    $('sharing').open = true;
+    $('link-error').textContent = `Could not load the shared dispatch: ${error.message} The loaded yard is intact.`;
+  }
+}
+window.addEventListener('hashchange', readLink);
+readLink();

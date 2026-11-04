@@ -31,7 +31,7 @@ You can also use
 | [Detour](detour/) | A map language with a browser workbench and CLI. Follow the cursor, inspect its byte pocket, step backward, prove repeating routes, and save SVG footprints at any point. |
 | [Knockturn](knockturn/) | Put a little building to sleep. Six cross-toggle window puzzles, undo, provably shortest hints, quiet-plan overlays, and SVG postcards. |
 | [Backstitch](backstitch/) | A reversible tapestry with a browser loom and CLI. Weave, forget the drawing, and bring every bit home from two live rows. Custom seeds, 256 rules, and SVG cloths. |
-| [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Six dispatches, temporary parking, undo, exact shortest-route hints, and SVG yard postcards. |
+| [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
 | [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground

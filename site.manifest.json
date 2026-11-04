@@ -79,6 +79,7 @@
     "pocketyard/style.css",
     "pocketyard/app.mjs",
     "pocketyard/core.mjs",
-    "pocketyard/rooms.mjs"
+    "pocketyard/rooms.mjs",
+    "pocketyard/dispatch.mjs"
   ]
 }

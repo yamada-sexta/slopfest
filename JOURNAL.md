@@ -619,3 +619,42 @@ Desktop and 390/320-pixel layouts fit, with large full-track targets. The root
 catalog and gallery link to Pocketyard; the build contains 80 explicitly approved
 browser assets. No dependency, service, or persistence was added. Generated
 postcards, screenshots, and test logs remain ignored.
+
+## 2026-11-03 — Write the dispatch yourself
+
+Opened **Pocketyard's dispatch maker**. Edit three starting tracks and three goal
+tracks, apply a new puzzle, or copy a partially worked yard into the draft. Equal
+sets of one through six distinct wagons are required, with at most three per
+track. Invalid drafts leave the loaded yard and its undo history intact. Hints,
+undo, reset, postcards, and the original six dispatches work with custom puzzles.
+Already-arranged starts are accepted as complete with zero transfers.
+
+A dealer chooses an arrangement from an exact shortest-distance layer, keeping
+the loaded goal. Repeated deals cycle through that layer, and the goal determines
+the available difficulty. The six-wagon goal split 3/3/0 reaches 19 transfers;
+the 2/2/2 goal reaches 17. Frozen layer histograms and deterministic scramble
+selection extend the existing exact solver without exposing its cache.
+
+Compact versioned links carry only the starting wagons and their goal in an
+address fragment. Reload opens a fresh attempt; progress, hints, drafts, and query
+parameters stay out of the packet. A strict parser validates both arrangements
+before changing the loaded puzzle. Invalid incoming fragments preserve an active
+yard, while invalid initial links fall back to the first dispatch with an error.
+Custom apply/deal actions update the address, and guided dispatches clear it.
+
+Verification: all 241 Node tests pass. Seven new maker tests cover exact layers,
+deterministic cycles, the 19-transfer extreme, tiny and disconnected yards,
+immutable histograms, curated puzzle round-trips, zero-transfer starts, partial
+positions, malformed/oversized/future links, and input bounds. Existing independent
+graph checks now cover 16,536 boards, including a second six-wagon goal layout,
+and compare complete distance histograms as well as returned shortest routes.
+Browser checks exercise failed drafts and links, shared reloads, custom hints and
+undo, two distinct 19-transfer deals, changing goal-dependent maxima, single-wagon
+and already-ordered puzzles, query-free share URLs, and 390/320-pixel layouts.
+
+Version 0.5.0 is the checkpoint for sixteen browser experiments and 81 explicitly
+approved static assets. It gathers Knockturn, Backstitch's CLI and browser loom,
+and Pocketyard with its dispatch maker since v0.4.0. The root catalog, gallery,
+project instructions, and release notes describe the finished behavior. No new
+dependency, service, storage, or machine configuration was added; generated
+artifacts remain ignored.

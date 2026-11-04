@@ -1,24 +1,22 @@
-# Slopfest 0.4.0 — Code takes a walk
+# Slopfest 0.5.0 — A place for every little wagon
 
-Thirteen browser experiments now live in the cabinet. This release completes
-Detour's map room and gathers five additions since v0.3.0:
+Sixteen browser experiments now live in the cabinet. This release adds three
+projects since v0.4.0 and opens Pocketyard's dispatch maker:
 
-- **Detour:** run a map of arrows and mirrors with one byte in your pocket.
-  Step forward or backward, follow the cursor, inspect actual branch decisions,
-  edit input, distinguish proven loops from budget stops, and export any recorded
-  moment as SVG. The same walker powers the source checkout's CLI.
-- **Crumble:** an open-edge sandpile. Drop grains, animate parallel waves, inspect
-  the toppling heat map, and compare oldest-first and newest-first avalanches.
-- **Wordloop:** a minimal circular ribbon containing every possible short word
-  exactly once. Walk, look up words, inspect the join, and save SVG rings.
-- **Chorusfield:** a meadow of coupled clocks. Nudge a light, change who it hears,
-  and watch one chorus or disconnected choirs find their timing.
-- **Counterspell:** a reversible four-byte language, with a browser workbench,
-  instruction stepping in either direction, generated inverse spells, and a CLI.
+- **Pocketyard:** a tiny shunting puzzle with six guided dispatches, temporary
+  parking, undo, exact shortest-route hints, and SVG postcards. Arrange custom
+  starts and goals, deal a scramble at an exact minimum distance, and pass puzzles
+  along as compact links. Invalid drafts and incoming links preserve the loaded
+  yard. The first dispatch is one transfer: choose B, then A.
+- **Backstitch:** weave a cellular tapestry, erase the drawing trail, then
+  reconstruct it from two live rows and the rule. A browser loom and terminal CLI
+  share the same reversible engine. Custom binary pairs, all 256 rules, readable
+  memories, exact homecoming checks, and SVG exports are included.
+- **Knockturn:** put a building to sleep with cross-toggle window knocks. Six
+  rooms, undo, shortest hints, whole-plan overlays, keyboard navigation, and SVG
+  postcards. The first room directly explains its one-knock center solution.
 
-**Sprig** gains drawing replay, stroke/bud stepping, expanded-symbol inspection,
-and unfinished SVG exports with a fixed camera. Existing games, instruments,
-puzzles, and simulations remain in the cabinet.
+The existing games, languages, instruments, and simulations remain in the cabinet.
 
 Extract `slopfest-site.zip` and serve its contents over HTTP:
 
@@ -27,20 +25,27 @@ python3 -m http.server --bind 127.0.0.1
 ```
 
 Open the address printed by the server and choose a project from the gallery.
-The portable bundle uses relative URLs and needs no accounts, external assets,
-tracking, or dependency installation. Orbitone uses Web Audio for live sound;
-its WAV export works independently. Generated media stays on your device.
+The bundle uses relative URLs and needs no accounts, external assets, tracking,
+or dependency installation. Pocketyard links keep the puzzle in the address
+fragment; they begin at the shared starting arrangement, with a fresh move count.
+Generated media stays on your device. Orbitone uses Web Audio for live sound;
+its WAV export works independently.
 
-For project READMEs, CLI tools, and tests, use the source archive with Node.js 20
-or newer. Detour and Counterspell include executable examples. CUDA name game is
-source-only and additionally requires an NVIDIA GPU, the CUDA toolkit, and a
-compatible C++ compiler; benchmark outputs are excluded from this release.
+For READMEs, tests, and CLIs, use the source archive with Node.js 20 or newer.
+Backstitch, Detour, Counterspell, and Sprig include terminal tools. CUDA name game
+is source-only and additionally requires an NVIDIA GPU, the CUDA toolkit, and a
+compatible C++ compiler. Machine-specific benchmark outputs are excluded.
 
-Verification: all 201 Node tests pass. The static build contains exactly 66
-manifest-listed browser assets. Detour workbench checks compare every cursor,
-byte prefix, and visit count against direct execution; test all stop conditions,
-cycle jumps, malformed drafts, and partial SVGs; and preserve the CLI examples.
-Browser checks cover both countdown branches, backward travel, playback/pause,
-UTF-8 input, exact cycle witnesses, error recovery, maximum map size, step/output
-limits, downloaded SVGs, and desktop/phone layouts. Source, tests, READMEs, local
-configuration, screenshots, caches, and generated exports are not in the site ZIP.
+Verification: all 241 Node tests pass. The static bundle contains exactly 81
+manifest-listed browser assets. Pocketyard shortest distances and layer counts
+are checked against an independent graph and synchronous relaxation over 16,536
+boards, including different six-wagon goals. New checks cover exact-distance
+deals, immutable histograms, canonical shared packets, invalid inputs, and zero-
+transfer starts. Knockturn's minima and Backstitch's inverse laws have exhaustive
+small-state checks and independent references. Browser QA covers all curated
+puzzles, failed drafts/links, reloads, a 19-transfer deal, live memories, maximum
+cloths, keyboard controls, SVG downloads, and desktop/phone layouts.
+
+The site ZIP contains only the vetted browser assets. Source, tests, READMEs,
+credentials, local configuration, screenshots, caches, and generated media are
+excluded from it.
