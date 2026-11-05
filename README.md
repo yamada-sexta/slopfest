@@ -10,7 +10,8 @@ Run `npm test` to check the puzzle engine, the languages, the reversible ink rul
 the scheduler explorer, the rhythm and WAV engine, the light-routing puzzles,
 the wave tank, the loop tracer, the reversible byte language, the clock meadow,
 the universal word ribbon, the sandpile, the map walker, the window puzzle, the
-two-row tapestry, the wagon-shunting puzzle, the local server, and the release builder.
+two-row tapestry, the wagon-shunting puzzle, the paper-folding model, the local
+server, and the release builder.
 You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
@@ -32,6 +33,7 @@ You can also use
 | [Knockturn](knockturn/) | Put a little building to sleep. Six cross-toggle window puzzles, undo, provably shortest hints, quiet-plan overlays, and SVG postcards. |
 | [Backstitch](backstitch/) | A reversible tapestry with a browser loom and CLI. Weave, forget the drawing, and bring every bit home from two live rows. Custom seeds, 256 rules, and SVG cloths. |
 | [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
+| [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
 | [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
 
 ## A living playground

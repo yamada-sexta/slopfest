@@ -658,3 +658,32 @@ and Pocketyard with its dispatch maker since v0.4.0. The root catalog, gallery,
 project instructions, and release notes describe the finished behavior. No new
 dependency, service, storage, or machine configuration was added; generated
 artifacts remain ignored.
+
+## 2026-11-04 — A little paper, taking sides
+
+Added **Turnleaf**, a terminal paper-folding lab. Start with a strip of numbered
+panels, then fold its left half over its right or its right half over its left.
+The moving half lands on top, reversing both its cell order and layer order and
+flipping every face. The model keeps immutable frames with each original panel's
+identity and upward-facing side. Widths from one through 64 panels are supported,
+in powers of two. Complete half-folds halve the width and double the layer count.
+
+The CLI prints final packets from top to bottom, optionally traces every fold,
+emits structured JSON, locates an original panel, and saves an SVG diagram with
+a single-panel highlight. SVG columns read left to right and layers read down;
+front-up layers are gold and back-up layers are mint. The default 16-panel `LRR`
+strip becomes two eight-layer packets, with panel 1 six layers down in the first.
+Exports refuse to replace files. The model ignores crease thickness, and IDs on
+back-facing layers remain annotations to the original numbered strip.
+
+Verification: all 251 Node tests pass. Ten new tests check all 247 valid fold
+words across the supported widths against a separate per-panel coordinate model,
+reflecting x, height z, and orientation rather than constructing stacks. They
+also check hand-folded fixtures, left/right mirror symmetry, conserved panels,
+every trace prefix, exact lookup depths, immutable results, SVG layer order and
+highlights, input limits, real CLI text/JSON, and exclusive file writes. A rendered
+SVG of the default fold was visually inspected, including the highlighted lookup.
+The root catalog links to the new source-checkout project. The browser bundle
+retains its 81 approved assets; terminal code, diagrams, previews, and test logs
+stay outside it. No dependency or service was added, and generated artifacts
+remain ignored.
