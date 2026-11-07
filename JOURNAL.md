@@ -687,3 +687,40 @@ The root catalog links to the new source-checkout project. The browser bundle
 retains its 81 approved assets; terminal code, diagrams, previews, and test logs
 stay outside it. No dependency or service was added, and generated artifacts
 remain ignored.
+
+## 2026-11-06 — The advantage of choosing second
+
+Added **Slydice**, a terminal lab for nontransitive dice. Its default trio has
+A beating B, B beating C, and C beating A, each on five of nine equally likely
+face pairings. All three dice have the same mean. Pick any die first and the lab
+can name another with an advantage against it. Exact integer counts explain
+the result; there is no random sampling or dependence on a lucky trial.
+
+The forge exhaustively divides consecutive integers among three dice of three,
+four, or five faces. It visits each partition once, ignoring face order and die
+names, tests both possible cycle directions, and maximizes the weakest winning
+edge. Among 280, 5,775, and 126,126 partitions, respectively, it finds 5, 13, and
+1,732 cycles. The best weakest edges are 5/9, 9/16, and 15/25. Only three
+five-face partitions reach the last score. These are finite partition results;
+custom dice with repeated labels belong to a broader problem.
+
+The CLI also accepts three custom dice with up to eight faces apiece, labels
+0–99, repeats, and ties. It sorts copied faces, reports a complete win matrix,
+finds the strongest strict-majority counterpick, and explains when none exists.
+Ties remain in the denominator and are never rerolled. JSON retains exact counts,
+search histograms, and recommendations. Immutable engine results protect cached
+searches. SVG postcards show every face pairing, including separate rows for
+repeated labels, with wins, losses, and ties distinguished by color. Exports
+refuse overwrites, and invalid inputs are checked before writing.
+
+Verification: all 261 Node tests pass. Ten new tests include a separate rank-word
+oracle that checks all 132,181 supported partitions and their full histograms,
+optimal scores, and optimal-set counts. A frequency-based oracle checks 1,521
+pairs of small dice, including unequal lengths and repeated faces. Other checks
+cover both cycle directions, exact-half ties, counterpick tie-breaking, mean
+comparisons, immutable results, all SVG cells, malformed input, real CLI output,
+JSON, and exclusive file writes. Rendered default, five-face, and eight-face
+diagrams were visually inspected. The root catalog and project instructions are
+updated. The vetted browser build retains 81 assets; this source-checkout toy,
+generated diagrams, preview images, and test logs stay outside it. No dependency,
+service, or machine configuration was added.
