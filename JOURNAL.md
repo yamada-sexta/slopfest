@@ -745,3 +745,46 @@ matchups, keyboard selection, single rolls and batches, tally resets,
 gallery navigation, and layout at 320, 390, 768, and 1280 pixels. The browser
 SVG download matched the five-face engine export byte for byte. The vetted
 build now contains 85 assets and the gallery has 17 browser experiments.
+
+## 2026-11-08 — A kernel by any other name
+
+Expanded **CUDA name game** into a reproducible naming and compiler-flag
+investigation. Four equal-length name prefixes cross five ptxas policies, with
+normalized-identical PTX. Six FP32 task families cover vectors, stencil,
+reduction, FMA chains, shared-tiled GEMM, and register-tiled GEMM. A second suite
+adds native FP16, BF16, signed INT8, and packed signed INT4 WMMA GEMM at five sizes
+through 4096. The RTX 3060 Ti and second RTX 2060 system use the same CUDA 13.2.86
+device compiler; Turing explicitly excludes unsupported BF16 WMMA.
+
+Collected ten fresh graph-timing processes and five independent-order direct
+confirmation processes per GPU/suite: 61 cases, 366,000 batch measurements,
+132,912,000 logical timed kernel executions. Processes remain the replication
+units. Balanced timing positions, multiple unrelated-name controls, telemetry,
+whole-process uncertainty, correction across the four primary cohorts, full
+process ranges, and equivalent-code policy comparisons keep small means from
+becoming sweeping claims. No timing outliers were removed.
+
+The name-sensitive code path is real, and its runtime effect is conditional.
+The most repeatable gains on Ampere are register GEMM at all three tested sizes
+(about 8–10%) and INT4 N=4096 (about 5–7%), across all O3 policies and both methods.
+Small INT4 regresses about 10–14%. Other default-O3 INT4 sizes can improve, but
+some equivalent-policy module pairs lose individual processes. Turing has no
+comparably robust useful win; its small tiled-GEMM effects vary by method and
+have limited confirmation precision. Expensive-optimization flags do not change
+the code here; O2 suppresses the naming path. The findings record exact task,
+format, dimensions, flags, hardware, and measurement scope rather than a general
+promise about renaming CUDA kernels.
+
+Correctness checks every output and guard, including random ragged matrices and
+all timed sizes. Separate actual graph-output tests clobber host argument slots
+before replay and reuse the CPU oracles. All four graph checks and both GPUs'
+memory checks pass. All 80 cubins match clean rebuilds; all 1,830 contrast and
+per-process estimates independently match raw-data recomputation. Six host-tool
+tests, exhaustive signed-code/floating packing round-trips, all 261 existing Node
+tests, and the vetted 85-asset build pass. Final graph/direct figures were rendered
+and inspected on common axes. The independent review is recorded in the project.
+
+Raw machine evidence, executable builds, figures, and temporary remote state stay
+outside source control; no address or account detail is committed. The root
+catalog and project README point to the reusable commands, findings, and
+investigation record. No dependency, hosting change, or release artifact was added.

@@ -67,3 +67,35 @@ extern "C" __global__ __launch_bounds__(256) void NAME(register_gemm)(const floa
     }
   }
 }
+
+// Full blocks reduce 256 dyadic inputs to one exact FP32 result.
+extern "C" __global__ void NAME(reduce256)(const float* a, const float*, float* out, int n) {
+  __shared__ float values[256];
+  const int t = threadIdx.x, i = blockIdx.x * 256 + t;
+  values[t] = i < n ? a[i] : 0;
+  __syncthreads();
+  for (int stride = 128; stride; stride /= 2) {
+    if (t < stride) values[t] += values[t + stride];
+    __syncthreads();
+  }
+  if (t == 0) out[blockIdx.x] = values[0];
+}
+
+extern "C" __global__ void NAME(stencil)(const float* a, const float*, float* out, int n) {
+  const int i = blockIdx.x * 256 + threadIdx.x;
+  if (i < n) out[i] = (i ? a[i - 1] : 0) + 2 * a[i] + (i + 1 < n ? a[i + 1] : 0);
+}
+
+// Two dependent FMA chains; no fast math and no approximate functions.
+extern "C" __global__ void NAME(fma_chain)(const float* a, const float* b, float* out, int n) {
+  const int i = blockIdx.x * 256 + threadIdx.x;
+  if (i < n) {
+    float x = a[i], y = b[i];
+    #pragma unroll 4
+    for (int k = 0; k < 128; ++k) {
+      x = fmaf(x, 0.999f, y * 0.001f);
+      y = fmaf(y, 0.998f, x * 0.002f);
+    }
+    out[i] = x + y;
+  }
+}

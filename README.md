@@ -35,7 +35,7 @@ You can also use
 | [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
 | [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
-| [CUDA name game](cuda-name-game/) | Raw CUDA benchmarks comparing identical kernels with neutral and cutlass names. Checks PTX, machine code, correctness, and paired GPU timings. |
+| [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, controls, and findings. |
 
 ## A living playground
 
