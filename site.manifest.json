@@ -80,6 +80,10 @@
     "pocketyard/app.mjs",
     "pocketyard/core.mjs",
     "pocketyard/rooms.mjs",
-    "pocketyard/dispatch.mjs"
+    "pocketyard/dispatch.mjs",
+    "slydice/index.html",
+    "slydice/style.css",
+    "slydice/app.mjs",
+    "slydice/core.mjs"
   ]
 }

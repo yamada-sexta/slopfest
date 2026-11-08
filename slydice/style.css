@@ -1,0 +1,134 @@
+:root {
+  --bg: #141827;
+  --panel: #1e2437;
+  --line: #3a435a;
+  --ink: #f3eadf;
+  --muted: #b7bfd2;
+  --lime: #f2ad91;
+  --orange: #fbd9a9;
+  --first: #b7c7ee;
+  --counter: #f2ad91;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px;
+  padding: 44px 0 32px;
+}
+h1, h2 { font-family: Georgia, serif; font-weight: 400; }
+h1 { margin: 5px 0 10px; font-size: clamp(52px, 8vw, 94px); line-height: .98; letter-spacing: -.06em; }
+h1 span { color: var(--counter); }
+h2 { margin: 6px 0 12px; font-size: clamp(23px, 3vw, 31px); }
+.intro p { margin-bottom: 0; max-width: 45ch; }
+.cycle-note {
+  padding: 16px 18px;
+  border-left: 1px solid var(--line);
+}
+.cycle { display: flex; align-items: center; gap: 9px; margin: 10px 0; }
+.cycle span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+.cycle b { color: var(--counter); font-weight: 400; }
+.cycle-note p { font-size: .86rem; }
+
+.workbench { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.panel {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 30px);
+}
+.panel-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.panel-heading h2 { margin-bottom: 0; }
+.set-choice { display: grid; gap: 5px; }
+.set-choice select { background: var(--bg); padding: 8px 10px; }
+.dice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.die {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  text-align: left;
+  background: var(--bg);
+}
+.die:hover, button:hover { background: #2d344a; }
+.die[aria-pressed="true"] { border-color: var(--first); }
+.die[data-seat="Counter"] { border-color: var(--counter); }
+.die-label { font-size: 1.65rem; line-height: 1; }
+.die-faces { font-size: .88rem; line-height: 1.4; }
+.die-seat { margin-top: auto; letter-spacing: .08em; }
+.die[aria-pressed="true"] .die-seat { color: var(--first); }
+.die[data-seat="Counter"] .die-seat { color: var(--counter); }
+.match-note { padding: 16px 0 6px; }
+.match-note p { margin: 4px 0 10px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+button.primary { color: #211929; }
+button.primary:hover { background: #ffc6ae; }
+#status { min-height: 3.3em; margin: 12px 0; font-size: .94rem; }
+.tally {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+.tally div { display: flex; flex-direction: column; gap: 6px; justify-content: space-between; }
+.tally strong { font-size: 1.3rem; }
+.tally .eyebrow { letter-spacing: .07em; }
+
+.exact { color: var(--counter); margin: 0 0 14px; }
+.pairings {
+  border-spacing: 5px;
+  table-layout: fixed;
+  width: min(100%, 330px);
+  margin: 0 auto;
+  text-align: center;
+}
+.pairings caption { font-size: .83rem; color: var(--muted); margin-bottom: 7px; }
+.pairings th { font-size: .85rem; font-weight: 400; color: var(--muted); }
+.pairings thead th { height: 24px; }
+.pairings tbody td { height: clamp(34px, 5vw, 50px); border-radius: 7px; color: #211929; }
+.first-cell { background: var(--first); }
+.counter-cell { background: var(--counter); }
+.pairings .latest { outline: 2px solid var(--ink); outline-offset: 1px; }
+.grid-help { margin: 14px 0 0; font-size: .87rem; }
+
+.receipt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid var(--line);
+  margin-top: 25px;
+  padding-top: 18px;
+}
+.receipt p { max-width: 76ch; margin-bottom: 0; font-size: .93rem; }
+.receipt button { flex-shrink: 0; }
+footer { margin-top: 36px; }
+@media (max-width: 760px) {
+  .intro, .workbench { grid-template-columns: 1fr; }
+  .intro { gap: 16px; padding-top: 32px; }
+  .cycle-note { padding: 0 0 0 12px; }
+}
+@media (max-width: 460px) {
+  .receipt { align-items: start; flex-direction: column; gap: 14px; }
+  .die { padding: 9px; }
+  .actions button { padding: 10px 12px; }
+}

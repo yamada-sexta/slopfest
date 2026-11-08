@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Choose a die, find its counterpick, and roll through an exact grid of nontransitive dice.">
+  <title>Slydice — The second seat</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><span>✳</span>SLOPFEST</a>
+    <span class="mono">17 / THE SECOND SEAT</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <div class="eyebrow">A table for nontransitive dice</div>
+        <h1 id="title">Slydice<span>.</span></h1>
+        <p>Pick a die for the first seat. The second seat can always choose a die with better odds against it.</p>
+      </div>
+      <div class="cycle-note">
+        <span class="eyebrow">The winning loop</span>
+        <div class="cycle mono" role="img" aria-label="A beats B, B beats C, C beats A">
+          <span>A</span><b aria-hidden="true">→</b><span>B</span><b aria-hidden="true">→</b><span>C</span><b aria-hidden="true">→</b><span>A</span>
+        </div>
+        <p>An arrow points from the favored die to its opponent.</p>
+      </div>
+    </section>
+
+    <div class="workbench">
+      <section class="panel" aria-labelledby="seats-title">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">01 / The seats</span>
+            <h2 id="seats-title">Choose the first die</h2>
+          </div>
+          <div class="set-choice">
+            <label class="eyebrow" for="faces">Faces per die</label>
+            <select id="faces">
+              <option value="3">3 faces</option>
+              <option value="4">4 faces</option>
+              <option value="5">5 faces</option>
+            </select>
+          </div>
+        </div>
+        <div id="dice" class="dice" role="group" aria-label="Choose the first die"></div>
+        <div class="match-note">
+          <span class="eyebrow">Second seat</span>
+          <p id="counter-note"></p>
+        </div>
+        <div class="actions">
+          <button id="roll" class="primary">Roll both dice</button>
+          <button id="batch">Roll 20 pairs</button>
+          <button id="clear">Clear tally</button>
+        </div>
+        <p id="status" role="status"></p>
+        <div class="tally" aria-label="Roll tally">
+          <div><span class="eyebrow">First wins</span><strong id="first-wins" class="mono">0</strong></div>
+          <div><span class="eyebrow">Counter wins</span><strong id="counter-wins" class="mono">0</strong></div>
+          <div><span class="eyebrow">Observed counter rate</span><strong id="observed" class="mono">—</strong></div>
+        </div>
+      </section>
+
+      <section class="panel outcome-panel" aria-labelledby="outcome-title">
+        <span class="eyebrow">02 / Every possible roll</span>
+        <h2 id="outcome-title">The pairing grid</h2>
+        <p id="exact" class="exact mono"></p>
+        <div id="grid"></div>
+        <p class="grid-help">Each square is one equally likely pair of faces. Its letter names the winner. An outline marks the latest roll.</p>
+      </section>
+    </div>
+
+    <section class="receipt" aria-labelledby="forge-title">
+      <div>
+        <span class="eyebrow">03 / From the forge</span>
+        <h2 id="forge-title">Where the dice came from</h2>
+        <p id="forge-note"></p>
+      </div>
+      <button id="save">Save trio SVG</button>
+    </section>
+    <noscript><p>Enable JavaScript to explore the dice table.</p></noscript>
+  </main>
+  <footer><span>HIGHER FACE WINS.</span><span>FAIR, INDEPENDENT ROLLS</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

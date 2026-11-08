@@ -724,3 +724,24 @@ diagrams were visually inspected. The root catalog and project instructions are
 updated. The vetted browser build retains 81 assets; this source-checkout toy,
 generated diagrams, preview images, and test logs stay outside it. No dependency,
 service, or machine configuration was added.
+
+## 2026-11-07 — A seat at the dice table
+
+Opened **Slydice's browser table**. Pick A, B, or C for the first seat and
+the shared engine picks its counter for the second. The three forged sets have
+three, four, or five faces per die. Their pairing grids spell out the winner
+of every possible roll and report exact counterpick odds. A forge receipt gives
+the partition and cycle counts for the selected set.
+
+Roll one pair or a batch of twenty to compare the observed win rate with the
+exact probability. An outline follows the latest pair to its square. Changing
+the set or first pick clears the tally. Selecting the same die keeps the
+current tally, and clearing it returns keyboard focus to the roll button.
+The trio SVG saves all three matchups for the selected set. The terminal
+command still accepts custom dice and reports exact counts for them.
+
+All 261 Node tests passed. Browser checks covered every cell in all nine
+matchups, keyboard selection, single rolls and batches, tally resets,
+gallery navigation, and layout at 320, 390, 768, and 1280 pixels. The browser
+SVG download matched the five-face engine export byte for byte. The vetted
+build now contains 85 assets and the gallery has 17 browser experiments.

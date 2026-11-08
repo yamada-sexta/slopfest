@@ -1,11 +1,25 @@
 # Slydice
 
-A small terminal lab for dice that refuse to line up. A beats B, B beats C,
-and C beats A. Choose a die, then let the lab find its counterpick. Every result
-comes from counting all face pairings; there is no random sampling.
+A browser table and terminal lab for dice that refuse to line up. A beats B,
+B beats C, and C beats A. Choose a die, then let the lab find its counterpick.
+The engine counts all face pairings to calculate the exact odds.
 
-Node.js 20 or newer, no packages, network, or accounts. Run from the repository
-root:
+## At the browser table
+
+Run `npm start` from the repository root with Node.js 20 or newer, then open
+[the local Slydice table](http://localhost:4173/slydice/). Choose three, four, or
+five faces per die. Pick the first die and the table assigns its counterpick to
+the second seat. The pairing grid lists the winner of each possible roll.
+
+Roll both dice once or sample 20 independent pairs. The outline marks the last
+sample, and the tally shows how often the counterpick actually won. Compare that
+rate to its exact win probability above the grid. Changing the first die or set
+starts a fresh tally. Choose **Save trio SVG** to keep a diagram of all three
+matchups in the selected set.
+
+## In the terminal
+
+Run from the repository root with Node.js 20 or newer.
 
 ```sh
 node slydice/cli.mjs --pick A
@@ -86,9 +100,9 @@ and can be opened in a browser or image viewer.
 
 The CLI validates all inputs before exporting, refuses to overwrite existing
 files, and exits 1 on invalid input or I/O errors. Successful analysis exits 0,
-including a valid custom set with no cycle. `--json` can accompany `--svg`; stdout
-then contains only JSON. Exports are yours to keep outside Git. This project runs
-from a source checkout and is not part of the static browser bundle.
+including a valid custom set with no cycle. Combine `--json` with `--svg` for
+machine-readable stdout and a diagram file. The static bundle includes the
+browser table and shared engine. Use a source checkout for the CLI.
 
 ## Use the engine
 
@@ -123,3 +137,10 @@ Another oracle checks 1,521 pairs of small dice, including repeated labels and
 unequal lengths. Tests also cover both cycle directions, strict tie thresholds,
 counterpick ties, immutable snapshots, SVG cells, real CLI text/JSON, bad inputs,
 and exclusive export writes. Generated pairing diagrams are visually inspected.
+
+For a browser smoke check, open Slydice from the gallery. With three faces per
+die, each first pick has a counter that wins 5/9 pairings. With five faces and
+die A first, count 16 cells marked C in the 25-cell grid. Roll once, then roll a
+batch and check that the win tallies add to 21. The outlined square should match
+the faces in the last roll. Clear the tally or change the first pick to start
+over. The downloaded trio SVG should show all three matchups.
