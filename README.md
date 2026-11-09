@@ -11,7 +11,7 @@ the scheduler explorer, the rhythm and WAV engine, the light-routing puzzles,
 the wave tank, the loop tracer, the reversible byte language, the clock meadow,
 the universal word ribbon, the sandpile, the map walker, the window puzzle, the
 two-row tapestry, the wagon-shunting puzzle, the paper-folding model, the dice
-forge, the local server, and the release builder.
+forge, the billiards tracer, the local server, and the release builder.
 You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
@@ -35,6 +35,7 @@ You can also use
 | [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
 | [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
+| [Bankshot](bankshot/) | A terminal billiards toy. Trace a shot to a corner pocket or its first full return, with exact fractions and SVG diagrams. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, controls, and findings. |
 
 ## A living playground

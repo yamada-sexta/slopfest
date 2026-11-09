@@ -788,3 +788,22 @@ Raw machine evidence, executable builds, figures, and temporary remote state sta
 outside source control; no address or account detail is committed. The root
 catalog and project README point to the reusable commands, findings, and
 investigation record. No dependency, hosting change, or release artifact was added.
+
+## 2026-11-08 — One ball, four rails
+
+Added **Bankshot**, a terminal billiards toy with a pocket in each corner.
+Give the ball an integer start and velocity. The shot traces fractional
+wall hits until it reaches a corner or returns to the same place with the
+same heading. On the default table, moving the start from (3, 2) to (4, 2)
+turns a ten-bank loop into a three-bank shot to the north-east pocket.
+
+The tracer unfolds the rails into reflected copies of the table. A common
+integer tick scale makes both sets of wall crossings exact, and a simultaneous
+crossing marks a pocket. The first common repeat of the moving axes bounds
+the trace. The CLI prints reduced fractions or writes the full trace as JSON.
+SVG diagrams mark the starting leg in gold and the terminal pocket in coral.
+
+All 266 Node tests and the 85-asset build passed. A separate physical-step
+model agreed with the return period and every recorded event on 10,800 small
+shots. Tests also cover dense paths, invalid input, and exclusive SVG writes.
+The default loop and pocket diagrams were rendered and visually checked.
