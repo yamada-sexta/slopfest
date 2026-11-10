@@ -27,6 +27,30 @@ If omitted, the start is one quarter of each side, rounded down to at least
 one. The velocity components can range from -12 to 12, including zero on
 one axis. The model treats the ball as a point with no friction or spin.
 
+## Survey every start
+
+```sh
+node bankshot/cli.mjs --map
+node bankshot/cli.mjs --map --svg atlas.svg
+node bankshot/cli.mjs --map --table 8x7 --velocity -2,3 --json
+```
+
+`--map` fires the selected velocity from every integer point inside the
+table. Read X along the top and Y down the left. Two dots mean a full
+return. NW, NE, SW, and SE name the corner pockets. Pick a coordinate and
+pass it to `--from X,Y --trace` in a separate shot command to see the path.
+
+The default atlas has 88 starts. Fourteen reach a pocket and 74 loop.
+Every odd X column loops because its east and west rail hits occur at
+half-integer times, while its north and south rail hits occur at integer
+times. Try changing the velocity to see the pattern move.
+
+An SVG atlas includes the outcome counts and a tooltip on each tile with
+the exact finish time and number of banks. The JSON form stores the same
+results in `rows[y - 1][x - 1]` as `{ outcome, tick, banks }`. Divide `tick`
+by the common `scale` to recover time. Use map mode with `--table`,
+`--velocity`, `--json`, or `--svg`.
+
 ## Unfolding the table
 
 Imagine a mirrored copy of the table behind every rail. A ball that would
@@ -72,3 +96,7 @@ velocity at each rail. It checks the full return period, pocket time, and
 every recorded point on all 10,800 shots on tables up to 6 × 6 with velocity
 components from -3 to 3. The tests also exercise fractional traces, dense
 diagrams, CLI validation, and exclusive SVG writes.
+
+Atlas tests cover the default counts and all four pockets, reflections in
+both axes, speed scaling, and a full 529-start table. They also check that
+the CLI can save an atlas while emitting JSON.

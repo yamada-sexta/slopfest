@@ -807,3 +807,19 @@ All 266 Node tests and the 85-asset build passed. A separate physical-step
 model agreed with the return period and every recorded event on 10,800 small
 shots. Tests also cover dense paths, invalid input, and exclusive SVG writes.
 The default loop and pocket diagrams were rendered and visually checked.
+
+## 2026-11-09 — The pocket atlas
+
+Bankshot can now survey every integer start at a fixed velocity. The terminal
+grid labels each start with a corner or a full return. JSON preserves exact
+times and bank counts, and the SVG shows the same data in tile tooltips.
+A coordinate from the atlas can go straight into the single-shot tracer.
+
+The default velocity pockets 14 of 88 starts. Every odd X column loops
+because its vertical rail crossings occur halfway between integer times
+and its horizontal rail crossings occur at integer times. Changing velocity
+or table dimensions makes different stripes and diagonals appear.
+
+All 270 Node tests and the 85-asset build passed. Checks cover all four
+pocket labels, mirroring both axes, speed scaling, a 529-start map, and
+CLI export. The default and largest atlases were rendered and inspected.
