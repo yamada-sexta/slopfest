@@ -823,3 +823,19 @@ or table dimensions makes different stripes and diagonals appear.
 All 270 Node tests and the 85-asset build passed. Checks cover all four
 pocket labels, mirroring both axes, speed scaling, a 529-start map, and
 CLI export. The default and largest atlases were rendered and inspected.
+
+## 2026-11-10 — Open any domino tiling
+
+Domino Index counts complete tilings of rectangles and boards with holes.
+Pick a number to draw that tiling in the terminal. The default 4 × 4 board
+has 36 tilings, and the ring around four holes has two. JSON includes
+matching tile IDs and preserves counts and indices as decimal strings.
+
+A row-width occupancy mask tracks where earlier dominoes reach into
+unprocessed squares. Counts for the remaining branches let the index
+skip entire groups of tilings. It can jump directly to the last of
+289,415,868,852,204,573,601,981 tilings on a 10 × 20 board.
+
+All 274 Node tests and the 85-asset build passed. A separate enumerator
+agreed on every tiling for all 4,096 hole patterns on a 3 × 4 board.
+An independent row transfer calculation reproduced the 10 × 20 count.
