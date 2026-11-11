@@ -280,6 +280,47 @@ say expensive optimizations default on at O2 and higher. There is no documented
 promise that this setting improves runtime. These observations identify a
 name-sensitive compiler result, not its private internal implementation.
 
+## Raw data and exact repetition counts
+
+Raw measurements are retained locally under ignored `.local/`, not in the
+Git repository. Paths below are relative to the repository root:
+
+| RTX 3060 Ti suite | Primary CSVs | Direct-confirmation CSVs |
+| --- | --- | --- |
+| FP32 | `.local/cuda-name-game-final/primary-01.csv` through `primary-10.csv` | same directory, `direct-01.csv` through `direct-05.csv` |
+| FP16/BF16/INT8/INT4 | `.local/cuda-name-game-precision-final/light-primary-01.csv` through `light-primary-10.csv` | same directory, `direct-01.csv` through `direct-05.csv` |
+
+Adjacent JSON files record process/build metadata; `*.telemetry.csv` contains
+GPU samples. `primary-summary.json` and `direct-summary.json` contain the
+analyzed contrasts, individual process estimates and intervals. The raw CSV
+columns are `workload,size,round,position,batch,variant,us`: `us` is CUDA-event
+batch time divided by its `batch` kernel count, not an individually recorded
+latency for every execution in that batch.
+
+For **each case and each individual name/policy variant**, there are 200 timed
+graph batches (10 fresh processes × 20 rounds) and 100 timed direct batches
+(5 additional processes × 20 rounds). Thus the answer to “at least 100 times?”
+is **300 timing measurements per variant, but only 15 fresh processes**.
+Primary and direct estimates are analyzed separately, not pooled into n=15.
+
+Recounted directly from the raw CSVs on 2026-11-10, these are the total timed
+logical executions **per variant** for the default-O3 neutral/cutlass pairs:
+
+| Case | Graph executions | Direct executions | Combined executions |
+| --- | ---: | ---: | ---: |
+| Register FP32 GEMM N=256 | 49,400 | 8,440 | 57,840 |
+| Register FP32 GEMM N=1024 | 5,320 | 820 | 6,140 |
+| Register FP32 GEMM N=2048 | 800 | 100 | 900 |
+| INT4 WMMA N=128 | 991,960 | 165,320 | 1,157,280 |
+| INT4 WMMA N=4096 | 200 | 100 | 300 |
+
+Counts apply separately to `o3__neutral` and `o3__cutlass`; do not double them
+when describing one variant. Calibration and warmup are additional, excluded
+executions. These large execution counts do not create that many independent
+replicates. Uncertainty remains based on ten primary or five confirmation
+processes, with the limitations discussed below. The three O3 policies provide
+additional robustness comparisons rather than extra independent process starts.
+
 ## Timing protocol and interpretation
 
 Primary experiments use ten fresh processes per GPU/suite, 20 rounds per case,

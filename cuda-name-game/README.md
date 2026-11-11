@@ -4,6 +4,14 @@ A local experiment testing whether a lowercase `cutlass` kernel name changes CUD
 machine code and runtime. It compares identical source/PTX across four names and
 five assembler policies, with CPU correctness oracles, CUDA Graph timing, balanced
 ordering, independent processes, telemetry, and process-level uncertainty.
+
+[PTXAS disassembly and runtime proof](PTXAS.md) identifies the hard-coded
+`strstr(name, "cutlass")` predicate in the inspected compiler build. Run
+`python3 cuda-name-game/inspect_ptxas.py --observe` from the repository root
+to reproduce the four-name debugger demonstration. See the
+[findings](FINDINGS.md#raw-data-and-exact-repetition-counts) for raw-data paths
+and the distinction between 300 timed batches per variant and 15 fresh processes.
+
 No CUTLASS library, PyTorch, Triton, or BLAS is used.
 
 Read [INVESTIGATION.md](INVESTIGATION.md) for the plan and progress. See

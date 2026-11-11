@@ -839,3 +839,23 @@ skip entire groups of tilings. It can jump directly to the last of
 All 274 Node tests and the 85-asset build passed. A separate enumerator
 agreed on every tiling for all 4,096 hole patterns on a 3 × 4 board.
 An independent row transfer calculation reproduced the 10 × 20 count.
+
+
+## 2026-11-10 — Find the compiler’s name check
+
+Located the actual lowercase `cutlass` substring predicate inside the inspected
+PTXAS 13.2.86 executable. Disassembly connects the literal to a `strstr` call
+and a boolean result; GDB observes the kernel-name arguments and results during
+compilation. A small hash-checked command reproduces this with four names,
+including an interior match and an uppercase control. The inspection runs no
+GPU kernels and leaves the installed compiler unchanged on disk.
+
+The report separates that confirmed predicate from unknown pass internals and
+unsupported option mappings. Original performance CSVs were recounted to clarify
+300 timed batches per name/policy/case across 15 fresh processes, with primary
+and confirmation inference kept separate. Machine-specific evidence stays local.
+
+Verification: static inspection, four actual debugger observations, rejection of
+an unknown compiler hash, and an unchanged compiler file hash all pass. The
+independent reviewer reproduced the evidence and raw counts without material
+corrections. All 274 Node tests and the 85-asset static build passed.

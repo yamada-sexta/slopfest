@@ -236,3 +236,32 @@ measurements and a universal claim from one GPU are not.
   scope/command mismatches were corrected and verified. Review qualifications
   preserve stock-clock/background-load limits, approximate small-process
   inference, exact tested scope, and private-evidence availability.
+
+## 2026-11-10 — Locate the predicate inside PTXAS
+
+Following the supplied Triton commit, inspected the installed stripped ELF
+PTXAS 13.2.86. REA opened and identified it, but Hopper bridge readiness timed
+out; closed that session and continued with GNU binutils and GDB. The executable
+contains `cutlass\0` at `0x256b910`. The function starting at `0x8d6790` passes
+that literal to `strstr` at `0x8d67c8`, then converts the result to a boolean.
+Two direct callers consume that boolean. An override branch is visible; no
+public flag mapping or exhaustive downstream-pass identification is claimed.
+
+Observed actual compiler executions: all six original neutral names yield no
+match and all six cutlass names yield a match. A separate tiny four-entry PTX
+probe confirms lowercase prefix/interior matches and uppercase/nonmatching
+failures. Added a hash-checked inspection/debugger command and [PTXAS.md](PTXAS.md)
+with exact addresses, calling-convention interpretation, knowns and unknowns.
+This is compiler inspection, not a new GPU performance experiment.
+
+Also recounted the headline cases directly from their original CSVs. Each
+variant has 200 primary graph measurements plus 100 direct measurements,
+from ten and five fresh processes respectively. Added raw-data paths and
+per-case execution counts to FINDINGS.md to prevent conflating within-process
+repetitions with independent replication.
+
+Verification complete: static proof, all four debugger observations and the
+unknown-hash rejection pass. The installed compiler hash is unchanged. All 274
+current Node tests and the 85-asset static build pass. The independent reviewer
+reproduced the disassembly/runtime proof and every headline raw-data count,
+finding no material correction needed.

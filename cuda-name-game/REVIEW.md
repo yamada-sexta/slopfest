@@ -178,3 +178,35 @@ the opening to the tested suites/systems and the direct command to 5 ms; both
 repairs were inspected. No measurement or analysis source changed for these
 repairs. Routine review-status updates, explicit staging, commit and push can
 proceed without further empirical work.
+
+## Follow-up review — 2026-11-10
+
+**AGREED: the PTXAS inspection and repetition-count follow-up request is
+accomplished (pending routine commit/push).** No material correction is required.
+
+Independently ran [inspect_ptxas.py](inspect_ptxas.py) against the hash-identified
+compiler, including its GDB observation mode. All four kernel names reached the
+documented `strstr` call with the literal `cutlass`; lowercase prefix/interior
+names returned matches, while neutral/uppercase names did not. Inspection of
+the complete predicate confirms the boolean conversion and the offset-labeled
+override branch in [PTXAS.md](PTXAS.md). The two documented caller regions consume
+the result as described. ELF section information confirms the stated virtual
+addresses/file offsets; literal bytes and the ROT13 decode match. An unknown
+target was rejected before inspection/execution, and the installed compiler's
+SHA-256 remained unchanged after the probe. No GPU kernel was executed.
+
+The report correctly distinguishes the observed predicate from unknown original
+types, downstream pass identities and public option mappings. The REA backend
+failure is explicitly disclosed; no successful REA decompilation is claimed.
+The supplied Triton commit was also read: its conditional FP8 name callback is
+accurately described as motivation, rather than proof about the local binary.
+
+Independently recounted the five new headline rows from the original selected
+raw CSVs, checking both default-O3 names separately and verifying input hashes.
+All graph/direct execution totals and their combined sums match. Each selected
+variant has 200 graph batches from ten processes and 100 direct batches from
+five other processes. The new findings text correctly describes per-batch
+normalized timings, excludes warmup/calibration counts, and keeps the two
+inference cohorts separate. These repetitions do not enlarge the number of
+independent process replicates. Catalog, README, journal and investigation
+changes agree with that scope; the earlier performance limitations still apply.
