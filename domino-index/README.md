@@ -6,6 +6,16 @@ shows its edges and fills holes with `###`.
 
 Run from the repository root with Node.js 20 or newer.
 
+For the browser catalog, run `npm start` and open
+[Domino Index locally](http://localhost:4173/domino-index/).
+Choose a preset or write a board pattern with one row per line, then
+choose **Apply board**. The picture and exact count update together.
+Use First, Previous, Next, Last, or enter a tiling number directly.
+Invalid drafts keep the loaded board and tiling available. An impossible
+board shows its open squares and holes with browsing controls disabled.
+
+The command line tool is available from a source checkout.
+
 ```sh
 node domino-index/cli.mjs
 node domino-index/cli.mjs --size 4x4 --index 17
@@ -54,3 +64,8 @@ of uncovered squares. Tests compare every tiling for all 4,096 hole
 patterns on a 3 × 4 board. They also check the large-board count, distinct
 tilings at adjacent large indices, impossible and empty boards, and CLI
 text and JSON.
+
+Browser checks cover all 36 small-board layouts, exact large-index jumps,
+keyboard navigation, failed drafts, impossible and all-hole boards, and
+phone layouts. For a quick check, select the ring and press Last to see
+its second tiling. Select 10 × 20 to browse its 24-digit catalog.

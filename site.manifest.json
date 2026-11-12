@@ -84,6 +84,10 @@
     "slydice/index.html",
     "slydice/style.css",
     "slydice/app.mjs",
-    "slydice/core.mjs"
+    "slydice/core.mjs",
+    "domino-index/index.html",
+    "domino-index/style.css",
+    "domino-index/app.mjs",
+    "domino-index/core.mjs"
   ]
 }

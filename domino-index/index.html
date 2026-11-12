@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Count domino tilings, make a board with holes, and open any tiling by number.">
+  <title>Domino Index — Every way to fit</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><span>✳</span>SLOPFEST</a>
+    <span class="mono">DOMINO INDEX</span>
+  </header>
+  <main>
+    <section class="intro">
+      <h1>Every way to fit.</h1>
+      <p>Cover a board with dominoes. Count every arrangement, then open one by number.</p>
+    </section>
+    <div class="workbench">
+      <aside class="panel">
+        <form id="board-form">
+          <label for="preset">Start with a board</label>
+          <select id="preset">
+            <option value="4x4">4 × 4 · 36 tilings</option>
+            <option value="6x6">6 × 6</option>
+            <option value="8x8">8 × 8</option>
+            <option value="10x20">10 × 20</option>
+            <option value="ring">A ring with four holes</option>
+            <option value="custom">Custom board</option>
+          </select>
+          <label for="pattern">Board pattern</label>
+          <textarea id="pattern" class="mono" rows="7" spellcheck="false" autocomplete="off" maxlength="219" aria-describedby="pattern-help"></textarea>
+          <p id="pattern-help" class="small">One row per line. Use a dot for an open square and # for a hole. Up to 10 columns and 20 rows.</p>
+          <button type="submit" class="primary">Apply board</button>
+          <p id="board-error" role="alert"></p>
+        </form>
+        <details>
+          <summary>How the numbering works</summary>
+          <p>Start at the first uncovered square, reading left to right and top to bottom. Try a horizontal domino before a vertical one.</p>
+          <p>The index counts completions in each branch. It can skip a whole branch to reach your number directly.</p>
+        </details>
+      </aside>
+      <section class="panel results" aria-label="Tiling catalog">
+        <div class="count-heading">
+          <div>
+            <span class="eyebrow">Complete tilings</span>
+            <output id="count" class="mono"></output>
+          </div>
+          <span id="dimensions" class="mono"></span>
+        </div>
+        <div class="board-frame"><div id="board" role="img"></div></div>
+        <p id="position" class="mono" role="status"></p>
+        <form id="index-form">
+          <label for="index">Tiling number</label>
+          <div class="jump">
+            <input id="index" class="mono" type="text" inputmode="numeric" autocomplete="off" spellcheck="false">
+            <button type="submit">Show tiling</button>
+          </div>
+        </form>
+        <nav class="transport" aria-label="Browse tilings">
+          <button id="first" type="button">First</button>
+          <button id="previous" type="button">← Previous</button>
+          <button id="next" type="button">Next →</button>
+          <button id="last" type="button">Last</button>
+        </nav>
+        <p id="index-error" role="alert"></p>
+      </section>
+    </div>
+    <noscript><p>Enable JavaScript to browse the tiling catalog.</p></noscript>
+  </main>
+  <footer><span>A DOMINO COVERS TWO NEIGHBORING SQUARES.</span><span>EXACT COUNTS · LOCAL FIRST</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

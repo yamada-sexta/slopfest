@@ -37,7 +37,7 @@ You can also use
 | [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
 | [Bankshot](bankshot/) | A terminal billiards toy. Trace exact wall hits or map where every integer start ends up at a fixed velocity. SVG paths and pocket atlases included. |
-| [Domino Index](domino-index/) | Count domino tilings on rectangles or boards with holes, then jump to any tiling by number. Exact counts, terminal drawings, and JSON. |
+| [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground

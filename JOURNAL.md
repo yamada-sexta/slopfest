@@ -859,3 +859,22 @@ Verification: static inspection, four actual debugger observations, rejection of
 an unknown compiler hash, and an unchanged compiler file hash all pass. The
 independent reviewer reproduced the evidence and raw counts without material
 corrections. All 274 Node tests and the 85-asset static build passed.
+
+## 2026-11-11 — Browse every way to fit
+
+Opened Domino Index's browser catalog. Choose a rectangle or write a
+board with holes, then browse its tilings or jump to an exact number.
+The 10 × 20 preset accepts every digit of its 24-digit final index.
+Invalid board and index drafts preserve the loaded picture. Impossible
+boards display open squares and holes, and all-hole boards have a single
+empty tiling.
+
+All 274 Node tests passed. Browser checks covered every one of the 36
+small-board layouts, preset counts, neighboring large indices, first/last
+boundaries, invalid drafts, keyboard controls, empty and impossible boards,
+gallery navigation, and layouts down to 320 pixels.
+
+Version 0.6.0 collects eighteen browser experiments and 89 approved static
+assets. It brings Slydice and Domino Index into the downloadable gallery,
+with Turnleaf and Bankshot available through the source archive. Release
+notes and project instructions describe how to run the finished catalog.
