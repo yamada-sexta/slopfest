@@ -11,8 +11,8 @@ the scheduler explorer, the rhythm and WAV engine, the light-routing puzzles,
 the wave tank, the loop tracer, the reversible byte language, the clock meadow,
 the universal word ribbon, the sandpile, the map walker, the window puzzle, the
 two-row tapestry, the wagon-shunting puzzle, the paper-folding model, the dice
-forge, the billiards tracer, the domino index, the local server, and the
-release builder.
+forge, the billiards tracer, the domino index, the combinator reducer,
+the local server, and the release builder.
 You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
 
@@ -38,6 +38,7 @@ You can also use
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
 | [Bankshot](bankshot/) | A terminal billiards toy. Trace exact wall hits or map where every integer start ends up at a fixed velocity. SVG paths and pocket atlases included. |
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
+| [Starling](starling/) | A terminal lab for S, K, and I combinators. Follow each rewrite, inspect its location, and explore with step and size limits. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground

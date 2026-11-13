@@ -878,3 +878,21 @@ Version 0.6.0 collects eighteen browser experiments and 89 approved static
 assets. It brings Slydice and Domino Index into the downloadable gallery,
 with Turnleaf and Bankshot available through the source archive. Release
 notes and project instructions describe how to run the finished catalog.
+
+## 2026-11-12 — A little combinator lab
+
+Added Starling, a terminal lab for the S, K, and I combinators. Its default
+term, S K K feather, reaches feather in two rewrites. The trace names the
+rule and its location in the application tree. A K expression can discard
+a growing self-application argument and reach a normal form in one step.
+
+The reducer follows leftmost outermost order, including reductions inside
+partially applied terms. Step and node limits keep explorations bounded.
+Size stops report the pending rewrite before accepting it, and JSON receipts
+preserve every accepted frame. Explicit stacks handle deep parentheses and
+long application chains.
+
+All 282 Node tests and the 89-asset build passed. An independent reducer
+agreed with Starling on all 1,428 application trees of up to four leaves.
+Other checks cover canonical printing, exact locations, discarded arguments,
+budget boundaries, deep input, immutable results, and the CLI.
