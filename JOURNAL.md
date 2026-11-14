@@ -896,3 +896,20 @@ All 282 Node tests and the 89-asset build passed. An independent reducer
 agreed with Starling on all 1,428 application trees of up to four leaves.
 Other checks cover canonical printing, exact locations, discarded arguments,
 budget boundaries, deep input, immutable results, and the CLI.
+
+## 2026-11-13 — Functions take wing
+
+Starling now compiles lambda expressions to S, K, and I. Write a function
+with a backslash or λ, inspect its compiled term, and reduce it with the
+existing trace. Multiple binders, lexical shadowing, and free names work
+through bracket abstraction. The JSON receipt includes the source and
+compiled expression.
+
+The compiler and reducer share immutable term construction and node bounds.
+The reducer can also accept an engine-created term directly. Source and
+constructed terms are bounded, with a nesting limit for lambda syntax.
+
+All 287 Node tests and the 89-asset build passed. Compiler checks compare
+1,100 applications with direct substitution and cover lexical scope,
+discarded arguments, Church arithmetic, input bounds, and real CLI receipts.
+Church-encoded two plus three reduces to five chirp applications.

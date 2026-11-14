@@ -1,8 +1,10 @@
-import { run } from './core.mjs';
+import { print, run } from './core.mjs';
+import { compileLambda } from './lambda.mjs';
 
 const usage = `Starling — a small combinator lab
 Usage: node starling/cli.mjs [EXPRESSION] [options]
   EXPRESSION     S, K, I, lowercase names, and parentheses (default S K K feather)
+  --lambda       Compile lambda syntax first (default expression: \\x. x)
   --trace        Show every accepted rewrite with its rule and location
   --steps N      Maximum rewrites, from 0 to 500 (default 100)
   --nodes N      Maximum term size, from 1 to 4096 (default 1024)
@@ -17,9 +19,11 @@ Rules:
 Application associates left. The reducer chooses the leftmost outermost redex.
 Names are inert. The reducer also works inside partially applied terms.
 Quote an expression that contains spaces.
+Lambda mode accepts \\x y. body or λx y. body, with lowercase binders.
   node starling/cli.mjs 'S K K feather' --trace
   node starling/cli.mjs 'K sunshine (S I I (S I I))' --trace
   node starling/cli.mjs 'S I I (S I I)' --json
+  node starling/cli.mjs '(\\x. x) feather' --lambda --trace
 Exit codes: 0 normal form, 1 invalid input, 2 step or size limit.`;
 
 function integer(text, flag) {
@@ -42,7 +46,7 @@ function main(args) {
       continue;
     }
     if (options.has(flag)) throw new Error(`${flag} was supplied twice.`);
-    if (flag === '--trace' || flag === '--json') {
+    if (flag === '--trace' || flag === '--json' || flag === '--lambda') {
       options.set(flag, true);
       continue;
     }
@@ -51,13 +55,17 @@ function main(args) {
     if (!value || value.startsWith('--')) throw new Error(`${flag} needs a value.`);
     options.set(flag, integer(value, flag));
   }
-  const result = run(expression ?? 'S K K feather', {
+  const source = expression ?? (options.has('--lambda') ? '\\x. x' : 'S K K feather');
+  const compiled = options.has('--lambda') ? compileLambda(source, { maxNodes: options.get('--nodes') }) : null;
+  const result = run(compiled ?? source, {
     maxSteps: options.get('--steps'),
     maxNodes: options.get('--nodes'),
   });
-  if (options.has('--json')) console.log(JSON.stringify(result, null, 2));
+  const receipt = compiled ? { ...result, compilation: { source, expression: print(compiled) } } : result;
+  if (options.has('--json')) console.log(JSON.stringify(receipt, null, 2));
   else {
     console.log('Starling · leftmost outermost reduction');
+    if (compiled) console.log(`Compiled to ${print(compiled)}`);
     if (options.has('--trace')) {
       result.frames.forEach((frame, i) => {
         const label = i === 0 ? 'start' : `${frame.rule} at ${frame.path || 'root'}`;

@@ -22,6 +22,16 @@ function nodeLimit(maxNodes) {
   }
 }
 
+export function application(fn, arg, { maxNodes = 1024 } = {}) {
+  check(fn);
+  check(arg);
+  nodeLimit(maxNodes);
+  if (1 + sizes.get(fn) + sizes.get(arg) > maxNodes) {
+    throw new Error(`The constructed term exceeds ${maxNodes} nodes.`);
+  }
+  return apply(fn, arg);
+}
+
 export function parse(source, { maxNodes = 1024 } = {}) {
   nodeLimit(maxNodes);
   if (typeof source !== 'string' || source.length > 8192) {
@@ -139,7 +149,14 @@ export function run(source, { maxSteps = 100, maxNodes = 1024 } = {}) {
   if (!Number.isInteger(maxSteps) || maxSteps < 0 || maxSteps > 500) {
     throw new Error('Use a step limit from 0 to 500.');
   }
-  let term = parse(source, { maxNodes });
+  nodeLimit(maxNodes);
+  let term;
+  if (typeof source === 'string') term = parse(source, { maxNodes });
+  else {
+    check(source);
+    if (sizes.get(source) > maxNodes) throw new Error(`The input exceeds ${maxNodes} nodes.`);
+    term = source;
+  }
   const initial = print(term);
   const frames = [Object.freeze({ term: initial, nodes: sizes.get(term), rule: null, path: null })];
   function finish(status, details = {}) {

@@ -1,7 +1,7 @@
 # Starling
 
-A small terminal lab for the S, K, and I combinators. Follow a term through
-individual rewrites and see how three rules can copy, keep, or pass an argument.
+A small terminal lab for lambda expressions and the S, K, and I combinators.
+Compile a function, then follow its individual rewrites.
 
 Run from the repository root with Node.js 20 or newer.
 
@@ -10,6 +10,7 @@ node starling/cli.mjs --trace
 node starling/cli.mjs 'K sunshine (S I I (S I I))' --trace
 node starling/cli.mjs 'S I I (S I I)' --steps 12 --trace
 node starling/cli.mjs 'S x y (z z)' --nodes 9 --json
+node starling/cli.mjs '(\x. x) feather' --lambda --trace
 node starling/cli.mjs --help
 ```
 
@@ -43,6 +44,42 @@ the trace keeps introducing more I wrappers until it meets a limit.
 The reducer also works inside partially applied terms. For example,
 `K (I feather)` becomes `K feather`.
 
+## Write lambdas
+
+Add `--lambda` to compile a lambda expression to S, K, and I before
+reducing it. The CLI prints the compiled term before the reduction trace.
+With no expression, lambda mode compiles `\x. x` to I.
+
+```sh
+node starling/cli.mjs '(\x. x) feather' --lambda --trace
+node starling/cli.mjs '(\f x. f (f x)) chirp silence' --lambda
+node starling/cli.mjs '(\x. \y. x) y z' --lambda --json
+```
+
+A backslash or λ introduces a function. Write lowercase binders before a
+dot and the body after it. Multiple binders are nested from left to right,
+so `\x y. x` means `\x. (\y. x)`. A body extends as far right as possible.
+Put a lambda in parentheses when using it as a function or argument.
+S, K, and I can appear as constants inside a lambda expression.
+
+The compiler eliminates inner lambdas first. To abstract a name x from a
+compiled term, it follows three rules.
+
+| Body | Abstraction over x |
+| --- | --- |
+| `x` | `I` |
+| Any term M with no free x | `K M` |
+| `M N` containing a free x | `S ([x]M) ([x]N)` |
+
+`[x]` denotes applying these same rules to a subtree. Shadowed binders and
+free names retain their lexical meaning. For example, the third command
+above returns the free name y.
+
+The node limit applies to the source tree and each constructed combinator
+term. Compilation stops with an input error if either exceeds the limit.
+Lambda and parenthesis nesting is limited to 128 levels in lambda mode.
+The JSON receipt adds `compilation.source` and `compilation.expression`.
+
 ## Read a trace
 
 `--trace` shows the starting term and every accepted rewrite. Each step
@@ -74,17 +111,23 @@ from bounded explorations.
 
 ```js
 import { parse, print, step, run } from './starling/core.mjs';
+import { compileLambda } from './starling/lambda.mjs';
 
 const term = parse('I feather');
 print(term);                 // 'I feather'
 print(step(term).term);      // 'feather'
 step(parse('K feather'));    // null, already in normal form
 run('S K K feather').status; // 'normal'
+run(compileLambda('(λx. x) feather')).frames.at(-1).term; // 'feather'
 ```
 
-Terms, steps, and receipts are immutable. Parsing, printing, and searching
-for the next rewrite use explicit stacks so deeply grouped inputs and
+Terms, steps, and receipts are immutable. The SKI parser, printer, and
+reducer use explicit stacks so deeply grouped combinator inputs and
 long application chains work within the limits.
+
+`run` accepts a source string or an engine-created term. The
+`application(fn, arg, { maxNodes })` helper joins two engine terms with
+the same node bounds used by the compiler.
 
 ## Verify
 
@@ -100,3 +143,7 @@ Starling on all 1,428 trees of up to four leaves over S, K, I, and x.
 They also check printer round trips, exact rewrite locations, discarded
 arguments, budget boundaries, deep inputs, immutable results, and real
 CLI text and JSON.
+
+Compiler checks compare 1,100 applications with direct substitution and
+exercise shadowing, free names, discarded arguments, Church numerals,
+construction limits, and CLI compilation receipts.

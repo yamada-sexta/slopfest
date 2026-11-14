@@ -38,7 +38,7 @@ You can also use
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
 | [Bankshot](bankshot/) | A terminal billiards toy. Trace exact wall hits or map where every integer start ends up at a fixed velocity. SVG paths and pocket atlases included. |
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
-| [Starling](starling/) | A terminal lab for S, K, and I combinators. Follow each rewrite, inspect its location, and explore with step and size limits. |
+| [Starling](starling/) | Compile lambda expressions to S, K, and I, then follow every rewrite. A terminal lab with lexical scope, exact traces, and execution limits. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground
