@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Pick a start on a pocket atlas and follow an exact billiards path.">
+  <title>Bankshot — Pick a starting point</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../"><span>✳</span>SLOPFEST</a>
+    <span class="mono">BANKSHOT</span>
+  </header>
+  <main>
+    <section class="intro">
+      <h1>Same shot.<br>A different ending.</h1>
+      <p>Choose a starting point on the atlas. Watch where a ball with the same velocity ends up.</p>
+    </section>
+    <form id="settings" class="settings">
+      <div><label for="width">Table width</label><input id="width" type="number" min="2" max="24" step="1" value="12" required></div>
+      <div><label for="height">Table height</label><input id="height" type="number" min="2" max="24" step="1" value="9" required></div>
+      <div><label for="vx">East velocity</label><input id="vx" type="number" min="-12" max="12" step="1" value="2" required></div>
+      <div><label for="vy">South velocity</label><input id="vy" type="number" min="-12" max="12" step="1" value="1" required></div>
+      <button type="submit" class="primary">Survey table</button>
+      <button id="reset" type="button">Reset table</button>
+    </form>
+    <p id="settings-error" role="alert"></p>
+    <p class="small">Negative velocity points west or north. Use at least one nonzero component.</p>
+    <div class="workbench">
+      <section class="panel atlas-panel" aria-labelledby="atlas-title">
+        <h2 id="atlas-title">The pocket atlas</h2>
+        <p id="loaded" class="mono"></p>
+        <p id="summary"></p>
+        <div id="atlas" class="atlas-scroll" role="group" aria-label="Choose a starting point" aria-describedby="atlas-help"></div>
+        <p id="atlas-help" class="small">Choose a square, or use arrow keys from the selected square. Home and End move across its row. X increases east, Y south.</p>
+        <div class="legend mono" aria-label="Atlas legend">
+          <span data-outcome="loop">· Loop</span><span data-outcome="NW">NW</span><span data-outcome="NE">NE</span><span data-outcome="SW">SW</span><span data-outcome="SE">SE</span>
+        </div>
+        <button id="save-atlas" type="button">Save atlas SVG</button>
+      </section>
+      <section class="panel shot-panel" aria-labelledby="selection">
+        <h2 id="selection"></h2>
+        <p id="result" role="status"></p>
+        <div id="path"></div>
+        <p class="small">Gold marks the start and first leg. Mint follows the banks. Coral marks a pocket.</p>
+        <button id="save-shot" type="button">Save shot SVG</button>
+      </section>
+    </div>
+    <details class="about">
+      <summary>How the table works</summary>
+      <p>A rail flips one velocity component. A corner pockets the ball. A loop ends when the ball reaches its starting point with the original heading.</p>
+      <p>The tracer uses exact integer ticks and prints reduced fractions. The model treats the ball as a point with no friction or spin.</p>
+    </details>
+    <noscript><p>Enable JavaScript to explore the pocket atlas.</p></noscript>
+  </main>
+  <footer><span>ONE BALL · FOUR RAILS</span><span>LOCAL FIRST · EXACT WALL HITS</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

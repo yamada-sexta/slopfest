@@ -36,7 +36,7 @@ You can also use
 | [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
 | [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
-| [Bankshot](bankshot/) | A terminal billiards toy. Trace exact wall hits or map where every integer start ends up at a fixed velocity. SVG paths and pocket atlases included. |
+| [Bankshot](bankshot/) | Choose a starting point on a pocket atlas and follow its exact billiards path. Custom tables and velocities, keyboard exploration, a CLI, and SVG exports. |
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
 | [Starling](starling/) | Compile lambda expressions to S, K, and I, then follow every rewrite. A terminal lab with lexical scope, exact traces, and execution limits. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |

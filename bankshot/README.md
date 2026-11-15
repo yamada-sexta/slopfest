@@ -1,11 +1,26 @@
 # Bankshot
 
-A terminal billiards toy with one ball, four rails, and a pocket at each corner.
+A billiards toy with one ball, four rails, and a pocket at each corner.
 Launch from an integer point inside the table. A rail flips one component of
 the velocity. The shot ends at a corner pocket or when the ball returns to its
 starting point with its original heading.
 
 Run from the repository root with Node.js 20 or newer.
+
+For the browser table, run `npm start` and open
+[Bankshot locally](http://localhost:4173/bankshot/). Choose a point in
+the atlas to see its path and exact finish time. Arrow keys move from
+the selected point, and Home/End move to the ends of its row. Large
+atlases scroll within their panel.
+
+Change the dimensions or velocity and choose **Survey table**. The
+selected start stays in place when possible, or moves to the nearest
+valid point on a smaller table. The loaded settings appear above the
+atlas. Invalid settings keep the loaded atlas and shot available.
+Choose **Reset table** to restore the default shot.
+
+The browser can save both the selected shot and the whole atlas as SVG.
+Use the source checkout for the terminal commands below.
 
 ```sh
 node bankshot/cli.mjs --trace
@@ -100,3 +115,9 @@ diagrams, CLI validation, and exclusive SVG writes.
 Atlas tests cover the default counts and all four pockets, reflections in
 both axes, speed scaling, and a full 529-start table. They also check that
 the CLI can save an atlas while emitting JSON.
+
+For a browser smoke check, move from the default start (3, 2) one square
+right. The result should change from a ten-bank loop to a north-east
+pocket at time 16 after three banks. Set both velocities to zero and
+survey again to check the error. The loaded shot should stay available.
+Reset the table and try each SVG export.

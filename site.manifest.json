@@ -88,6 +88,11 @@
     "domino-index/index.html",
     "domino-index/style.css",
     "domino-index/app.mjs",
-    "domino-index/core.mjs"
+    "domino-index/core.mjs",
+    "bankshot/index.html",
+    "bankshot/style.css",
+    "bankshot/app.mjs",
+    "bankshot/core.mjs",
+    "bankshot/atlas.mjs"
   ]
 }

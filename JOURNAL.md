@@ -913,3 +913,19 @@ All 287 Node tests and the 89-asset build passed. Compiler checks compare
 1,100 applications with direct substitution and cover lexical scope,
 discarded arguments, Church arithmetic, input bounds, and real CLI receipts.
 Church-encoded two plus three reduces to five chirp applications.
+
+## 2026-11-14 — Choose a point, follow a shot
+
+Opened Bankshot's browser table. Select a point on the pocket atlas to see
+its exact path, finish time, and bank count. Arrow keys move from the
+selected point, with one atlas button in the tab order. Custom table
+dimensions and velocities generate a new atlas. Smaller tables clamp the
+selected start to a valid point. Invalid settings preserve the loaded shot.
+
+Shot and atlas SVG exports use the existing engines. The gallery now has
+nineteen browser experiments and the vetted build contains 94 assets.
+All 287 Node tests passed. A DOM harness checked every default starting
+point and path, keyboard focus, invalid settings, reset, smallest and
+maximum tables, axial shots, and byte-identical SVG export payloads.
+The exported pocket shot was rendered and inspected. A browser surface
+was unavailable, so the rendered page layout remains unverified.

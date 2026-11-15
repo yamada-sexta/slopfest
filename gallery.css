@@ -76,3 +76,7 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .domino-mini i:nth-child(3n) { background: #b5a6c9; }
 .domino-mini i:nth-child(3n + 1) { background: #97b9aa; }
 .domino-card .project-link { color: #e9bd91; }
+
+.bankshot-preview { background: #172522; }
+.bankshot-preview svg { width: 100%; height: 220px; margin-top: -17px; }
+.bankshot-card .project-link { color: #a8ddca; }
