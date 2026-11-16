@@ -929,3 +929,20 @@ point and path, keyboard focus, invalid settings, reset, smallest and
 maximum tables, axial shots, and byte-identical SVG export payloads.
 The exported pocket shot was rendered and inspected. A browser surface
 was unavailable, so the rendered page layout remains unverified.
+
+## 2026-11-15 — Meet me at zero
+
+Added Rendezvous, a terminal lab for synchronizing finite machines. Start with
+every state possible, then find the shortest button sequence that makes them
+meet. Breadth-first subset search gives an exact answer or an impossibility
+proof, with alphabetic tie breaking. Custom JSON machines and chosen-word
+traces share the same validated model. The included permutation carousel
+can never reset; the ten-state clock-and-gate takes 81 buttons.
+
+Wrapped SVG exports follow each starting state through the word and show the
+remaining destinations. Rendered and inspected a three-panel, 36-button trace.
+Seven new tests exhaust all 729 two-button three-state machines against word
+enumeration and an independent pair-merging oracle, check every clock size,
+validate bounds and trace paths, and exercise the CLI and exclusive SVG writes.
+All 294 Node tests passed; the vetted browser build still contains 94 assets.
+This source-only experiment adds no browser dependencies or published assets.
