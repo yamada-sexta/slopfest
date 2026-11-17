@@ -1,16 +1,18 @@
-# Slopfest 0.6.0 — Every way to fit
+# Slopfest 0.7.0 — Every beginning counts
 
-Eighteen browser experiments now live in the cabinet. This checkpoint adds
-Domino Index and Slydice to the gallery.
+Twenty browser experiments now live in the cabinet. This checkpoint opens
+Rendezvous and Bankshot in the gallery and adds Starling to the terminal labs.
 
-- **Domino Index** counts complete domino tilings on rectangles and boards
-  with holes. Edit a board, browse with First/Previous/Next/Last, or enter an
-  exact tiling number. A 10 × 20 board has 289,415,868,852,204,573,601,981
-  tilings. Invalid drafts preserve the loaded picture.
-- **Slydice** demonstrates dice where A beats B, B beats C, and C beats A.
-  Pick the first die and the lab picks its counter. Roll one or twenty pairs,
-  compare observed results with the exact pairing grid, and save the trio
-  as an SVG diagram.
+- **Rendezvous** begins with an unknown machine state. Press buttons until all
+  possible beginnings meet at one destination. Shortest hints search from your
+  current possibilities, so manual detours work too. Four presets, custom JSON
+  wiring, undo, and wrapped SVG traces are included.
+- **Bankshot** lets you choose a point on a pocket atlas and follow an exact
+  billiards path. Explore with the keyboard, change the table and velocity,
+  and save shot or atlas SVGs. The CLI and browser share the same tracer.
+- **Starling**, in the source archive, compiles lambda expressions into S, K,
+  and I and follows each rewrite. Lexical scope, inert names, exact traces,
+  and bounded execution make small expressions practical to explore.
 
 Extract `slopfest-site.zip` and serve its contents over HTTP.
 
@@ -19,25 +21,19 @@ python3 -m http.server --bind 127.0.0.1
 ```
 
 Open the address printed by the server and choose an experiment from the
-gallery. All browser assets use relative URLs and run locally.
+gallery. All browser assets use relative URLs and work locally. The ZIP
+contains only 98 explicitly approved browser assets. Use the source archive
+for project instructions, tests, and terminal tools, which require Node.js
+20 or newer. The CUDA experiment lists its separate hardware requirements.
 
-The source archive also includes three recent terminal experiments.
-Turnleaf folds a numbered strip and tracks its layers and faces.
-Bankshot traces exact billiards paths and maps the outcome of every
-integer start at a fixed velocity. Domino Index's CLI accepts custom
-boards and emits exact counts and tile IDs as JSON. Run their documented
-commands with Node.js 20 or newer.
+All 296 Node tests pass. Rendezvous checks all 729 three-state, two-button
+machines against independent word enumeration and a pair-merging oracle;
+all 5,103 nonempty starting subsets also match word enumeration. Bankshot
+compares 10,800 shots with a physical-step model. Starling checks reductions,
+lambda scope, and Church arithmetic with independent oracles.
 
-The CUDA name game source includes the kernel-name investigation,
-benchmark commands, and a reproduced PTXAS substring check. Its project
-README lists the GPU and compiler requirements.
-
-All 274 Node tests pass. The domino catalog agrees with an independent
-enumerator on every tiling for all 4,096 hole patterns on a 3 × 4 board.
-Slydice's forge agrees with a separate rank-word search across 132,181
-partitions. Bankshot's exact events agree with a physical-step model on
-10,800 small shots. Browser checks exercise complete small catalogs,
-large-index precision, invalid drafts, keyboard controls, and phone layouts.
-
-The downloadable site ZIP contains 89 explicitly approved browser assets.
-Use the source archive for project instructions, tests, and terminal tools.
+DOM checks exercise both new browser entries: presets, exact diagrams,
+invalid drafts, undo, keyboard behavior where supported, boundary sizes,
+and byte-identical SVG downloads. Exported SVGs were rendered and inspected.
+A browser surface was unavailable for these additions, so their page layouts
+have not had a rendered browser check.

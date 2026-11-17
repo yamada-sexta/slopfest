@@ -946,3 +946,25 @@ enumeration and an independent pair-merging oracle, check every clock size,
 validate bounds and trace paths, and exercise the CLI and exclusive SVG writes.
 All 294 Node tests passed; the vetted browser build still contains 94 assets.
 This source-only experiment adds no browser dependencies or published assets.
+
+## 2026-11-16 — Press until the paths meet
+
+Opened Rendezvous in the browser. Press a machine's buttons to move every
+possible state, watch the paths merge, undo a press, or restart. Hints and
+finishing routes use an exact search from the current possibilities, even
+after manual detours. Three clock sizes, a permutation carousel, custom
+JSON wiring, a transition table, and SVG downloads complete the workbench.
+Invalid drafts preserve the loaded machine and trace.
+
+The solver now accepts an optional starting subset. All 5,103 nonempty subsets
+of the 729 three-state, two-button machines match independent word enumeration.
+All 296 Node tests pass. A DOM harness exercised 63 words and their undos,
+every preset, detours, hints, finishing, invalid drafts, single- and ten-state
+machines, four buttons, the 1023-button limit, and exact SVG download payloads.
+The local server served the page and modules correctly. An exported trace was
+rendered and inspected. No browser surface was available, so the rendered
+page layout remains unverified.
+
+The gallery now holds twenty browser experiments. Prepared the 0.7.0 milestone
+with updated release notes and a vetted 98-asset static bundle; the release
+workflow retests and packages only those manifest-listed browser assets.

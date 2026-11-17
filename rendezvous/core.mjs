@@ -26,8 +26,8 @@ export function clock(size = 4) {
   });
 }
 
-function trace(transitions, word) {
-  let positions = Array.from({ length: Object.values(transitions)[0].length }, (_, i) => i);
+function trace(transitions, word, starts = Array.from({ length: Object.values(transitions)[0].length }, (_, i) => i)) {
+  let positions = [...starts];
   const frames = [{ button: null, positions, states: [...positions] }];
   for (const button of word) {
     positions = positions.map(state => transitions[button][state]);
@@ -45,10 +45,15 @@ export function follow(source, word) {
   return { word, frames, synchronized: frames.at(-1).states.length === 1 };
 }
 
-export function synchronize(source) {
+export function synchronize(source, { states } = {}) {
   const transitions = machine(source);
   const alphabet = Object.keys(transitions), size = transitions[alphabet[0]].length;
-  const full = (1 << size) - 1;
+  const starts = states === undefined ? Array.from({ length: size }, (_, i) => i) : states;
+  if (!Array.isArray(starts) || !starts.length || starts.length > size ||
+      Array.from(starts).some(state => !Number.isInteger(state) || state < 0 || state >= size) ||
+      new Set(starts).size !== starts.length) throw new Error('Starting states must be a nonempty array of distinct states in range.');
+  const ordered = [...starts].sort((a, b) => a - b);
+  const full = ordered.reduce((mask, state) => mask | (1 << state), 0);
   const queue = [full], previous = new Map([[full, null]]);
   let target = null;
   for (let head = 0; head < queue.length; head++) {
@@ -70,7 +75,7 @@ export function synchronize(source) {
     word = edge.button + word;
     at = edge.mask;
   }
-  return { status: 'synchronized', word, explored: previous.size, frames: trace(transitions, word) };
+  return { status: 'synchronized', word, explored: previous.size, frames: trace(transitions, word, ordered) };
 }
 
 export function toSVG(source, word) {

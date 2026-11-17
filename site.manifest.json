@@ -93,6 +93,10 @@
     "bankshot/style.css",
     "bankshot/app.mjs",
     "bankshot/core.mjs",
-    "bankshot/atlas.mjs"
+    "bankshot/atlas.mjs",
+    "rendezvous/index.html",
+    "rendezvous/style.css",
+    "rendezvous/app.mjs",
+    "rendezvous/core.mjs"
   ]
 }

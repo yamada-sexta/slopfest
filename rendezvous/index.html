@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Press buttons on an unknown machine. Make every possible starting state meet.">
+  <title>Rendezvous — Make the paths meet</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST</a><span class="mono">RENDEZVOUS</span></header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">A small machine with an unknown beginning</p>
+      <h1>Many beginnings.<br>One meeting place.</h1>
+      <p>You don’t know which state the machine is in. Press a button: it moves every possible state at once. Can you make them all meet?</p>
+    </section>
+    <div class="workbench">
+      <section class="panel console" aria-labelledby="console-title">
+        <h2 id="console-title">The machine</h2>
+        <label for="preset">Choose a machine</label>
+        <select id="preset">
+          <option value="3">Three-state clock</option>
+          <option value="4" selected>Four-state clock</option>
+          <option value="7">Seven-state clock</option>
+          <option value="carousel">Carousel · cannot meet</option>
+          <option value="custom" disabled>Your machine</option>
+        </select>
+        <p id="loaded" class="small"></p>
+        <p id="status" role="status"></p>
+        <ul id="states" class="states mono" aria-label="Possible states"></ul>
+        <p class="small">Lit states are still possible. Dim states have been ruled out.</p>
+        <div id="buttons" class="buttons" role="group" aria-label="Machine buttons"></div>
+        <div class="actions"><button id="undo" type="button">Undo</button><button id="restart" type="button">Start over</button></div>
+        <div class="hint-area">
+          <p id="best"></p>
+          <div class="actions"><button id="hint" type="button">Take a shortest hint</button><button id="finish" type="button">Finish shortest route</button></div>
+        </div>
+        <p id="play-error" role="alert"></p>
+        <details class="wiring">
+          <summary>See what each button does</summary>
+          <div id="transitions" class="table-scroll"></div>
+          <p class="small">Read across a row: from that state, a button sends you to the listed destination.</p>
+        </details>
+      </section>
+      <section class="panel trail" aria-labelledby="trail-title">
+        <div class="trail-heading"><h2 id="trail-title">Where the paths meet</h2><button id="save" type="button">Save SVG</button></div>
+        <p id="word-count" class="small mono"></p>
+        <p id="word" class="word mono" aria-label="Buttons pressed"></p>
+        <div id="drawing" class="drawing" tabindex="0" role="region" aria-label="Trace diagram. Scroll to see all columns."></div>
+        <p class="small">Each colored path begins at a different state. White dots show the possibilities that remain. Rows are states; columns are button presses. Long traces wrap every twelve presses.</p>
+      </section>
+    </div>
+    <details class="custom">
+      <summary>Make your own machine</summary>
+      <p>Use 1–10 states and 1–4 buttons named with lowercase letters. Each array lists the destination from states 0, 1, 2, and so on. Applying a machine starts a fresh trace.</p>
+      <form id="custom-form">
+        <label for="machine-json">Button destinations · JSON</label>
+        <textarea id="machine-json" rows="5" maxlength="4096" spellcheck="false" required></textarea>
+        <button type="submit">Apply machine</button>
+      </form>
+      <p id="machine-error" role="alert"></p>
+    </details>
+    <details class="about">
+      <summary>A little help with the clock</summary>
+      <p>Button <strong>a</strong> moves one state clockwise. Button <strong>b</strong> sends the last state to zero and leaves the others in place. Repeating b alone won’t finish the job. Turn the clock between gate presses to bring more states together.</p>
+      <p>Hints search every reachable set of possible states, starting from where you are now. They give a shortest remaining route, with alphabetic tie breaking. The carousel only rearranges states, so it cannot merge any of them.</p>
+    </details>
+    <noscript><p>Enable JavaScript to play the machine.</p></noscript>
+  </main>
+  <footer><span>EVERY BEGINNING COUNTS</span><span>LOCAL FIRST · EXACT SHORTEST HINTS</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

@@ -3,8 +3,36 @@
 An unknown machine is waiting in one of several states. You cannot see which
 one. Can a sequence of button presses bring it to one known destination?
 
-Rendezvous finds a **shortest reset word**, or proves that none exists. It runs
-locally with Node.js 20 or newer and no dependencies.
+Rendezvous finds a **shortest reset word**, or proves that none exists. Play in
+the browser without dependencies, or use the terminal lab with Node.js 20 or newer.
+
+## Play the machine
+
+Run `npm start` from the repository root and open
+**http://localhost:4173/rendezvous/**. The gallery links here too.
+
+Press **a** or **b** to move every possible state at once. Lit circles show which
+states remain possible; the diagram follows each original starting path. The
+goal is one remaining destination. **Undo** removes one press, and **Start over**
+restores every possible beginning.
+
+**Take a shortest hint** presses the first button of a shortest route from your
+current set of possibilities. **Finish shortest route** completes that remaining
+route. Manual detours are welcome: hints are recalculated after every press.
+Once the paths meet, you can keep pressing buttons, undo, or start again.
+
+Choose a three-, four-, or seven-state clock, or explore the carousel that can
+never merge its states. **See what each button does** opens the transition table.
+**Make your own machine** accepts the JSON format below. Invalid drafts preserve
+the loaded machine and its trace. Applying a valid machine starts a fresh trace.
+
+**Save SVG** downloads the current diagram. The diagram scrolls inside its panel;
+long traces also wrap after twelve buttons. All controls use native buttons,
+forms, and disclosure elements. The trace stops accepting presses at 1023 buttons;
+undo or start over to continue. Everything stays in the current page, with no
+accounts, storage, or network requests for machine data.
+
+## Terminal lab
 
 ```sh
 node rendezvous/cli.mjs --trace
@@ -61,7 +89,7 @@ already resets a one-state machine.
 SVG exports show a colored path for every possible starting state. Columns
 are button presses, rows are state numbers, and white dots are the remaining
 possible states. Paths merge when their destinations agree. Long words wrap
-after twelve buttons; the boundary column is repeated. SVG writes refuse to
+after twelve buttons; the boundary column is repeated. Terminal SVG writes refuse to
 overwrite files. No generated image belongs in the source tree.
 
 Exit status is 0 for a reset, 1 for invalid input or a failed file operation,
@@ -87,7 +115,9 @@ differently under the next button.
 The source API exports `machine`, `clock`, `follow`, `synchronize`, and `toSVG`
 from `core.mjs`. `machine` validates and copies a transition table into a frozen
 object. Receipts are independent data objects; editing one does not affect
-later runs.
+later runs. `synchronize(source, { states: [0, 3] })` searches from a chosen
+nonempty subset. Supply distinct, in-range state numbers; its trace begins with
+those states in ascending order. Omitting `states` keeps the all-states search.
 
 ## Verify
 
@@ -98,6 +128,7 @@ npm test
 
 Tests exhaust all 729 three-state machines with two buttons, compare exact words
 against independent enumeration, and independently decide whether every pair of
-states can meet. They check all supported clock sizes, lexical tie breaking,
+states can meet. All 5103 nonempty starting subsets of those machines also match
+word enumeration. Tests check all supported clock sizes, lexical tie breaking,
 empty words, validation, trace paths, SVG wrapping, real CLI receipts, and
-exclusive export writes. This is a terminal experiment; it is not a Pages asset.
+exclusive export writes. The browser and CLI share the same exact engine.

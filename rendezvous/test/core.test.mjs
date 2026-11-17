@@ -7,13 +7,13 @@ import { join } from 'node:path';
 import { clock, machine, follow, synchronize, toSVG } from '../core.mjs';
 
 // Independent oracle: enumerate words and move individual starting states.
-function destinations(source, word) {
-  return source.a.map((_, origin) => [...word].reduce((state, button) => source[button][state], origin));
+function destinations(source, word, starts = source.a.map((_, i) => i)) {
+  return starts.map(origin => [...word].reduce((state, button) => source[button][state], origin));
 }
-function reference(source) {
+function reference(source, starts) {
   let words = [''];
   for (let length = 0; length <= 8; length++) {
-    for (const word of words) if (new Set(destinations(source, word)).size === 1) return word;
+    for (const word of words) if (new Set(destinations(source, word, starts)).size === 1) return word;
     words = words.flatMap(word => ['a', 'b'].map(button => word + button));
   }
   return null;
@@ -64,6 +64,40 @@ test('Clock-and-gate machines need square-length words, through the maximum size
     assert.ok(result.explored <= (1 << n) - 1);
   }
   assert.equal(synchronize(clock()).word, 'baaabaaab');
+});
+
+test('Every nonempty subset of all 729 three-state machines gets a shortest remaining route', () => {
+  let checked = 0;
+  for (let encoded = 0; encoded < 729; encoded++) {
+    let rest = encoded;
+    const entries = Array.from({ length: 6 }, () => { const digit = rest % 3; rest = Math.floor(rest / 3); return digit; });
+    const source = { a: entries.slice(0, 3), b: entries.slice(3) };
+    for (let mask = 1; mask < 8; mask++) {
+      const states = [0, 1, 2].filter(state => mask & (1 << state));
+      const result = synchronize(source, { states });
+      assert.equal(result.word, reference(source, states), `${encoded} / ${mask}`);
+      if (result.word !== null) {
+        assert.deepEqual(result.frames[0].positions, states);
+        result.frames.forEach((frame, i) => assert.deepEqual(frame.positions, destinations(source, result.word.slice(0, i), states)));
+      }
+      checked++;
+    }
+  }
+  assert.equal(checked, 5103);
+});
+
+test('Subset hints validate, sort, and copy the starting possibilities', () => {
+  const starts = [3, 0], before = [...starts];
+  const result = synchronize(clock(), { states: starts });
+  assert.equal(result.word, 'b');
+  assert.deepEqual(result.frames[0].positions, [0, 3]);
+  assert.deepEqual(starts, before);
+  starts[0] = 2;
+  assert.deepEqual(result.frames[0].positions, [0, 3]);
+  assert.equal(synchronize(clock(), { states: [2] }).word, '');
+  for (const states of [null, [], [0, 0], [4], [-1], [0.5], ['0'], Array(2), new Set([0])]) {
+    assert.throws(() => synchronize(clock(), { states }), /Starting states/);
+  }
 });
 
 test('Empty words, permutation machines, four buttons, and deterministic tie breaking', () => {

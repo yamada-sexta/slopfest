@@ -80,3 +80,7 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .bankshot-preview { background: #172522; }
 .bankshot-preview svg { width: 100%; height: 220px; margin-top: -17px; }
 .bankshot-card .project-link { color: #a8ddca; }
+
+.rendezvous-preview { background: #172023; }
+.rendezvous-preview svg { width: 100%; height: 220px; margin-top: -17px; }
+.rendezvous-card .project-link { color: #7ed8d0; }
