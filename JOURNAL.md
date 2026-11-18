@@ -968,3 +968,22 @@ page layout remains unverified.
 The gallery now holds twenty browser experiments. Prepared the 0.7.0 milestone
 with updated release notes and a vetted 98-asset static bundle; the release
 workflow retests and packages only those manifest-listed browser assets.
+
+## 2026-11-17 — The last twig
+
+Added Twigfall, a terminal branch-cutting game. Each parenthesis pair is one
+branch; nested pairs grow above it. Cut a standing branch and its descendants
+fall. The last cutter wins. Stable IDs, indented groves, sequential cut traces,
+JSON receipts, and SVG diagrams make custom positions easy to replay.
+
+The analyzer computes exact nimbers and every winning cut. It suggests the
+smallest winning ID, or a legal fallback when perfect play cannot win. SVGs
+keep fallen branches as dashed guides and mark winning cuts with peach rings.
+Rendered and inspected the initial and partially cut diagrams.
+
+Eight new tests compare all 2,056 ordered groves through eight branches, and
+every reachable position of each, with an independent minimum-excluded-value
+game tree. The default nine-branch strategy also wins against every possible
+opponent reply. Bounds, immutable state, real CLI receipts, malformed input,
+and exclusive exports are checked. All 304 Node tests pass; the vetted static
+build remains 98 browser assets. Twigfall is source-only and adds no dependency.

@@ -12,7 +12,7 @@ the wave tank, the loop tracer, the reversible byte language, the clock meadow,
 the universal word ribbon, the sandpile, the map walker, the window puzzle, the
 two-row tapestry, the wagon-shunting puzzle, the paper-folding model, the dice
 forge, the billiards tracer, the domino index, the combinator reducer, the
-synchronizing machine lab,
+synchronizing machine lab, the branch-cutting game,
 the local server, and the release builder.
 You can also use
 `python3 -m http.server 4173 --bind 127.0.0.1`.
@@ -41,6 +41,7 @@ You can also use
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
 | [Starling](starling/) | Compile lambda expressions to S, K, and I, then follow every rewrite. A terminal lab with lexical scope, exact traces, and execution limits. |
 | [Rendezvous](rendezvous/) | Press buttons until every possible starting state meets. A browser machine with shortest remaining hints, custom wiring, undo, SVG traces, and an exact CLI solver. |
+| [Twigfall](twigfall/) | Cut a branch and everything above it falls. A terminal game with custom groves, stable branch IDs, exact winning moves, and SVG diagrams. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground
