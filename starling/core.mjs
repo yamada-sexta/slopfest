@@ -22,6 +22,12 @@ function nodeLimit(maxNodes) {
   }
 }
 
+function checkStrategy(strategy) {
+  if (strategy !== 'normal' && strategy !== 'applicative') {
+    throw new Error('Use the normal or applicative reduction strategy.');
+  }
+}
+
 export function application(fn, arg, { maxNodes = 1024 } = {}) {
   check(fn);
   check(arg);
@@ -113,11 +119,23 @@ function rewrite(term) {
   return null;
 }
 
-export function step(term) {
+export function step(term, { strategy = 'normal' } = {}) {
   check(term);
+  checkStrategy(strategy);
   const pending = [{ term, context: null }];
   while (pending.length) {
     const current = pending.pop();
+    const parent = current.term;
+    // Postorder considers an application only after both children are normal.
+    // Normal order instead considers it on the first visit, before its children.
+    if (strategy === 'applicative' && parent.kind === 'app' && !current.visited) {
+      pending.push(
+        { ...current, visited: true },
+        { term: parent.arg, context: { parent, side: 'a', outer: current.context } },
+        { term: parent.fn, context: { parent, side: 'f', outer: current.context } },
+      );
+      continue;
+    }
     const replacement = rewrite(current.term);
     if (replacement) {
       let rebuilt = replacement.term;
@@ -134,8 +152,7 @@ export function step(term) {
         path: path.reverse().join(''),
       });
     }
-    if (current.term.kind === 'app') {
-      const parent = current.term;
+    if (strategy === 'normal' && parent.kind === 'app') {
       pending.push(
         { term: parent.arg, context: { parent, side: 'a', outer: current.context } },
         { term: parent.fn, context: { parent, side: 'f', outer: current.context } },
@@ -145,11 +162,12 @@ export function step(term) {
   return null;
 }
 
-export function run(source, { maxSteps = 100, maxNodes = 1024 } = {}) {
+export function run(source, { maxSteps = 100, maxNodes = 1024, strategy = 'normal' } = {}) {
   if (!Number.isInteger(maxSteps) || maxSteps < 0 || maxSteps > 500) {
     throw new Error('Use a step limit from 0 to 500.');
   }
   nodeLimit(maxNodes);
+  checkStrategy(strategy);
   let term;
   if (typeof source === 'string') term = parse(source, { maxNodes });
   else {
@@ -161,12 +179,12 @@ export function run(source, { maxSteps = 100, maxNodes = 1024 } = {}) {
   const frames = [Object.freeze({ term: initial, nodes: sizes.get(term), rule: null, path: null })];
   function finish(status, details = {}) {
     return Object.freeze({
-      status, reductions: frames.length - 1, maxSteps, maxNodes,
+      status, reductions: frames.length - 1, maxSteps, maxNodes, strategy,
       frames: Object.freeze(frames), ...details,
     });
   }
   while (true) {
-    const next = step(term);
+    const next = step(term, { strategy });
     if (next === null) return finish('normal');
     if (frames.length - 1 === maxSteps) return finish('steps');
     const nodes = sizes.get(next.term);

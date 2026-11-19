@@ -1,7 +1,7 @@
 # Starling
 
 A small terminal lab for lambda expressions and the S, K, and I combinators.
-Compile a function, then follow its individual rewrites.
+Compile a function, follow its individual rewrites, and compare evaluation orders.
 
 Run from the repository root with Node.js 20 or newer.
 
@@ -11,6 +11,7 @@ node starling/cli.mjs 'K sunshine (S I I (S I I))' --trace
 node starling/cli.mjs 'S I I (S I I)' --steps 12 --trace
 node starling/cli.mjs 'S x y (z z)' --nodes 9 --json
 node starling/cli.mjs '(\x. x) feather' --lambda --trace
+node starling/cli.mjs 'K sunshine (S I I (S I I))' --compare --steps 12
 node starling/cli.mjs --help
 ```
 
@@ -37,12 +38,48 @@ K feather (K feather)
 feather
 ```
 
-Starling chooses the leftmost outermost reducible expression, or redex.
+By default, Starling chooses the leftmost outermost reducible expression, or redex.
 In `K sunshine (S I I (S I I))`, it applies K immediately and reaches
 `sunshine` in one step. If you run the discarded argument by itself,
 the trace keeps introducing more I wrappers until it meets a limit.
 The reducer also works inside partially applied terms. For example,
 `K (I feather)` becomes `K feather`.
+
+## Choose what happens first
+
+`--strategy normal` keeps the default **leftmost outermost** order: try an
+application before looking inside it. `--strategy applicative` uses **leftmost
+innermost** order: reduce its function and argument before contracting the
+application, visiting the function side first. Both strategies fully reduce
+subterms, including those inside partially applied combinators.
+
+`--compare` runs both orders on the same starting expression. Each run gets its
+own full step and node limits. It works with `--trace`, `--json`, and `--lambda`;
+choose either `--compare` or a single `--strategy`.
+
+```sh
+node starling/cli.mjs 'K sunshine (S I I (S I I))' --compare --steps 12 --trace
+node starling/cli.mjs 'S I I (I feather)' --compare --trace
+node starling/cli.mjs 'S x y (I z)' --compare --nodes 9 --json
+node starling/cli.mjs '(\x. x) feather' --lambda --strategy applicative
+```
+
+In the first comparison, normal order returns `sunshine` in one rewrite.
+Applicative order keeps working on the argument that K would discard. That
+argument repeats after three rewrites, so the applicative run reaches its
+12-step limit. The reported exit status is 2 because one run was bounded.
+
+The second comparison finishes at `feather feather` in both orders. Normal
+order takes five rewrites; applicative order takes four because it simplifies
+`I feather` before S duplicates it. In the third comparison, that same habit
+lets applicative order finish within nine nodes; normal order first tries an
+eleven-node expansion and stops at the size limit.
+
+Comparison JSON has a `comparison` array containing the full normal-order
+receipt followed by the full applicative-order receipt. Every receipt now
+includes `strategy`, even for a single default run. Lambda comparisons include
+the compilation source and expression in each receipt. A limited run does not
+prevent the other run from completing.
 
 ## Write lambdas
 
@@ -104,8 +141,9 @@ count, rule, and location. A size stop also includes the rejected rule,
 its location, and the required node count.
 
 Exit status is 0 for a normal form, 1 for invalid input, and 2 for a step
-or size limit. This lets a shell script distinguish completed reductions
-from bounded explorations.
+or size limit. In comparison mode, 0 means both runs reached normal form;
+2 means at least one met a limit. This lets a shell script distinguish
+completed reductions from bounded explorations.
 
 ## Use the engine
 
@@ -117,6 +155,7 @@ const term = parse('I feather');
 print(term);                 // 'I feather'
 print(step(term).term);      // 'feather'
 step(parse('K feather'));    // null, already in normal form
+step(parse('I (I feather)'), { strategy: 'applicative' }).path; // 'a'
 run('S K K feather').status; // 'normal'
 run(compileLambda('(λx. x) feather')).frames.at(-1).term; // 'feather'
 ```
@@ -147,3 +186,9 @@ CLI text and JSON.
 Compiler checks compare 1,100 applications with direct substitution and
 exercise shadowing, free names, discarded arguments, Church numerals,
 construction limits, and CLI compilation receipts.
+
+Evaluation-order checks compare all 15,764 terms through five leaves with a
+separate oracle that gathers candidate redexes, rules out those with reducible
+descendants, and chooses the leftmost survivor. Tests cover exact paths, finite
+and cycling comparisons, both directions of node-budget differences, compiled
+lambdas, deep traversal, independent comparison limits, and real CLI receipts.

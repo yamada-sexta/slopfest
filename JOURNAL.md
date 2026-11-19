@@ -987,3 +987,23 @@ game tree. The default nine-branch strategy also wins against every possible
 opponent reply. Bounds, immutable state, real CLI receipts, malformed input,
 and exclusive exports are checked. All 304 Node tests pass; the vetted static
 build remains 98 browser assets. Twigfall is source-only and adds no dependency.
+
+## 2026-11-18 — Which rewrite comes first?
+
+Starling now compares evaluation orders. Normal order keeps the existing
+leftmost outermost behavior. Applicative order reduces the leftmost innermost
+redex first, including inside partially applied terms. Both traversals use
+explicit stacks. Select one with `--strategy`, or use `--compare` to run both
+from the same input with independent step and node limits. Lambda compilation,
+exact trace paths, and JSON receipts work in both modes. Receipts identify
+their strategy; a comparison exits with status 2 if either run meets a limit.
+
+The examples show both sides of the tradeoff: K can discard a cycling argument
+immediately, while simplifying an argument before S duplicates it can save
+rewrites and keep a finite run within its node budget.
+
+Eight new tests compare all 15,764 terms through five leaves with a separate
+candidate-redex oracle. They check exact locations, divergent and finite
+examples, budget differences, compiled lambdas, 1,500-deep context rebuilding,
+CLI comparisons, and invalid options. All 312 Node tests pass; the vetted
+static build remains 98 browser assets. This increment adds no dependency.

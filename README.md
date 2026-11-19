@@ -39,7 +39,7 @@ You can also use
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
 | [Bankshot](bankshot/) | Choose a starting point on a pocket atlas and follow its exact billiards path. Custom tables and velocities, keyboard exploration, a CLI, and SVG exports. |
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
-| [Starling](starling/) | Compile lambda expressions to S, K, and I, then follow every rewrite. A terminal lab with lexical scope, exact traces, and execution limits. |
+| [Starling](starling/) | Compile lambda expressions to S, K, and I, then compare reducing from the outside or inside. A terminal lab with lexical scope, exact traces, and independent execution limits. |
 | [Rendezvous](rendezvous/) | Press buttons until every possible starting state meets. A browser machine with shortest remaining hints, custom wiring, undo, SVG traces, and an exact CLI solver. |
 | [Twigfall](twigfall/) | Cut a branch and everything above it falls. A terminal game with custom groves, stable branch IDs, exact winning moves, and SVG diagrams. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
