@@ -1007,3 +1007,26 @@ candidate-redex oracle. They check exact locations, divergent and finite
 examples, budget differences, compiled lambdas, 1,500-deep context rebuilding,
 CLI comparisons, and invalid options. All 312 Node tests pass; the vetted
 static build remains 98 browser assets. This increment adds no dependency.
+
+## 2026-11-19 — A turn with the gardener
+
+Opened Twigfall in the browser. Play the deterministic gardener or alternate
+single cuts with a friend. Four groves and custom parenthesis input share the
+exact branch engine. Buttons retain original branch IDs; fallen wood stays in
+the diagram as dashed guides. The cut history records each choice and every
+branch that fell. Undo reverses a human cut and gardener reply together, or one
+cut in two-person play, including after the grove clears.
+
+Winning hints are optional and off initially. SVG downloads follow that setting;
+hidden hints remove nimbers, outcomes, and winning rings. Branch labels are
+larger. The game controller keeps immutable completed-turn histories and
+explicit next-player and winner labels. Invalid drafts preserve the loaded game.
+
+Six new tests check both turn modes, legal gardener replies, wins, complete
+undo, terminal moves, and hidden hints. The DOM harness checked every default
+opening, all presets, both winners, undo and focus, malformed drafts, empty,
+single-branch, and 24-branch groves, hint toggles, and exact download payloads.
+Local HTTP checks passed and the visible and hidden-hint SVGs were rendered
+and inspected. No browser surface was available, so page layout remains
+unverified. All 318 Node tests pass. The gallery now has twenty-one browser
+experiments; the vetted build contains 103 assets, with no new dependencies.

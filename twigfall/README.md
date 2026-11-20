@@ -5,8 +5,42 @@ branch and everything growing above it. The last player to cut wins. Equivalentl
 the player with no legal move loses.
 
 Twigfall draws the grove, plays a sequence of cuts, and finds every winning move
-against perfect play. This is a terminal experiment with Node.js 20 or newer,
-no dependencies, and no network service. Run from the repository root:
+against perfect play. Play in a browser or use the terminal analyzer. There are
+no dependencies or accounts.
+
+## Play in the browser
+
+Run `npm start` from the repository root with Node.js 20 or newer, then open
+**http://localhost:4173/twigfall/** or choose Twigfall in the gallery.
+
+Pick a numbered branch button to cut it. Numbers match the diagram and remain
+fixed as branches fall. The gardener replies immediately with its smallest
+winning cut, or its smallest legal cut if none can force a win. You move first.
+The default grove can be won; the gardener punishes a missed opportunity.
+
+Choose **Two people** to alternate one cut at a time on the same screen. Four
+presets provide a fork, three stalks, four separate twigs, and the default grove.
+Changing the grove or players starts a fresh game. **New game** restarts the
+loaded grove. **Undo turn** takes back your cut and any gardener reply together;
+with two people it takes back one cut. You can undo a cleared grove too.
+
+**Show winning cuts** is off initially. Turning it on outlines winning branch
+buttons and diagram rings in peach and explains the current position. Turning
+it off also removes strategy values and hints from the SVG. **Save SVG** exports
+the current diagram with the current hint setting. Wide or tall groves scroll
+inside the diagram panel. Branch buttons and forms support ordinary keyboard
+navigation; after a cut or undo, focus moves to the first standing branch or
+the New game button if the grove has cleared.
+
+**Grow your own grove** accepts the parenthesis notation below. A valid grove
+starts a new game; an invalid draft preserves the loaded grove and its history.
+An empty grove is allowed and has no move or winner. The cut history lists each
+player's choice and every branch that fell. All game state stays in the page;
+there is no storage or network service for game data.
+
+## Terminal analyzer
+
+Run from the repository root with Node.js 20 or newer:
 
 ```sh
 node twigfall/cli.mjs
@@ -131,5 +165,16 @@ moves. The default nine-branch strategy wins against every opponent reply.
 Tests also check hand-played fixtures, 24-branch limits, immutable state,
 bad input, SVG markings, real CLI receipts, and exclusive exports.
 
-Twigfall is in the root source catalog. The browser-only Pages build excludes
-this CLI, its tests, and all generated diagrams.
+Six additional tests check gardener replies, wins against every human continuation
+of a losing grove, human wins from the default grove, both undo rules, player
+labels, immutable histories, and optional SVG hints. `play.mjs` exports `start`,
+`move`, and `undo`. `start(source, { mode })` accepts `gardener` (default) or
+`friend`; `move(game, id)` plays a completed turn and `undo(game)` reverses one.
+Its engine-created games contain the current `journey`,
+completed-turn `history`, `next` player, and `winner`. Gardener replies are part
+of the same completed turn as the human cut. An empty grove has no winner.
+
+The browser and terminal share the exact tree engine. CLI SVGs keep hints on by
+default; `toSVG(journey, { hints: false })` hides them. The Pages build contains
+only the browser assets listed in the root manifest and excludes this CLI,
+its tests, and all generated diagrams.

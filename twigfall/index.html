@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Cut a branch and everything above it falls. Play the gardener or pass turns with a friend.">
+  <title>Twigfall — The last branch wins</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST</a><span class="mono">TWIGFALL</span></header>
+  <main>
+    <section class="intro"><h1>The last branch wins.</h1><p>Cut one standing branch. Everything above it falls. Take the last branch to win.</p></section>
+    <div class="settings">
+      <div><label for="grove">Choose a grove</label><select id="grove"><option value="nine">The little grove · 9 branches</option><option value="fork">One fork · 3 branches</option><option value="stalks">Three stalks · 6 branches</option><option value="bushes">Four twigs · 4 branches</option><option value="custom" disabled>Your grove</option></select></div>
+      <div><label for="mode">Who plays?</label><select id="mode"><option value="gardener">You and the gardener</option><option value="friend">Two people · pass turns</option></select></div>
+      <button id="restart" type="button">New game</button>
+    </div>
+    <p class="small">Changing the grove or players starts a new game. You go first against the gardener.</p>
+    <div class="game">
+      <section class="panel controls" aria-labelledby="turn-title">
+        <h2 id="turn-title">Your turn</h2>
+        <p id="status" role="status"></p>
+        <p id="loaded" class="small mono"></p>
+        <h3>Choose a branch to cut</h3>
+        <div id="branches" class="branches" role="group" aria-label="Cut a standing branch"></div>
+        <p class="small">Numbers match the diagram. Faded buttons and dashed branches have already fallen.</p>
+        <button id="undo" type="button">Undo turn</button>
+        <p id="undo-help" class="small"></p>
+        <label class="hint-toggle"><input id="hints" type="checkbox"> Show winning cuts</label>
+        <p id="hint-result" class="small" role="status"></p>
+        <p id="play-error" role="alert"></p>
+        <details class="rules"><summary>How to play the gardener</summary><p>The gardener answers immediately. It chooses the smallest winning cut when one exists; otherwise it takes the smallest legal branch. It uses no randomness.</p><p>Against the gardener, undo takes back your cut and its reply together. With two people, undo takes back one cut. A cleared grove can also be undone.</p></details>
+      </section>
+      <section class="panel grove-panel" aria-labelledby="diagram-title">
+        <div class="grove-heading"><h2 id="diagram-title">The standing grove</h2><button id="save" type="button">Save SVG</button></div>
+        <div id="drawing" class="drawing" tabindex="0" role="region" aria-label="Grove diagram. Scroll to see wide or tall groves."></div>
+        <p class="small">Green is standing wood. Dashed lines keep the shape of fallen branches. Turn on winning cuts to see peach rings.</p>
+        <details class="log"><summary>Cut history</summary><p id="no-cuts" class="small">No branches cut yet.</p><ol id="history"></ol></details>
+      </section>
+    </div>
+    <details class="custom"><summary>Grow your own grove</summary><p>Each parenthesis pair is a branch. Pairs inside it grow above it. <code>(()())</code> is one stem with two twigs. <code>()()</code> is two separate twigs. Use up to 24 branches. Applying a grove starts a new game.</p><form id="grove-form"><label for="source">Grove · parentheses and whitespace</label><textarea id="source" rows="3" maxlength="2048" spellcheck="false"></textarea><button type="submit">Plant grove</button></form><p id="source-error" role="alert"></p></details>
+    <noscript><p>Enable JavaScript to play Twigfall.</p></noscript>
+  </main>
+  <footer><span>A SMALL GROVE · A SHARP DECISION</span><span>LOCAL FIRST · NO ACCOUNTS</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

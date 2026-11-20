@@ -41,7 +41,7 @@ You can also use
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
 | [Starling](starling/) | Compile lambda expressions to S, K, and I, then compare reducing from the outside or inside. A terminal lab with lexical scope, exact traces, and independent execution limits. |
 | [Rendezvous](rendezvous/) | Press buttons until every possible starting state meets. A browser machine with shortest remaining hints, custom wiring, undo, SVG traces, and an exact CLI solver. |
-| [Twigfall](twigfall/) | Cut a branch and everything above it falls. A terminal game with custom groves, stable branch IDs, exact winning moves, and SVG diagrams. |
+| [Twigfall](twigfall/) | Cut a branch and everything above it falls. Play the gardener or pass turns with a friend, grow custom groves, undo turns, reveal winning cuts, and save SVGs. An exact CLI analyzer is included. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground

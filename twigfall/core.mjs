@@ -71,8 +71,9 @@ export function run(source, cuts = []) {
   return journey;
 }
 
-export function toSVG(journey) {
+export function toSVG(journey, { hints = true } = {}) {
   if (!journeys.has(journey)) throw new Error('Use an engine-created journey.');
+  if (typeof hints !== 'boolean') throw new Error('Hints must be true or false.');
   const state = journey.frames.at(-1), { branches, active } = state;
   const report = analyze(state), children = Array.from({ length: branches.length + 1 }, () => []);
   for (const branch of branches) children[branch.parent].push(branch.id);
@@ -86,12 +87,12 @@ export function toSVG(journey) {
   const width = Math.max(520, leaves * 76 + 54), height = Math.max(300, Math.max(...depth) * 72 + 160);
   const offset = (width - (leaves * 76 + 54)) / 2;
   const y = id => height - 74 - depth[id] * 72;
-  const standing = new Set(active), winning = new Set(report.winningCuts);
+  const standing = new Set(active), winning = new Set(hints ? report.winningCuts : []);
   const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title desc">`,
     '<title id="title">Twigfall branch-cutting grove</title>',
-    `<desc id="desc">${active.length} branches standing. ${report.outcome} position. Peach rings mark winning cuts. Faint dashed branches have fallen.</desc>`,
+    `<desc id="desc">${active.length} branches standing. ${hints ? `${report.outcome} position. Peach rings mark winning cuts.` : 'Choose a standing branch to cut.'} Faint dashed branches have fallen.</desc>`,
     '<rect width="100%" height="100%" fill="#17231d"/>',
-    `<g font-family="monospace" fill="#e8eddf"><text x="25" y="30" font-size="18">TWIGFALL / ${active.length} standing / nimber ${report.nimber}</text>`,
+    `<g font-family="monospace" fill="#e8eddf"><text x="25" y="30" font-size="18">TWIGFALL / ${active.length} standing${hints ? ` / nimber ${report.nimber}` : ''}</text>`,
     `<path d="M 25 ${height - 74} H ${width - 25}" stroke="#789780" stroke-width="2"/>`];
   for (const { id, parent } of branches) {
     const live = standing.has(id), px = x[parent] + offset, cx = x[id] + offset;
@@ -99,8 +100,8 @@ export function toSVG(journey) {
     parts.push(`<path data-branch="${id}" d="M ${px} ${y(parent)} L ${cx} ${y(id)}" stroke="${live ? '#b5db99' : '#5b7060'}" stroke-width="${live ? 4 : 1}"${live ? '' : ' stroke-dasharray="3 5"'}/>`);
     parts.push(`<circle cx="${cx}" cy="${y(id)}" r="4" fill="${live ? '#b5db99' : '#5b7060'}"/>`);
     parts.push(`<circle cx="${mx}" cy="${my}" r="13" fill="#17231d" stroke="${winning.has(id) ? '#f5b08b' : live ? '#789780' : '#405347'}" stroke-width="${winning.has(id) ? 3 : 1}"/>`);
-    parts.push(`<text x="${mx}" y="${my + 4}" text-anchor="middle" font-size="11" fill="${live ? '#e8eddf' : '#789780'}">${id}</text>`);
+    parts.push(`<text x="${mx}" y="${my + 5}" text-anchor="middle" font-size="14" fill="${live ? '#e8eddf' : '#789780'}">${id}</text>`);
   }
-  parts.push(`<text x="25" y="${height - 32}" font-size="12">${report.outcome === 'finished' ? 'Grove cleared. No move remains.' : 'Peach rings: winning cuts. Dashed: fallen branches.'}</text>`, '</g></svg>');
+  parts.push(`<text x="25" y="${height - 32}" font-size="12">${report.outcome === 'finished' ? 'Grove cleared. No move remains.' : hints ? 'Peach rings: winning cuts. Dashed: fallen branches.' : 'Cut a branch. Everything above it falls.'}</text>`, '</g></svg>');
   return parts.join('\n');
 }

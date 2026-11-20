@@ -97,6 +97,11 @@
     "rendezvous/index.html",
     "rendezvous/style.css",
     "rendezvous/app.mjs",
-    "rendezvous/core.mjs"
+    "rendezvous/core.mjs",
+    "twigfall/index.html",
+    "twigfall/style.css",
+    "twigfall/app.mjs",
+    "twigfall/core.mjs",
+    "twigfall/play.mjs"
   ]
 }
