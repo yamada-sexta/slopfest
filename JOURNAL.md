@@ -1030,3 +1030,23 @@ Local HTTP checks passed and the visible and hidden-hint SVGs were rendered
 and inspected. No browser surface was available, so page layout remains
 unverified. All 318 Node tests pass. The gallery now has twenty-one browser
 experiments; the vetted build contains 103 assets, with no new dependencies.
+
+## 2026-11-20 — The wake of a coin
+
+Added Coinwake, a terminal lab for words racing through the same coin-toss
+stream. It computes exact winning probabilities and expected tosses until any
+word wins, including overlapping partial matches. Two to four equal-length
+patterns and rationally biased coins share a small prefix machine. BigInt
+fractions and exact elimination solve all winner and waiting-time equations.
+
+The counterpick search evaluates every other equal-length word, up to 63,
+and retains all best ties. A fair-coin reply of THH beats HHH with probability
+7/8; against HT, HH and TH tie at 1/2. State tables explain how suffixes become
+new partial matches. JSON receipts include every exact state value or candidate.
+
+Eight tests check all 154 fair-coin pattern pairs through length four, with
+exact equation certificates and bounds from an independent integer-weighted
+toss-window enumerator. Biased and four-way races, six-letter patterns,
+head/tail symmetry, counterpick ties, immutable receipts, invalid arguments,
+and real CLI output are covered. All 326 Node tests pass. The vetted browser
+build remains 103 assets. Coinwake adds no dependency or browser asset.
