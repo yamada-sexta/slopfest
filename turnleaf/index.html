@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Fold a numbered paper strip and follow each panel through its layers and faces.">
+  <title>Turnleaf — A little paper, taking sides</title>
+  <link rel="stylesheet" href="../shared.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../"><span>✳</span>SLOPFEST</a><span class="mono">TURNLEAF</span></header>
+  <main>
+    <section class="intro"><h1>A little paper, taking sides.</h1><p>Fold a numbered strip. The moving half flips its faces and lands on top. Where will your panel end up?</p></section>
+    <div class="settings">
+      <div><label for="panels">Starting panels</label><select id="panels"><option>1</option><option>2</option><option>4</option><option selected>8</option><option>16</option><option>32</option><option>64</option></select></div>
+      <form id="recipe-form"><div><label for="recipe">Fold word · L and R</label><input id="recipe" class="mono" type="text" maxlength="6" spellcheck="false" autocomplete="off" value=""></div><button type="submit">Apply folds</button></form>
+    </div>
+    <p class="small">Changing the panel count starts flat. An empty fold word also starts flat.</p>
+    <p id="recipe-error" role="alert"></p>
+    <div class="workbench">
+      <section class="panel controls" aria-labelledby="fold-title">
+        <h2 id="fold-title">Take a side</h2>
+        <p id="summary" role="status"></p>
+        <div class="fold-buttons"><button id="left" type="button" class="primary">Left over right · L</button><button id="right" type="button" class="primary">Right over left · R</button></div>
+        <p class="small">The receiving half stays still. Keep the strip facing the same way between folds.</p>
+        <div class="actions"><button id="undo" type="button">Undo fold</button><button id="flat" type="button">Unfold all</button></div>
+        <p id="word" class="mono"></p>
+        <div class="find-panel">
+          <h2>Follow a panel</h2>
+          <form id="find-form"><div><label for="panel">Original panel number</label><input id="panel" type="number" min="1" max="8" step="1" value="1" required></div><button type="submit">Find panel</button></form>
+          <p id="location" role="status"></p>
+          <p id="find-error" role="alert"></p>
+          <p class="small">Or choose any layer on the table. Panel numbers keep their original identity, even with the back facing up.</p>
+        </div>
+      </section>
+      <section class="panel paper-panel" aria-labelledby="paper-title">
+        <div class="paper-heading"><h2 id="paper-title">Paper on the table</h2><button id="save" type="button">Save SVG</button></div>
+        <div id="paper" class="paper-scroll" tabindex="0" role="region" aria-label="Packets from left to right. Scroll to inspect all layers."><div id="packets" class="packets"></div></div>
+        <p class="legend"><span class="front-key">F · front up</span><span class="back-key">B · back up</span><span>Coral outline · your panel</span></p>
+        <p class="small">Packets run left to right. Layers read top to bottom. Wide strips and deep stacks scroll inside the table.</p>
+      </section>
+    </div>
+    <details class="about"><summary>Try it with a paper strip</summary><p>Number the front of eight equal panels from left to right. Fold the whole left or right half over the other half. Each fold halves the width and doubles the layers. A moving packet reverses layer order and flips every face.</p><p>For four panels and <code>LL</code>, the final packet reads <strong>3B, 2F, 1B, 4F</strong> from the top. This model ignores crease thickness and keeps the same orientation throughout.</p></details>
+    <noscript><p>Enable JavaScript to fold the paper.</p></noscript>
+  </main>
+  <footer><span>A LITTLE PAPER · TAKING SIDES</span><span>LOCAL FIRST · EVERY PANEL ACCOUNTED FOR</span></footer>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

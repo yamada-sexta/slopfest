@@ -88,3 +88,7 @@ h2 span { float:right; font-size:26px; color:var(--muted); }
 .twigfall-preview { background: #17231d; }
 .twigfall-preview svg { width: 100%; height: 220px; margin-top: -17px; }
 .twigfall-card .project-link { color: #f5b08b; }
+
+.turnleaf-preview { background: #20362f; }
+.turnleaf-preview svg { width: 100%; height: 220px; margin-top: -17px; }
+.turnleaf-card .project-link { color: #f0c184; }

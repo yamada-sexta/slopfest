@@ -102,6 +102,10 @@
     "twigfall/style.css",
     "twigfall/app.mjs",
     "twigfall/core.mjs",
-    "twigfall/play.mjs"
+    "twigfall/play.mjs",
+    "turnleaf/index.html",
+    "turnleaf/style.css",
+    "turnleaf/app.mjs",
+    "turnleaf/core.mjs"
   ]
 }

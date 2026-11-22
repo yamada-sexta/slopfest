@@ -1050,3 +1050,24 @@ toss-window enumerator. Biased and four-way races, six-letter patterns,
 head/tail symmetry, counterpick ties, immutable receipts, invalid arguments,
 and real CLI output are covered. All 326 Node tests pass. The vetted browser
 build remains 103 assets. Coinwake adds no dependency or browser asset.
+
+## 2026-11-22 — Follow the paper
+
+Opened Turnleaf's browser folding table. Start with eight flat panels, fold
+left over right or right over left, undo one fold, or unfold the strip. Replay
+an L/R word from flat paper. Every packet displays its layers from top to bottom
+with front/back labels and original panel numbers. Choose a layer or find a
+panel by number to highlight it and read its packet, depth, and face.
+
+Changing the panel count starts flat and clamps the selected panel. Invalid
+fold-word drafts preserve the loaded paper and selection. Finding a panel
+focuses its layer and scrolls it into view. SVG downloads use the existing
+engine and highlight the followed panel; the CLI and folding model are unchanged.
+
+The DOM harness checked all 247 valid fold words across 1–64 panels, every
+rendered layer and face, manual folding, undo, selection and focus, smaller
+paper, invalid drafts, native number validation, and exact SVG download bytes.
+Local HTTP checks passed and the highlighted SVG was rendered and inspected.
+No browser surface was available, so page layout remains unverified. All 326
+Node tests pass. The gallery now has twenty-two browser experiments; the vetted
+build contains 107 assets. No dependencies were added.

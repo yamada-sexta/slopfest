@@ -5,8 +5,40 @@ left or right half over the other half, and inspect the layer order. Turnleaf
 keeps each panel's original identity and records which face points up. It prints
 a readable stack, traces every fold, locates a panel, and saves an SVG diagram.
 
-This is a terminal experiment with no dependencies, browser UI, or network
-service. Use Node.js 20 or newer from the repository root:
+Use the browser folding table or the terminal lab, with no dependencies or
+accounts. Both share the same paper model.
+
+## Fold in the browser
+
+Run `npm start` from the repository root with Node.js 20 or newer and open
+**http://localhost:4173/turnleaf/**, or choose Turnleaf in the gallery.
+
+The browser starts with eight panels lying flat. **Left over right** folds
+the left half on top; **Right over left** folds the right half on top. Every
+fold halves the packet count and doubles the layers. **Undo fold** reverses
+one fold, and **Unfold all** returns the same numbered paper to its flat state.
+The fold buttons stop when only one packet remains.
+
+Packets are laid out from left to right. Each stack reads top to bottom.
+Gold `F` layers face front up; mint `B` layers face back up. Choose a layer
+to follow that original panel, or enter its number and press **Find panel**.
+The coral outline and location receipt identify its packet, depth from both
+ends, and face. Finding or choosing a panel focuses its layer and scrolls it
+into view. Wide strips and deep stacks scroll inside the table.
+
+Type an uppercase L/R word and choose **Apply folds** to replay a sequence
+from the flat strip. An invalid word preserves the loaded paper, selection,
+and fold history. The rejected draft remains editable. An empty word starts
+flat. Changing the panel count also starts flat and clamps the followed panel
+to the new count. Unfolding keeps the followed panel's original identity.
+
+**Save SVG** downloads the current paper with that panel highlighted. The
+browser uses ordinary buttons and forms for keyboard navigation and makes no
+storage or network requests for paper data.
+
+## Terminal lab
+
+Use Node.js 20 or newer from the repository root:
 
 ```sh
 node turnleaf/cli.mjs
@@ -15,7 +47,7 @@ node turnleaf/cli.mjs LR --panels 8 --trace
 node turnleaf/cli.mjs LL --panels 4 --json
 ```
 
-The default uses 16 panels and `LRR`: **two packets, eight layers each**. Panel 1
+The CLI default uses 16 panels and `LRR`: **two packets, eight layers each**. Panel 1
 ends in the first packet, six layers down from the top, with its front facing up.
 To save a diagram, choose an unused filename in the ignored scratch directory:
 
@@ -107,5 +139,8 @@ face orientation, exact lookup depths, and conserved panel identity; check hand-
 folded fixtures, mirror symmetry, every trace prefix, immutability, SVG layer
 order and highlights, malformed inputs, real CLI JSON/text, and exclusive exports.
 
-Turnleaf is listed in the root catalog and runs from the source checkout. The
-browser-only Pages bundle excludes the CLI, tests, and generated diagrams.
+Browser checks exercise all 247 valid fold words, every rendered layer and face,
+manual folds and undo, selected-panel lookup, focus, invalid drafts, smaller
+paper, boundary widths, and byte-identical SVG downloads. The browser-only Pages
+bundle includes only the manifest-listed assets and excludes the CLI, tests,
+and generated diagrams.

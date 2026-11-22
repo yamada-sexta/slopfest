@@ -35,7 +35,7 @@ You can also use
 | [Knockturn](knockturn/) | Put a little building to sleep. Six cross-toggle window puzzles, undo, provably shortest hints, quiet-plan overlays, and SVG postcards. |
 | [Backstitch](backstitch/) | A reversible tapestry with a browser loom and CLI. Weave, forget the drawing, and bring every bit home from two live rows. Custom seeds, 256 rules, and SVG cloths. |
 | [Pocketyard](pocketyard/) | A tiny wagon-shunting puzzle. Play six dispatches or make your own, deal exact-distance scrambles, share puzzle links, undo, ask for shortest hints, and save SVG postcards. |
-| [Turnleaf](turnleaf/) | A terminal paper-folding lab. Fold a numbered strip left or right, inspect its layers and faces, locate a panel, and save an SVG diagram. |
+| [Turnleaf](turnleaf/) | A browser paper-folding table and CLI. Fold left or right, undo, replay a fold word, follow a numbered panel through its layers and faces, and save a highlighted SVG. |
 | [Slydice](slydice/) | Dice that refuse to line up. Pick the first die, roll against its counterpick, and compare the tally to an exact pairing grid. The CLI forges trios and accepts custom faces. SVG export included. |
 | [Bankshot](bankshot/) | Choose a starting point on a pocket atlas and follow its exact billiards path. Custom tables and velocities, keyboard exploration, a CLI, and SVG exports. |
 | [Domino Index](domino-index/) | Make a board with holes, count its domino tilings, and browse by number. A browser catalog and CLI share exact counts, including enormous indices. |
