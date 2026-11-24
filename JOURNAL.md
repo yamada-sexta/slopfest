@@ -1071,3 +1071,23 @@ Local HTTP checks passed and the highlighted SVG was rendered and inspected.
 No browser surface was available, so page layout remains unverified. All 326
 Node tests pass. The gallery now has twenty-two browser experiments; the vetted
 build contains 107 assets. No dependencies were added.
+
+## 2026-11-23 — Before the bell
+
+Coinwake now forecasts races through a fixed toss deadline. `--by N` adds each
+word's exact chance of winning by then, unresolved probability, and expected
+tosses watched when observation stops at the first winner or the deadline.
+Eventual odds remain in the report. JSON includes the full race and a separate
+deadline receipt; the prefix state table still describes the open-ended race.
+
+The forward calculation propagates BigInt path counts through the existing
+prefix machine, retaining absorbed probabilities without adding more watched
+tosses. Deadlines range from zero to 256. The source API accepts engine-created
+race receipts and returns frozen forecasts.
+
+Five new tests compare all 154 fair-coin pairs through length four at deadlines
+0–8 with complete-string enumeration: 1,386 exact forecasts. Biased multi-way
+races, earliest finishes, certain completion, probability conservation,
+head/tail symmetry, large fractions, immutability, and real CLI receipts are
+covered. All 331 Node tests pass. The vetted browser build remains 107 assets;
+this terminal increment adds no dependencies or browser assets.

@@ -42,7 +42,7 @@ You can also use
 | [Starling](starling/) | Compile lambda expressions to S, K, and I, then compare reducing from the outside or inside. A terminal lab with lexical scope, exact traces, and independent execution limits. |
 | [Rendezvous](rendezvous/) | Press buttons until every possible starting state meets. A browser machine with shortest remaining hints, custom wiring, undo, SVG traces, and an exact CLI solver. |
 | [Twigfall](twigfall/) | Cut a branch and everything above it falls. Play the gardener or pass turns with a friend, grow custom groves, undo turns, reveal winning cuts, and save SVGs. An exact CLI analyzer is included. |
-| [Coinwake](coinwake/) | Which coin word arrives first? A terminal lab with exact odds, waiting times, overlapping matches, biased coins, and a search for the best counterpick. |
+| [Coinwake](coinwake/) | Which coin word arrives first? A terminal lab with exact odds, waiting times, deadline forecasts, overlapping matches, biased coins, and a search for the best counterpick. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground

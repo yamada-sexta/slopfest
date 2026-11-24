@@ -1,3 +1,5 @@
+const races = new WeakSet();
+
 function gcd(a, b) {
   a = a < 0n ? -a : a;
   while (b) [a, b] = [b, a % b];
@@ -85,16 +87,54 @@ export function race(words = ['HHH', 'HTH'], { heads = '1/2' } = {}) {
     probabilities: Object.freeze(solution[i].slice(0, words.length).map(text)),
     expectedTosses: text(solution[i].at(-1)),
   }));
-  return Object.freeze({
+  const receipt = Object.freeze({
     patterns: Object.freeze([...words]), heads: text(probability),
     outcomes: Object.freeze(words.map((word, i) => Object.freeze({ pattern: word, probability: states[0].probabilities[i] }))),
     expectedTosses: states[0].expectedTosses, states: Object.freeze(states),
   });
+  races.add(receipt);
+  return receipt;
 }
 
 function readFraction(value) {
   const [n, d = '1'] = value.split('/');
   return fraction(BigInt(n), BigInt(d));
+}
+
+export function byToss(receipt, tosses) {
+  if (!races.has(receipt)) throw new Error('Create a race receipt before forecasting it.');
+  if (!Number.isInteger(tosses) || tosses < 0 || tosses > 256) throw new Error('Use a toss deadline from 0 to 256.');
+  const { n: heads, d } = readFraction(receipt.heads);
+  const index = new Map(receipt.states.map((state, i) => [state.prefix, i]));
+  const targets = receipt.states.map(state => ['H', 'T'].map(toss => ({
+    winner: receipt.patterns.indexOf(state[toss]), state: index.get(state[toss]),
+  })));
+  const weights = [heads, d - heads];
+  let active = receipt.states.map((_, i) => i === 0 ? 1n : 0n);
+  let wins = receipt.patterns.map(() => 0n), denominator = 1n, watched = 0n;
+  for (let step = 0; step < tosses; step++) {
+    const surviving = active.reduce((a, b) => a + b, 0n);
+    // All masses share d^step. Extend absorbed paths without watching more tosses.
+    watched = (watched + surviving) * d;
+    wins = wins.map(count => count * d);
+    const next = active.map(() => 0n);
+    active.forEach((count, i) => {
+      if (count === 0n) return;
+      targets[i].forEach((target, coin) => {
+        const weight = count * weights[coin];
+        if (target.winner >= 0) wins[target.winner] += weight;
+        else next[target.state] += weight;
+      });
+    });
+    active = next;
+    denominator *= d;
+  }
+  return Object.freeze({
+    tosses,
+    outcomes: Object.freeze(receipt.patterns.map((pattern, i) => Object.freeze({ pattern, probability: text(fraction(wins[i], denominator)) }))),
+    unresolved: text(fraction(active.reduce((a, b) => a + b, 0n), denominator)),
+    expectedObservedTosses: text(fraction(watched, denominator)),
+  });
 }
 
 export function counterpick(first, { heads = '1/2' } = {}) {

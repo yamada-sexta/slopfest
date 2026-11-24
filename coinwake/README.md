@@ -14,6 +14,7 @@ node coinwake/cli.mjs
 node coinwake/cli.mjs HHH THH --states
 node coinwake/cli.mjs --counter HTH
 node coinwake/cli.mjs HH HT TH TT --heads 2/3 --json
+node coinwake/cli.mjs HHH HTH --by 12
 ```
 
 ## Read the wake
@@ -46,6 +47,44 @@ denominator no greater than 32. Fractions are reduced automatically: `2/4`
 becomes `1/2`. Decimal inputs, leading zeroes, deterministic coins, unequal
 lengths, and duplicate contestants are rejected.
 
+## Before the bell
+
+Add `--by N` to forecast a race through a fixed deadline, from zero to 256 tosses.
+The report keeps the eventual odds and adds each word's probability of winning
+by the deadline, the probability that the race is still running, and the
+expected number of tosses watched if you stop at that deadline.
+
+```sh
+node coinwake/cli.mjs HHH HTH --by 4
+node coinwake/cli.mjs HHH THH --heads 2/3 --by 12 --json
+node coinwake/cli.mjs HH HT TH TT --by 20 --states
+```
+
+For the default fair-coin race, by toss four:
+
+```text
+HHH wins by then: 3/16
+HTH wins by then: 1/4
+Still racing: 9/16
+Expected tosses watched (stop at 4): 15/4
+```
+
+Winner probabilities and the still-racing probability sum to one. Every game
+is counted from its start. Watching stops when a word first wins or the deadline
+arrives, whichever happens first. If T is the winning toss, this observed time
+is `min(T, N)`. Its expectation can be smaller than the open-ended waiting time.
+
+At deadline zero nobody has won, all games are still racing, and zero tosses
+have been watched. Before a word is long enough to finish, every game remains
+unresolved. If all four two-letter words compete, every game finishes exactly
+on toss two, so longer deadlines keep the same odds and observed time.
+
+Deadline JSON adds a `byToss` field with `tosses`, `outcomes`, `unresolved`, and
+`expectedObservedTosses`. All values remain exact fraction strings. The prefix
+table from `--states` continues to describe the open-ended race. Use `--by` with
+an ordinary race; to forecast a counterpick, supply the first word and its
+chosen reply as the two contestants.
+
 ## Pick second
 
 ```sh
@@ -65,7 +104,7 @@ ties. The first pick and the counterpick watch the same stream; these are not
 two separately tossed coins. A best counterpick is not a guarantee of winning.
 
 Use `--counter` with one word, optionally adding `--heads` and `--json`.
-Do not also supply positional contestants or `--states`.
+Do not also supply positional contestants, `--states`, or `--by`.
 
 ## Follow the partial matches
 
@@ -111,9 +150,16 @@ winner and zero for the others. Waiting time satisfies the same equations with
 one added for the next toss and zero remaining time at a winner. Exact
 Gauss-Jordan elimination solves all of these right-hand columns together.
 
-The source API exports `race(patterns, { heads })` and
-`counterpick(first, { heads })` from `core.mjs`. Both use `1/2` by default.
-Inputs are copied and receipts, state rows, and nested arrays are frozen.
+The source API exports `race(patterns, { heads })`,
+`counterpick(first, { heads })`, and `byToss(receipt, deadline)` from `core.mjs`.
+Race and counterpick use `1/2` by default. Inputs are copied and receipts,
+state rows, and nested arrays are frozen. Pass an engine-created race receipt
+to `byToss`; recreate serialized data with `race(patterns, { heads })` first.
+
+Deadline forecasts propagate integer-weighted path counts through the prefix
+machine. Absorbed winner counts retain their probability without adding any
+further observed tosses. Surviving mass supplies the next watched toss. Counts
+share a power of the coin denominator and are reduced only when reported.
 
 ## Verify
 
@@ -129,4 +175,9 @@ integer-weighted enumerator tracks all trailing windows through 60 tosses and
 bounds every predicted winner probability using the unabsorbed mass. Tests also
 check biased and four-way races, six-letter limits, head/tail symmetry, contestant
 reordering, counterpick ties, immutable receipts, invalid input, and real CLI
-output. This is a terminal experiment; the browser-only Pages bundle excludes it.
+output. Five additional deadline tests compare every fair-coin pair through
+length four at all deadlines 0–8 against complete-string enumeration: 1,386
+forecasts. They also cover biased multi-way races, 256-toss exact arithmetic,
+probability conservation, symmetry, boundary deadlines, immutable receipts,
+and real CLI reports. This is a terminal experiment; the browser-only Pages
+bundle excludes it.
