@@ -1,18 +1,23 @@
-# Slopfest 0.7.0 — Every beginning counts
+# Slopfest 0.8.0 — Fold, cut, shuffle
 
-Twenty browser experiments now live in the cabinet. This checkpoint opens
-Rendezvous and Bankshot in the gallery and adds Starling to the terminal labs.
+Twenty-two browser experiments now live in the cabinet. This checkpoint opens
+Turnleaf and Twigfall in the gallery and adds two terminal labs.
 
-- **Rendezvous** begins with an unknown machine state. Press buttons until all
-  possible beginnings meet at one destination. Shortest hints search from your
-  current possibilities, so manual detours work too. Four presets, custom JSON
-  wiring, undo, and wrapped SVG traces are included.
-- **Bankshot** lets you choose a point on a pocket atlas and follow an exact
-  billiards path. Explore with the keyboard, change the table and velocity,
-  and save shot or atlas SVGs. The CLI and browser share the same tracer.
-- **Starling**, in the source archive, compiles lambda expressions into S, K,
-  and I and follows each rewrite. Lexical scope, inert names, exact traces,
-  and bounded execution make small expressions practical to explore.
+- **Turnleaf** folds a numbered paper strip left or right, tracks each panel's
+  face and layer, replays fold words, and saves highlighted SVGs. The browser
+  table starts flat and supports undo, panel lookup, and 1–64 panels.
+- **Twigfall** is a branch-cutting game: cut a branch and everything above it
+  falls. Play the deterministic gardener or pass turns with a friend. Custom
+  groves, full-turn undo, optional winning hints, and SVG downloads are included.
+- **Riffraff**, in the source archive, follows cards through perfect in/out
+  shuffles, finds shortest card routes, computes exact cycle periods, and
+  draws SVG card paths. Run `node riffraff/cli.mjs --help` with Node.js.
+- **Coinwake**, in the source archive, calculates exact coin-pattern race odds,
+  waiting times, and best counterpicks. Fixed-deadline forecasts include the
+  probability of still racing and the expected tosses watched before stopping.
+- **Starling** now compares normal and applicative evaluation orders, each
+  with its own limits, traces, and JSON receipt. Lambda compilation works in
+  both modes.
 
 Extract `slopfest-site.zip` and serve its contents over HTTP.
 
@@ -22,18 +27,19 @@ python3 -m http.server --bind 127.0.0.1
 
 Open the address printed by the server and choose an experiment from the
 gallery. All browser assets use relative URLs and work locally. The ZIP
-contains only 98 explicitly approved browser assets. Use the source archive
+contains only 107 explicitly approved browser assets. Use the source archive
 for project instructions, tests, and terminal tools, which require Node.js
 20 or newer. The CUDA experiment lists its separate hardware requirements.
 
-All 296 Node tests pass. Rendezvous checks all 729 three-state, two-button
-machines against independent word enumeration and a pair-merging oracle;
-all 5,103 nonempty starting subsets also match word enumeration. Bankshot
-compares 10,800 shots with a physical-step model. Starling checks reductions,
-lambda scope, and Church arithmetic with independent oracles.
+All 339 Node tests pass. Riffraff checks 4,064 shuffle words against physical
+interleaving and routes all 45,760 supported card-to-position pairs. Coinwake
+checks exact probabilities and 1,386 deadline forecasts against independent
+enumeration. Twigfall checks all 2,056 small ordered groves and their reachable
+positions against a game-tree oracle. Starling's new order matches an independent
+redex selector on 15,764 terms.
 
-DOM checks exercise both new browser entries: presets, exact diagrams,
-invalid drafts, undo, keyboard behavior where supported, boundary sizes,
-and byte-identical SVG downloads. Exported SVGs were rendered and inspected.
-A browser surface was unavailable for these additions, so their page layouts
-have not had a rendered browser check.
+DOM checks cover all 247 Turnleaf fold words and Twigfall's presets, both turn
+modes, terminal moves, undo, invalid drafts, focus, bounds, and exact SVG
+downloads. Exported diagrams were rendered and inspected. A browser surface
+remains unavailable, so rendered page layouts for the new browser entries
+have not been verified.

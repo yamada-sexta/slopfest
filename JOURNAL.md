@@ -1091,3 +1091,24 @@ races, earliest finishes, certain completion, probability conservation,
 head/tail symmetry, large fractions, immutability, and real CLI receipts are
 covered. All 331 Node tests pass. The vetted browser build remains 107 assets;
 this terminal increment adds no dependencies or browser assets.
+
+## 2026-11-24 — A card takes the long way home
+
+Added Riffraff, a terminal perfect-shuffle deck lab. Out- and in-shuffles
+preserve the halves' internal order. Follow an original card, append a shortest
+route to a target position, inspect position cycles, or repeat a whole shuffle
+word until the deck returns. SVGs show the chosen card through every frame.
+Rendered and inspected the default trace and a top-to-bottom route.
+
+Eight new tests compare 4,064 words through six shuffles across all even deck
+sizes from 2 to 64 with physical array interleaving. Repeated physical shuffles
+verify cycle periods. Independent word enumeration checks 492 routing cases;
+all 45,760 supported card-to-position pairs reach their goals. Immutable state,
+word limits, complete SVGs, real CLI receipts, and exclusive writes are checked.
+All 339 Node tests pass, and the vetted browser build remains 107 assets.
+
+Prepared the 0.8.0 checkpoint with twenty-two browser experiments, the new
+terminal labs, and updated release notes. The release workflow retests and
+packages only manifest-listed browser assets. Riffraff and the other terminal
+tools are available in the source archive. Browser preview remains unavailable;
+the release notes retain the layout verification gap for Turnleaf and Twigfall.
