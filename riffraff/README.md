@@ -1,8 +1,8 @@
 # Riffraff
 
 A small perfect-shuffle deck lab. Interleave two halves, follow an original card,
-find a shortest route to a chosen position, and inspect the cycles of a whole
-shuffle word. SVGs show the card's path through every deck.
+find a shortest route for one or two cards, and inspect the cycles of a whole
+shuffle word. SVGs show the chosen cards' paths through every deck.
 
 Use Node.js 20 or newer, with no dependencies, from the repository root:
 
@@ -11,6 +11,7 @@ node riffraff/cli.mjs
 node riffraff/cli.mjs O --cards 52
 node riffraff/cli.mjs I --cards 52
 node riffraff/cli.mjs '' --cards 8 --card 1 --to 8 --trace
+node riffraff/cli.mjs '' --pair 1:3,8:6 --trace
 ```
 
 ## A perfect split
@@ -56,6 +57,46 @@ target, extra word, and every position on that path.
 The supplied word and appended route together must contain at most 128 uppercase
 O/I letters, without spaces. An oversized result is rejected before exporting.
 
+## Plan a double reveal
+
+`--pair A:P,B:Q` places original card A at position P and original card B at
+position Q **at the same time**. Use exactly two distinct cards and two distinct
+positions. This replaces `--card` and `--to`; combining those options is an error.
+Like single-card routing, the search starts after the given word, defaulting to
+`OIO`. Pass `''` to start from a fresh deck.
+
+```sh
+node riffraff/cli.mjs '' --pair 1:3,8:6 --trace
+node riffraff/cli.mjs OIO --pair 2:3,7:6 --json
+node riffraff/cli.mjs '' --pair 1:1,8:2
+```
+
+The first command finds `IO`, leaving `5 7 1 3 6 8 2 4`. Both cards land where
+requested. Two separately planned single-card routes generally cannot be joined:
+moving the second card also moves the first.
+
+Some combinations are impossible. In the last command, cards 1 and 8 begin as
+mirror partners: their positions add to nine. Every perfect shuffle preserves
+this relationship, so positions 1 and 2 cannot be their joint destination.
+Other restrictions can occur too. The solver exhausts the reachable pairs rather
+than relying on a mirror test, and reports an unreachable request with exit code
+**2**. It retains the supplied word and its deck in the receipt, appends nothing,
+and writes no SVG. Invalid input still exits one.
+
+Breadth-first search stores the two marked positions, never the full deck order.
+There are at most N × (N − 1) ordered pairs: 4,032 at the largest supported size.
+An identical pair of positions always has the same future possibilities, so this
+smaller search still proves the shortest solution or that none exists. Ties try
+O before I. Cards already at both goals need an empty word.
+
+JSON adds `pairRoute` with `reachable`, `cards`, `from`, `target`, `word`,
+`positions`, and `discovered`. All numbers are one-based. `positions` lists the
+two positions in card order at every extra shuffle, including the starting pair.
+An unreachable result has `word: null` and `positions: []`. `discovered` counts
+distinct visited or queued ordered pairs, including the initial pair. The usual
+single-card `route` field is null for a pair request. The supplied word plus the
+extra route must still fit within 128 shuffles.
+
 ## When does the deck come home?
 
 The final deck defines a permutation of positions. The report prints its
@@ -80,6 +121,7 @@ Choose an unused filename in ignored scratch space:
 mkdir -p .local
 node riffraff/cli.mjs '' --card 1 --to 8 --svg .local/card-route.svg
 node riffraff/cli.mjs OIO --card 6 --svg .local/shuffled.svg
+node riffraff/cli.mjs '' --pair 1:3,8:6 --svg .local/double-reveal.svg
 ```
 
 Columns read from left to right in time, beginning with the fresh deck. Each
@@ -87,6 +129,8 @@ column reads top to bottom in deck order. Row labels are positions; numbers
 inside cards are original IDs. Orange marks the followed card and the blue line
 connects its positions. Long words produce wide SVGs; large decks produce tall
 ones. SVG stays sharp when zoomed. Generated diagrams should stay out of Git.
+Pair exports follow both requested cards: orange solid for the first, teal dashed
+for the second. Card IDs also label every frame, so color is not the only cue.
 
 `--trace` prints the deck after every shuffle. `--json` emits `initialWord`, the
 applied `word`, `size`, all `frames`, the followed `card`, `analysis`, and the
@@ -95,17 +139,19 @@ optional `route` (otherwise null). Analysis contains one-based `destinations`,
 top-to-bottom `cards` array.
 
 SVG writes refuse to replace files. Syntax, size, card, target, and combined-word
-errors are checked before any export. Success exits zero; invalid input or
-failed I/O exits one. There are no implicit file writes, packages, random seeds,
-or network services. `--help` lists every option.
+errors are checked before any export. Success exits zero; an unreachable pair
+exits two; invalid input or failed I/O exits one. There are no implicit file
+writes, packages, random seeds, or network services. `--help` lists every option.
 
 ## The small engine
 
-`core.mjs` exports `deck`, `shuffle`, `run`, `analyze`, `route`, and `toSVG`.
+`core.mjs` exports `deck`, `shuffle`, `run`, `analyze`, `route`, `routePair`, and `toSVG`.
 States, journeys, analyses, and routes are frozen. Use engine-created objects;
 replay serialized journeys with `run(word, size)`. `shuffle` returns a new deck
 without changing its input. `analyze` accepts a journey from a fresh deck;
-`route` accepts any engine-created deck state.
+`route` and `routePair` accept any engine-created deck state. Call
+`routePair(state, [{card: 1, target: 3}, {card: 8, target: 6}])` for the joint
+search, and `toSVG(journey, {card: 1, partner: 8})` for a two-card trace.
 
 The engine maps each old position arithmetically to its new interleaved position.
 Cycle decomposition follows that position map. Routing explores the same two
@@ -119,12 +165,17 @@ npm test
 npm run build
 ```
 
-Eight tests compare all 4,064 words through six shuffles across all supported
+Fourteen tests compare all 4,064 words through six shuffles across all supported
 deck sizes with an independent cut-and-zip model. Physical repetitions verify
 cycle periods, including the 52-card cases. Separate word enumeration checks
 shortest routes on 492 shuffled-card cases. All 45,760 card-to-position pairs
 across every supported deck also reach their goals. Tests cover immutable
 state, limits, complete SVG traces, real CLI JSON/text, and exclusive exports.
+Complete physical deck orbits independently check all 6,142 two-card goals on
+sizes 2, 4, 6, 8, and 10, including impossible goals and O-before-I shortest ties.
+Mirror partners are checked across every supported size; separate short-word
+enumeration checks routes on 62- and 64-card decks. Pair receipts, two-path SVGs,
+exit codes, conflicting options, word limits, and failure-safe files are covered.
 
 This is a terminal experiment. The Pages bundle excludes the CLI, tests, and
 generated diagrams; use the source checkout to run it.

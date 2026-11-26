@@ -1112,3 +1112,23 @@ terminal labs, and updated release notes. The release workflow retests and
 packages only manifest-listed browser assets. Riffraff and the other terminal
 tools are available in the source archive. Browser preview remains unavailable;
 the release notes retain the layout verification gap for Turnleaf and Twigfall.
+
+## 2026-11-25 — Two cards, one reveal
+
+Riffraff can now route two original cards to their chosen positions at once.
+The new `--pair A:P,B:Q` search appends a shortest O/I word after any supplied
+shuffles, or exhausts the reachable ordered position pairs and proves the goal
+impossible. Mirror partners make a nice first impossibility: cards 1 and 8 in an
+eight-card deck cannot end at positions 1 and 2. Failed searches have a distinct
+exit code, retain the input deck, and write no export. Two-card SVGs distinguish
+the paths with solid orange and dashed teal lines and numbered card identities.
+Rendered and inspected an eight-card reveal and a 64-card empty-route diagram.
+
+Six new tests compare all 6,142 two-card goals on small decks against complete
+physical deck orbits, checking shortest ties and unreachable goals independently.
+Mirror partners are verified at every supported size; physical word enumeration
+checks additional 62- and 64-card routes. Tests also cover immutable receipts,
+two-path SVGs, CLI receipts and exit codes, malformed and conflicting options,
+combined-word limits, and exclusive or suppressed file writes. All 345 Node tests
+pass; the vetted static build remains 107 browser assets. No new dependencies or
+browser assets are needed for this terminal increment.
