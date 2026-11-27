@@ -1132,3 +1132,24 @@ two-path SVGs, CLI receipts and exit codes, malformed and conflicting options,
 combined-word limits, and exclusive or suppressed file writes. All 345 Node tests
 pass; the vetted static build remains 107 browser assets. No new dependencies or
 browser assets are needed for this terminal increment.
+
+## 2026-11-26 — Eating your own words
+
+Added Tailspin, a small terminal queue language. Read the first lowercase letter,
+remove a fixed prefix, and append that letter's rule at the tail. Three specimens
+shrink, orbit, or grow; custom rule files and seeds make other machines. Exact
+whole-queue repetition proves a cycle, while step and size limits explicitly
+leave eventual behavior unresolved. Receipts retain every completed step and
+record a blocked oversized append without partially applying it.
+
+SVG queue strips highlight the next removed prefix. Long traces retain their
+first and last frames with an explicit omitted-frame count. Rendered and inspected
+the halting, cycling, and clipped growing specimens. Full traces remain available
+as text and JSON; exports refuse to replace files.
+
+Seven new tests check 4,557 program/seed/deletion combinations against an
+independent literal token queue, plus boundary precedence, exact cycle periods,
+growth stops, source and resource limits, frozen receipts, SVG rows and gaps,
+and real CLI custom files, receipts, exit codes, and exclusive writes. All 352
+Node tests pass. The vetted static build remains 107 assets; this terminal toy
+adds no browser assets or dependencies.
