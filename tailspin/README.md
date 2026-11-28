@@ -49,8 +49,8 @@ The three included specimens are:
 
 ## Write another queue
 
-Custom rules replace the named specimen and require an explicit seed. Put local
-scratch programs and generated diagrams in ignored space:
+Custom rules replace the named specimen and require an explicit seed or census.
+Put local scratch programs and generated diagrams in ignored space:
 
 ```sh
 mkdir -p .local
@@ -108,6 +108,57 @@ frames; `--json` always includes the full receipt. SVG writes refuse to overwrit
 files and occur only after all program, seed, and budget validation. A valid
 limited run may still export its partial trace, then exit two.
 
+## Take a seed census
+
+One seed can hide a program's other habits. `--census N` runs **every word of
+exactly N letters** over the program's defined alphabet, sorted alphabetically:
+
+```sh
+node tailspin/cli.mjs --census 3
+node tailspin/cli.mjs orbit --census 2 --json
+node tailspin/cli.mjs --census 7 --svg .local/seed-census.svg
+node tailspin/cli.mjs --program .local/drain.tag --census 4 --delete 1
+```
+
+For the default rules, six of the eight length-three seeds halt. The other two,
+`baa` and `bba`, enter the same fixed queue `ab`. For `orbit` at length two, all
+four seeds reach the `aa`, `bb` loop, even though they enter it at different
+steps and different points around that loop.
+
+Cycle groups are exact: the representative is the alphabetically smallest whole
+queue **on the cycle**, excluding its transient prefix and repeated final frame.
+Identical representatives under these fixed rules identify the same loop.
+Groups sort by representative and receive C1, C2, and so on. These labels belong
+to this census; changing the seed length or budgets can change their numbering.
+A group's seed count covers only the enumerated starting words.
+
+The length can be 0 through 12, subject to **at most 1,024 seeds**. Length zero
+enumerates one empty seed. The alphabet includes every defined rule, including
+letters that another rule never emits. The initial length must fit the queue
+limit. Oversized requests are rejected before enumerating, rather than sampled.
+`--steps` and `--limit` apply separately to each seed. `--census` replaces
+`--seed` and `--trace`; it works with either a specimen or `--program FILE`.
+
+The census prints counts for halted, cycle, steps, and size, its loop groups,
+and every seed's result. Exit zero means all seeds have proved outcomes; exit
+two means at least one remains unresolved at a limit. Limited seeds are never
+assigned a cycle group. A size stop retains the original run's unapplied step.
+To inspect one seed's full history, run it again using `--seed WORD --trace`
+with the same rules, deletion count, and budgets.
+
+`--json` returns all compact outcomes, without duplicating their full traces.
+Each has `seed`, `status`, completed `steps`, `final`, `cycle` (entry step and
+period, or null), `blockedLength` (proposed oversized length, or null), and `orbit`
+(group number, or null). The receipt also records rules, alphabet, length,
+budgets, totals, counts, and group representatives and periods. Its overall
+status is `complete` or `limited`; complete can include both halts and cycles.
+
+Census SVGs use labeled cells for seeds, showing loop IDs and periods or the
+kind of limit reached. Color also distinguishes outcomes. They show at most 64
+seeds, retaining the first 32 and last 32 with an explicit omission gap when
+needed. Summary counts always cover the **whole census**. SVGs and text can be
+exported for a limited census; its exit code remains two.
+
 ## The small engine
 
 `compile(source, {deleteCount: 2})` returns a frozen program. Pass it to
@@ -122,6 +173,12 @@ Programs and receipts must come from the engine. To replay a JSON receipt,
 compile its rule entries and run its seed with the recorded settings. The engine
 never mutates its input or evaluates source as JavaScript.
 
+`census.mjs` exports `census(program, length, {maxSteps, maxLength})` and
+`censusToSVG(receipt, {maxSeeds: 64})`. The same interpreter verifies every seed;
+the census retains only compact, frozen outcomes and cycle representatives.
+Diagram seed limits range from 2 through 128. Census receipts must come from
+this module; programs come from `compile` as usual.
+
 ## Verify
 
 ```sh
@@ -130,8 +187,13 @@ npm test
 npm run build
 ```
 
-Seven tests compare 4,557 small program/seed/deletion cases with an independent
+Thirteen tests compare 4,557 small program/seed/deletion cases with an independent
 literal token queue. They check transition records, halting, exact cycles,
 budget precedence, growth stops, rule validation, immutable receipts, SVG rows
 and explicit gaps, real CLI receipts and exit codes, custom files, and exclusive
-exports. This terminal project adds no browser assets to the Pages bundle.
+exports. A separate finite-graph oracle checks all 1,984 seeds across 80 queue
+graphs: undirected components identify shared loops, and indegree peeling finds
+their periods and transient paths. Further checks cover variable queue lengths,
+mixed proved and limited results, phase-independent loop grouping, empty seeds,
+census bounds and ordering, immutable summaries, labeled SVG gaps, and real CLI
+censuses. This terminal project adds no browser assets to the Pages bundle.

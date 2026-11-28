@@ -45,7 +45,7 @@ You can also use
 | [Twigfall](twigfall/) | Cut a branch and everything above it falls. Play the gardener or pass turns with a friend, grow custom groves, undo turns, reveal winning cuts, and save SVGs. An exact CLI analyzer is included. |
 | [Coinwake](coinwake/) | Which coin word arrives first? A terminal lab with exact odds, waiting times, deadline forecasts, overlapping matches, biased coins, and a search for the best counterpick. |
 | [Riffraff](riffraff/) | A perfect-shuffle deck lab. Follow a card or plan a two-card reveal, find shortest routes or prove a pair unreachable, inspect cycle periods, and save SVG traces. |
-| [Tailspin](tailspin/) | A tiny queue language: read a letter, cut a prefix, append a rule. Watch halting, prove exact cycles, inspect bounded runs, and save SVG queue strips. |
+| [Tailspin](tailspin/) | A tiny queue language: read a letter, cut a prefix, append a rule. Trace one seed or census every short starting word, group shared loops, and save SVG strips and atlases. |
 | [CUDA name game](cuda-name-game/) | A 20-variant CUDA naming/flag investigation on Ampere and Turing, with FP32 tasks and FP16/BF16/INT8/INT4 GEMMs. Repeated timings, correctness oracles, and a reproducible PTXAS disassembly/debugger proof of the name check. |
 
 ## A living playground

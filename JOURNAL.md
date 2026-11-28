@@ -1153,3 +1153,25 @@ growth stops, source and resource limits, frozen receipts, SVG rows and gaps,
 and real CLI custom files, receipts, exit codes, and exclusive writes. All 352
 Node tests pass. The vetted static build remains 107 assets; this terminal toy
 adds no browser assets or dependencies.
+
+## 2026-11-27 — A census of little loops
+
+Tailspin now runs every starting word of a chosen length, with up to 1,024 seeds.
+The new `--census` reports halts, proved cycles, and unresolved step or size stops
+separately. Seeds entering the same deterministic cycle share a group regardless
+of their entry point: the smallest queue on the cycle is its representative.
+The default rules reveal six halting and two looping seeds at length three.
+
+Compact JSON receipts preserve every seed's outcome, transient length, period,
+final queue, and proposed oversized length when applicable. Labeled SVG atlases
+distinguish proved outcomes from limits and retain an explicit omission gap for
+large censuses. Rendered and inspected the default and orbit specimens, a clipped
+128-seed atlas, and a mixed cycle/step-limit/size-limit example.
+
+Six new tests compare all 1,984 seeds across 80 finite queue graphs with an
+independent component and indegree-peeling oracle. Further checks cover variable
+queue lengths, loop phases and multiple groups, empty seeds, alphabet ordering,
+census bounds and budgets, immutable receipts, labeled exports, real CLI custom
+programs and exit codes, and exclusive or rejected writes. All 358 Node tests
+pass. The vetted browser build remains 107 assets; this increment adds no
+dependencies or browser assets.
